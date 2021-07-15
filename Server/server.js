@@ -6,9 +6,9 @@ app.use(express.json())
 const PORT = process.env.PORT || 5000;
 
 
-//routers
-//app.use('/api/RecruiterUsers', require('./Routes/'))
+//routes
 app.use('/api/Candidate', require('./Routes/CandidateRouter'))
+app.use('/api/Recruiter', require('./Routes/RecruiterRouter'))
 
 
 //connect to the db
