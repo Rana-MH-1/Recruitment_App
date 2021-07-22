@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {validationResult} = require('express-validator')
 require('dotenv').config({path:'./config/.env'})
+const cloudinary = require('../helpers/cloudinary')
 
 const registerCandidate = async (req, res) => {
     try{
@@ -28,6 +29,22 @@ const registerCandidate = async (req, res) => {
             taxRegistrationNumber,
             Role
         })
+
+        //upload an image using cloudinary cloud----------------------------
+        if (image){
+            const savedImage = await cloudinary.uploader.upload(image, {
+                timeout: 60000,
+                upload_preset: "recruitment_App"
+            })
+            newPost.image = {
+                url: savedImage.url,
+                public_id: savedImage.public_id
+            }
+        }
+
+        const savedPost = await newPost.save()
+        res.json(savedPost)
+    //----------------------------------------------------------------------
 
         //cryptage of password
         const salt = await bcrypt.genSalt(10)
@@ -70,6 +87,22 @@ const registerRecruiter = async (req, res) => {
             LevelStudy,
             Specialty
         })
+
+        //upload an image using cloudinary cloud----------------------------
+        if (image){
+            const savedImage = await cloudinary.uploader.upload(image, {
+                timeout: 60000,
+                upload_preset: "recruitment_App"
+            })
+            newPost.image = {
+                url: savedImage.url,
+                public_id: savedImage.public_id
+            }
+        }
+
+        const savedPost = await newPost.save()
+        res.json(savedPost)
+    //----------------------------------------------------------------------
 
         //cryptage of password
         const salt = await bcrypt.genSalt(10)
