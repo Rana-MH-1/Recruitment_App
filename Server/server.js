@@ -7,8 +7,6 @@ const PORT = process.env.PORT || 5000;
 
 
 //routes
-app.use('/api/Candidate', require('./Routes/CandidateRouter'))
-app.use('/api/Recruiter', require('./Routes/RecruiterRouter'))
 app.use('/api/Posts', require('./Routes/PostRecuiterRouter'))
 app.use('/api/Users', require('./Routes/UserRouter'))
 
@@ -22,7 +20,7 @@ app.use('/api/Users', require('./Routes/UserRouter'))
 
 
 //connect to the db
-mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true})
+mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true,useFindAndModify: false })
 .then(res=> console.log('Db connected'))
 .catch(err=> console.log(err))
 app.listen(PORT, err=> err? console.log(err) : console.log('server is running on port', PORT))

@@ -5,7 +5,7 @@ const moment = require('moment-timezone')
 const PostRecruiterSchema = new mongoose.Schema({
     owner:{
         type: mongoose.Types.ObjectId,
-        ref:'Recruiter'
+        ref:'user'
     },
     jobTitle:{
         type:String,

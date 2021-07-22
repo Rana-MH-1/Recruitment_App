@@ -39,6 +39,11 @@ const candidateSchema = extendSchema(UserSchema,{
     Specialty:{
         type: String,
         required:true
+    },
+    Role:{
+        type:String,
+        required:true,
+        default:'candidate'
     }
 })
 
@@ -58,6 +63,11 @@ const recruiterSchema = extendSchema(UserSchema,{
     Category:{
         type:String,
         required:true
+    },
+    Role:{
+        type:String,
+        required:true,
+        default:'recruiter'
     }
 })
 
