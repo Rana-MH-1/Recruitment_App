@@ -42,8 +42,7 @@ const registerCandidate = async (req, res) => {
             }
         }
 
-        const savedPost = await newPost.save()
-        res.json(savedPost)
+        
     //----------------------------------------------------------------------
 
         //cryptage of password
@@ -100,8 +99,7 @@ const registerRecruiter = async (req, res) => {
             }
         }
 
-        const savedPost = await newPost.save()
-        res.json(savedPost)
+        
     //----------------------------------------------------------------------
 
         //cryptage of password
@@ -147,4 +145,16 @@ const loginUser = async (req, res) =>{
     catch{res.status(400).json({ errors: [{ msg: err.message }] })}
 }
 
-module.exports = {registerCandidate,registerRecruiter,loginUser}
+//get data user
+const getDataUser = async (req, res)=>{
+    try {
+        const User = await user.findById(req.userId).select({ Password: 0, __v: 0 })
+        res.json(User)
+    }
+    catch (err) {
+        res.status(400).json({ errors: [{ msg: err.message }] })
+    }
+
+}
+
+module.exports = {registerCandidate,registerRecruiter,loginUser,getDataUser}

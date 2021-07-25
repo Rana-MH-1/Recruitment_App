@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router()
 const {DataValidation} = require('../Middlewares/DataValidation')
-const UserController = require('../Controllers/UserController')
+const UserController = require('../Controllers/UserController');
+const { TokenVerification } = require('../Middlewares/PostMiddlewares');
 
 router.post('/register',DataValidation,UserController.registerCandidate)
 router.post('/register',DataValidation,UserController.registerRecruiter)
 router.post('/login',DataValidation,UserController.loginUser)
+router.get('/getDataUser',TokenVerification,UserController.getDataUser)
 
 
 module.exports = router
