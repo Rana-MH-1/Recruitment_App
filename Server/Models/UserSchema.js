@@ -15,13 +15,12 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    Image: String,
+    image: String,
     Role:{
         type:String
     },
 
     LevelStudy:{type:String},
-    Specialty:{type:String},
     Specialty:{type:String},
     Profession:{type:String},
     SocietyName:{type:String},
@@ -43,7 +42,7 @@ const candidateSchema = extendSchema(UserSchema,{
     Role:{
         type:String,
         required:true,
-        default:'candidate'
+        default:'Candidate'
     }
 })
 
@@ -67,7 +66,7 @@ const recruiterSchema = extendSchema(UserSchema,{
     Role:{
         type:String,
         required:true,
-        default:'recruiter'
+        default:'Recruiter'
     }
 })
 
