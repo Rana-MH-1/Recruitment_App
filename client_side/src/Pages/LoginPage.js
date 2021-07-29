@@ -86,6 +86,7 @@ useEffect(() => {
   history.push('/')
 }, [Auth.isAuth])
 
+const Errors = useSelector(state=> state.appState.errors)
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -109,6 +110,7 @@ useEffect(() => {
               name="Email"
               autoComplete="email"
               autoFocus
+              errorText ={(Errors===null) ? null : {Errors}}
               onChange={handleInfoChange}
             />
             <TextField
@@ -121,6 +123,7 @@ useEffect(() => {
               type="password"
               id="password"
               autoComplete="current-password"
+              errorText ={(Errors===null) ? null : {Errors}}
               onChange={handleInfoChange}
             />
             <FormControlLabel

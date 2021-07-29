@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    image: String,
+    image: mongoose.Schema.Types.Mixed,
     Role:{
         type:String
     },

@@ -152,7 +152,7 @@ const RegisterPage = () => {
   
   <Form.Group controlId="formFile" className="mb-3">
     <Form.Label>Upload your photo</Form.Label>
-    <Form.Control type="file" single accept="image/*" onChange={handleImage} />
+    <Form.Control type="file" accept="image/*" onChange={handleImage} />
   </Form.Group>
 
   {switchFunction(selectedRole)}
