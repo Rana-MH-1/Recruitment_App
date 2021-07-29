@@ -34,9 +34,9 @@ const registerCandidate = async (req, res) => {
         if (image){
             const savedImage = await cloudinary.uploader.upload(image, {
                 timeout: 60000,
-                upload_preset: "recruitment_App"
+                upload_preset: "Recruitment_App"
             })
-            newPost.image = {
+            newCandidate.image = {
                 url: savedImage.url,
                 public_id: savedImage.public_id
             }
@@ -55,8 +55,8 @@ const registerCandidate = async (req, res) => {
         const payload = {
             sub: registredCandidate._id
         }
-const data = process.env.SECRET
-console.log(data)
+        const data = process.env.SECRET
+        console.log(data)
         const token = await jwt.sign(payload,data)
         res.json({ token })
 
@@ -91,16 +91,15 @@ const registerRecruiter = async (req, res) => {
         if (image){
             const savedImage = await cloudinary.uploader.upload(image, {
                 timeout: 60000,
-                upload_preset: "recruitment_App"
+                upload_preset: "Recruitment_App"
             })
-            newPost.image = {
+            newRecruiter.image = {
                 url: savedImage.url,
                 public_id: savedImage.public_id
             }
         }
 
-        
-    //----------------------------------------------------------------------
+       //----------------------------------------------------------------------
 
         //cryptage of password
         const salt = await bcrypt.genSalt(10)

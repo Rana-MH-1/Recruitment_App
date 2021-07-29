@@ -2,8 +2,10 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 import './App.css';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage'
-import Home from './Pages/Home'
+import HomePosts from './Pages/HomePosts'
 import Loading from './Components/Loading'
+import PrivateRoute from './PrivateRoutes/PrivateRoute'
+
 
 function App() {
   return (
@@ -13,7 +15,8 @@ function App() {
          <Switch>
            <Route exact path="/register" component={RegisterPage} />
            <Route exact path="/login" component={LoginPage} />
-           <Route exact path='/' component={Home} />
+           <PrivateRoute exact path="/" component={HomePosts} />
+           
          </Switch>
       </Router>
     </>
