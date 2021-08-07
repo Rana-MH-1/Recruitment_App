@@ -6,7 +6,7 @@ const PostRecruiterControllers = require('../Controllers/PostRecruiterController
 
 
 router.post('/postReruiter',TokenVerification,PostRecruiterControllers.AddPost)
-router.get('/AllPosts',TokenVerification,PostRecruiterControllers.getAllPosts)
+router.get('/AllPosts',PostRecruiterControllers.getAllPosts)
 router.get('/MyPosts',TokenVerification,PostRecruiterControllers.getMyPosts)
 router.put('/EditPost/:id',TokenVerification,checkPostOwner,PostRecruiterControllers.EditPost)
 router.delete('/DeletePost/:id',TokenVerification,checkPostOwner,PostRecruiterControllers.DeletePost)

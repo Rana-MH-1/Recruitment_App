@@ -1,10 +1,12 @@
 
 import * as types from '../Actions/AuthTypes'
+import *as postTypes from '../Actions/PostTypes'
 
 const initState={
     token:localStorage.getItem('token'),
     isAuth:Boolean(localStorage.getItem('isAuth')),
-    User:JSON.parse(localStorage.getItem('User'))
+    User:JSON.parse(localStorage.getItem('User')),
+    MyPosts:[]
 }
 const AuthReducer =(state=initState,{type,payload})=>{
 
@@ -30,6 +32,12 @@ const AuthReducer =(state=initState,{type,payload})=>{
                 token:null,
                 isAuth:false,
                 User:null
+            }
+        case postTypes.GET_MY_POST_SUCCESS:
+            return{
+                ...state,
+                User:{...state.User,
+                MyPosts:payload}
             }
         default:
             return state

@@ -1,41 +1,94 @@
 import React,{useState} from 'react'
+import {useSelector} from 'react-redux'
+import { PostAction } from '../Redux/Actions/PostActions';
 import { Modal } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
+import TextField from '@material-ui/core/TextField'; 
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+
+// import 'date-fns'
+// import DateFnsUtils from '@date-io/date-fns';
+import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardDatePicker,
+// } from '@material-ui/pickers';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
 
 const AddPost = () => {
-    const [newPost, setNewPost] = useState({})
+  const classes = useStyles();
+  const [newPost, setNewPost] = useState({})
 
-    const handleChange = (e)=>{
+  const handlePostChange = (e)=>{
         setNewPost({...newPost,[e.target.name]:e.target.value})
     }
 
     const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+   const handleClose = () => setShow(false);
+   const handleShow = () => setShow(true);
+   const dispatch = useDispatch()
+   const AddPost=(e)=>{
+     e.preventDefault();
+     dispatch(PostAction(newPost));
+    handleClose()
+   }
+   const User = useSelector(state=>state.Auth.User)
+   const style={backgroundColor:'#0d2a95', border:'none'}
 
     return (
-        <div>
-            <Button variant="primary" onClick={handleShow}>
-        Add a post
-      </Button>
+    <div>
+        { User && User.Role==='Recruiter' &&
+          <Button variant="primary" onClick={handleShow} style={style}>
+          Add a post
+        </Button>
+        }    
 
       <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Header>
+          <Modal.Title>Add a post</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+           <form className={classes.root} noValidate autoComplete="off">
+             <TextField id="standard-basic" label="Job Title" name='jobTitle' onChange={handlePostChange} />
+             <TextareaAutosize aria-label="minimum height" minRows={4} name="jobDescription" placeholder="Description" onChange={handlePostChange} />
+             <TextField id="standard-basic" label="Contrat Type" name='Contrat_Type' onChange={handlePostChange} />
+             <TextField id="standard-basic" label="Address" name='Address' onChange={handlePostChange} />
+             <TextField id="standard-basic" label="Nomber of candidate" name='Nb_Candidate' onChange={handlePostChange} />
+             <TextField
+                id="date"
+                label="Deadline"
+                type="date"
+                defaultValue="2017-05-24"
+                className={classes.textField}
+                InputLabelProps={{
+                shrink: true,
+                }}
+                name='Deadline'
+                onChange={handlePostChange}
+             />
+             
+           </form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={AddPost} style={style} >
             Add a post
           </Button>
         </Modal.Footer>
       </Modal>
-        </div>
-    )
-}
+    </div>
+    )}
 
-export default AddPost
+export default AddPost;

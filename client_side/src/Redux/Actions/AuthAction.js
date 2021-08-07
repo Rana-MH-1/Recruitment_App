@@ -3,6 +3,7 @@ import { prefixe } from '../../helpers/prefixe';
 import * as types from './AuthTypes';
 import {startLoading,stopLoading,setError,clearError} from './AppStateActions'
 import { setToken } from '../../helpers/setToken';
+import { getMyPost } from './PostActions';
 
 export const RegisterAction=(info)=> async(dispatch)=>{
     
@@ -16,7 +17,7 @@ export const RegisterAction=(info)=> async(dispatch)=>{
         })
 
         dispatch(stopLoading())
-        dispatch(getDataUSer())
+        //dispatch(getDataUSer())
     }
     catch(err){
         dispatch(setError(err.response.data.errors))
@@ -36,7 +37,7 @@ export const LoginAction=(info)=> async(dispatch)=>{
         })
 
         dispatch(stopLoading())
-        dispatch(getDataUSer())
+        //dispatch(getDataUSer())
     }
     catch(err){
         dispatch(setError(err.response.data.errors))
@@ -55,12 +56,13 @@ export const getDataUSer=()=> async(dispatch)=>{
             type: types.GET_DATA_USER_SUCCESS,
             payload: data
         })
-
-        dispatch(stopLoading())
+        //dispatch(getMyPost())
+        //dispatch(getPostsAction())
     }
     catch(err){
-        dispatch(setError(err.response.data.errors))
         dispatch(stopLoading())
+        dispatch(setError(err.response.data.errors))
+        
     }
 }
 
