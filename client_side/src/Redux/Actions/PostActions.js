@@ -38,7 +38,7 @@ export const getPostsAction=()=> async(dispatch)=>{
         dispatch(stopLoading())
     }
     catch(err){
-        dispatch(setError(err.response.data.errors))
+        dispatch(setError(err.response?.data?.errors))
         dispatch(stopLoading())
     }
 }

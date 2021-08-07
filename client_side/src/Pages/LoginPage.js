@@ -110,10 +110,10 @@ const Errors = useSelector(state=> state.appState.errors)
               name="Email"
               autoComplete="email"
               autoFocus
-              errorText ={(Errors===null) ? null : Errors?.Password.msg}
+              errorText ={(Errors===null) ? null : Errors?.Email?.msg}
               onChange={handleInfoChange}
             />
-            <p>{(Errors===null) ? null : Errors?.Password.msg}</p>
+            <p style={{color:'red'}}>{(Errors===null) ? null : Errors?.Email?.msg}</p>
             <TextField
               variant="outlined"
               margin="normal"
@@ -124,10 +124,10 @@ const Errors = useSelector(state=> state.appState.errors)
               type="password"
               id="password"
               autoComplete="current-password"
-              errorText ={(Errors===null) ? null : {Errors}}
+              errorText ={(Errors===null) ? null : Errors?.Password?.msg}
               onChange={handleInfoChange}
             />
-            <p>{(Errors===null) ? null : Errors?.Email.msg}</p>
+            <p style={{color:'red'}} >{(Errors===null) ? null : Errors?.Password?.msg}</p>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
