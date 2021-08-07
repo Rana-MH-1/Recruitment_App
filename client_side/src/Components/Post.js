@@ -28,10 +28,9 @@ const PostRecruiter =({Post})=>{
     setIsEdited(!isEdited)
     setInfoPost({...infoPost,Address:Post.Address,Contrat_Type:Post.Contrat_Type,Nb_Candidate:Post.Nb_Candidate,jobTitle:Post.jobTitle,jobDescription:Post.jobDescription})
     }
+    
     return(
         <div>
-            {console.log(Post)}
-            
             <Card
     style={{ width: 900 }}
     /* cover={
@@ -40,9 +39,9 @@ const PostRecruiter =({Post})=>{
         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
       />
     } */
-    actions={[ User && User.Role==='Recruiter' &&
+    actions={[ User && User.Role==='Recruiter' && User._id === Post.owner._id &&
       <EditOutlined key="edit" onClick={Editing} />,
-      User && User.Role==='Recruiter' && <DeleteOutlined />,
+      User && User.Role==='Recruiter' && User._id === Post.owner._id && <DeleteOutlined />,
       User && User.Role==='Candidate' &&
       <Button type="primary" style={{backgroundColor:'#0d2a95',border:'none'}}>Apply</Button>
     ]}

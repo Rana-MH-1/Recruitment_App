@@ -11,6 +11,7 @@ const HomePosts = () => {
     const dispatch = useDispatch();
     const postList = useSelector(state=> state.Posts.PostList)
     const auth =useSelector(state=> state.Auth)
+    
     useEffect(()=>{
         dispatch(getPostsAction())
         dispatch(getDataUSer())
