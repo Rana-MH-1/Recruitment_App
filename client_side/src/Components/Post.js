@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import { Card, Avatar,Button } from 'antd';
 import './Css/Post.css'
-import {EditPost} from '../Redux/Actions/PostActions'
+import {EditPost,DeletePost} from '../Redux/Actions/PostActions'
 import { EditOutlined, DeleteOutlined,EnvironmentOutlined,CalendarOutlined,TeamOutlined,BankOutlined,FieldTimeOutlined} from '@ant-design/icons';
 
 const { Meta } = Card;
@@ -24,9 +24,9 @@ const PostRecruiter =({Post})=>{
 
   const dispatch = useDispatch()
   const Editing = ()=>{
-    dispatch(EditPost({...Post,...infoPost}))
     setIsEdited(!isEdited)
     setInfoPost({...infoPost,Address:Post.Address,Contrat_Type:Post.Contrat_Type,Nb_Candidate:Post.Nb_Candidate,jobTitle:Post.jobTitle,jobDescription:Post.jobDescription})
+    dispatch(EditPost({...Post,...infoPost}))
     }
     
     return(
@@ -38,10 +38,10 @@ const PostRecruiter =({Post})=>{
         alt="example"
         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
       />
-    } */
-    actions={[ User && User.Role==='Recruiter' && User._id === Post.owner._id &&
-      <EditOutlined key="edit" onClick={Editing} />,
-      User && User.Role==='Recruiter' && User._id === Post.owner._id && <DeleteOutlined />,
+    } */ 
+    actions={[User && User.Role==='Recruiter' && User._id === Post.owner._id && <EditOutlined key="edit" onClick={Editing}/> 
+    ,
+      User && User.Role==='Recruiter' && User._id === Post.owner._id && <DeleteOutlined onClick={()=>dispatch(DeletePost(Post._id))} />,
       User && User.Role==='Candidate' &&
       <Button type="primary" style={{backgroundColor:'#0d2a95',border:'none'}}>Apply</Button>
     ]}

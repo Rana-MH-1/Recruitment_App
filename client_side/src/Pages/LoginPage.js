@@ -127,7 +127,7 @@ const Errors = useSelector(state=> state.appState.errors)
               errorText ={(Errors===null) ? null : Errors?.Password?.msg}
               onChange={handleInfoChange}
             />
-            <p style={{color:'red'}} >{(Errors===null) ? null : Errors?.Password?.msg}</p>
+            <p style={{color:'red'}} >{(Errors===null) ? null : Errors?.Password?.msg || Errors[0]?.msg}</p>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
