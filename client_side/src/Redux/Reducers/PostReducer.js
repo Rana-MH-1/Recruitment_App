@@ -12,7 +12,15 @@ const PostReducer =(state = initState,{type,payload})=>{
                 PostList:payload
             }
         case types.EDIT_POST_SUCCESS:
-            return state.map(post=>post._id === payload._id? {...post,...payload} : post)
+            return {
+                ...state,
+                PostList:state.PostList.map(post=>post._id === payload._id? {...post,...payload} : post)
+            }
+        case types.DELETE_POST_SUCCESS:
+            return {
+                ...state,
+                PostList:state.PostList.filter(post=> post._id !== payload._id)
+            }
         default :
         return state;
 

@@ -10,8 +10,8 @@ import {getDataUSer} from '../Redux/Actions/AuthAction'
 const HomePosts = () => {
     const dispatch = useDispatch();
     const postList = useSelector(state=> state.Posts.PostList)
-    const auth =useSelector(state=> state.Auth)
-    
+    const User =useSelector(state=> state.Auth.User)
+
     useEffect(()=>{
         dispatch(getPostsAction())
         dispatch(getDataUSer())
@@ -23,7 +23,7 @@ const HomePosts = () => {
             <h1>Welcome Home</h1>
             <button onClick={()=>dispatch(logout())}>LOGOUT</button>
             <AddPost/>
-            <PostList PostList={postList}/>
+            {User && postList && <PostList PostList={postList}/>}
             
             
         </div>

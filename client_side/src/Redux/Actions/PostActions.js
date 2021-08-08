@@ -76,6 +76,25 @@ export const EditPost = (EditedPost) => async (dispatch) => {
         
     }
     catch (err) {
+        dispatch(setError(err.response?.data?.errors))
+        dispatch(stopLoading())
+    }
+}  
+
+export const DeletePost = (id) => async (dispatch) => {
+    dispatch(clearError())
+    dispatch(startLoading("Deleting Posts..."))
+    try {
+        console.log(id)
+        setToken()
+        const res = await axios.delete(`${prefixe}/api/Posts/DeletePost/${id}`)
+        dispatch({
+            type: types.DELETE_POST_SUCCESS,
+            payload: res.data
+        })
+        dispatch(stopLoading())
+    }
+    catch (err) {
         dispatch(stopLoading())
         dispatch(setError(err.response?.data?.errors))
     }
