@@ -68,7 +68,7 @@ const AddPost = () => {
                 id="date"
                 label="Deadline"
                 type="date"
-                defaultValue="2017-05-24"
+                defaultValue="2021-05-24"
                 className={classes.textField}
                 InputLabelProps={{
                 shrink: true,
