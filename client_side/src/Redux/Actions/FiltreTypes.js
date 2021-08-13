@@ -1,0 +1,1 @@
+export const SEARCH_IN_STATE = 'SEARCH_IN_STATE';

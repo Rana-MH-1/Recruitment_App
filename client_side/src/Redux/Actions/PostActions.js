@@ -67,7 +67,7 @@ export const EditPost = (EditedPost) => async (dispatch) => {
     try {
         console.log(EditedPost)
         setToken()
-        const res = await axios.put(`${prefixe}/api/Posts/EditPost/${EditedPost._id}`,EditedPost)
+        const res = await axios.put(`${prefixe}/api/Posts/EditPosts/${EditedPost._id}`,EditedPost)
         dispatch({
             type: types.EDIT_POST_SUCCESS,
             payload: res.data

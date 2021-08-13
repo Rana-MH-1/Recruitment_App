@@ -24,7 +24,7 @@ const AddPost= async(req,res)=>{
 
 const getAllPosts = async(req, res)=>{
     try{
-        const posts = await postRecuiter.find({}).sort({createdAt:-1}).populate({path:'owner',select:'-Password'})
+        const posts = await postRecuiter.find({})/*.sort({createdAt:-1})*/.populate({path:'owner',select:'-Password'})
         res.json(posts)
     }
     catch{res.status(400).json({ err: err.message })}
@@ -42,6 +42,7 @@ const EditPost = async(req, res)=>{
     try{
         const updatedPost = await postRecuiter.findByIdAndUpdate(req.params.id, req.body)
         res.json(updatedPost)
+        console.log(updatedPost)
     }
     catch{res.status(400).json({ err: err.message })}
 }

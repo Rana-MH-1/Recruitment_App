@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router()
-const {DataValidation} = require('../Middlewares/DataValidation')
+const {DataValidationLogin,DataValidationRegister,DataValidationCandidate} = require('../Middlewares/DataValidation')
 const UserController = require('../Controllers/UserController');
 const { TokenVerification } = require('../Middlewares/PostMiddlewares');
 
-router.post('/register',DataValidation,UserController.registerCandidate)
-router.post('/register',DataValidation,UserController.registerRecruiter)
-router.post('/login',DataValidation,UserController.loginUser)
+router.post('/register',DataValidationCandidate,UserController.registerCandidate)
+router.post('/register',DataValidationRegister,UserController.registerRecruiter)
+router.post('/login',DataValidationLogin,UserController.loginUser)
 router.get('/getDataUser',TokenVerification,UserController.getDataUser)
 
 

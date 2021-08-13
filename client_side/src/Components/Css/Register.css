@@ -1,0 +1,23 @@
+.mb-3{
+    width:240px !important
+}
+
+.paragraph{
+    font-size: 45px;
+    font-weight: bold;
+    width:650px;
+    text-align: center;
+    margin-top: 240px;
+    margin-left: 60px;
+    color: #0d2a95;
+    background-color: white;
+    opacity: 0.4;
+    border-radius:25px
+}
+
+.bckground{
+    background-image: url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg);
+    height:700px;
+    overflow-y: auto;
+}
+

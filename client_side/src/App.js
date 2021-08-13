@@ -5,6 +5,7 @@ import RegisterPage from './Pages/RegisterPage'
 import HomePosts from './Pages/HomePosts'
 import Loading from './Components/Loading'
 import PrivateRoute from './PrivateRoutes/PrivateRoute'
+import Navbar from './Components/Navbar';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <>
       <Router>
         <Loading/>
+        <Navbar/>
          <Switch>
            <Route exact path="/register" component={RegisterPage} />
            <Route exact path="/login" component={LoginPage} />

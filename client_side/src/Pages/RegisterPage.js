@@ -1,168 +1,319 @@
-import React,{useEffect, useState} from 'react';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
-import {Form,Button} from 'react-bootstrap'
-import Compressor from 'compressorjs'
-import {useDispatch, useSelector} from 'react-redux'
-import {RegisterAction} from '../Redux/Actions/AuthAction'
-import { useHistory } from 'react-router-dom';
-
+import React, { useEffect, useState } from "react";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import { makeStyles } from "@material-ui/core/styles";
+import { Form, Button } from "react-bootstrap";
+import Compressor from "compressorjs";
+import { useDispatch, useSelector } from "react-redux";
+import { RegisterAction } from "../Redux/Actions/AuthAction";
+import { useHistory } from "react-router-dom";
+import "../Components/Css/Register.css";
+import Alert from "@material-ui/lab/Alert";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
-    button: {
-      display: 'block',
-      marginTop: theme.spacing(2),
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-      
-    },
-    input: {
-      display: 'none',
-    }
-    
-  }));
+  button: {
+    display: "block",
+    marginTop: theme.spacing(2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 150,
+    marginBottom: "20px",
+  },
+  avatar: {
+    //margin: theme.spacing(1),
+    backgroundColor: "#0d2a95",
+    marginLeft: "120px",
+    marginTop: "20px",
+  },
+  input: {
+    display: "none",
+  },
+}));
 const RegisterPage = () => {
-    const classes = useStyles();
-    const [selectedRole,setSelectedRole] = useState('')
-    
-    const [info, setInfo] = useState({
-      Role:''
-    })
-    
-    
-    const handleImage=(e)=>{
-      if (e.target.files.length) {
-        const myImage = e.target.files[0]
-        new Compressor(myImage, {
-            quality: 0.8,
-            success(result) {
-                const reader = new FileReader()
-                reader.readAsDataURL(result)
-                reader.onloadend = () => {
-                    setInfo({...info,image: reader.result })
-              }}
-            }
-          )}
-       }
-  
-    const history = useHistory()
-    const Auth = useSelector(state=> state.Auth)
-    useEffect(() => {
-      console.log(Auth.isAuth)
-      if(Auth.isAuth)
-        history.push('/login')
-    }, [Auth.isAuth])
+  const classes = useStyles();
+  const [selectedRole, setSelectedRole] = useState("");
 
-    const handleChange = (e) => {
-      setSelectedRole(e.target.value)
-      setInfo({...info,Role:e.target.value})
-    };
-    const handleInfoChange=(e)=>{
-      if(e.target.value)
-      setInfo({...info,[e.target.name]:e.target.value})
-      else{
-        let obj=info
-        delete obj[e.target.name]
-        setInfo(obj)
-      }
+  const [info, setInfo] = useState({
+    Role: "",
+  });
+
+  const [errorMsg, setErrorMsg] = useState("");
+  const handleError = () => {
+    if (info.Role.length === 0) setErrorMsg("you have to select your role");
+  };
+
+  const handleImage = (e) => {
+    if (e.target.files.length) {
+      const myImage = e.target.files[0];
+      new Compressor(myImage, {
+        quality: 0.8,
+        success(result) {
+          const reader = new FileReader();
+          reader.readAsDataURL(result);
+          reader.onloadend = () => {
+            setInfo({ ...info, image: reader.result });
+          };
+        },
+      });
     }
-    const dispatch = useDispatch();
-    const Register=(e)=>{
-      e.preventDefault();
-      dispatch(RegisterAction(info))
+  };
+
+  const history = useHistory();
+  const Auth = useSelector((state) => state.Auth);
+  useEffect(() => {
+    console.log(Auth.isAuth);
+    if (Auth.isAuth) history.push("/login");
+  }, [Auth.isAuth]);
+
+  const handleChange = (e) => {
+    setSelectedRole(e.target.value);
+    setInfo({ ...info, Role: e.target.value });
+  };
+  const handleInfoChange = (e) => {
+    if (e.target.value) setInfo({ ...info, [e.target.name]: e.target.value });
+    else {
+      let obj = info;
+      delete obj[e.target.name];
+      setInfo(obj);
     }
+  };
+  const dispatch = useDispatch();
+  const Register = (e) => {
+    e.preventDefault();
+    dispatch(RegisterAction(info));
+    handleError();
+    if (errorMsg==='' || Errors===null){setIsRegistered(true)};
+  };
 
-    const switchFunction =(selectedRole)=>{
-      switch(selectedRole){
-        case 'Candidate':
-        return (<>
-        <Form.Group className="mb-3">
-    <Form.Label>Level of study</Form.Label>
-    <Form.Control name="LevelStudy" type='text' placeholder="Enter your level of study" onChange={handleInfoChange} />
-  </Form.Group>   
+  const [isRegistered, setIsRegistered] = useState(false);
 
-  <Form.Group className="mb-3">
-    <Form.Label>Specialty</Form.Label>
-    <Form.Control name="Specialty" type='text' placeholder="Enter your specialty" onChange={handleInfoChange} />
-  </Form.Group>
-        </>)
-        case 'Recruiter':
-          return(<>
+  const switchFunction = (selectedRole) => {
+    switch (selectedRole) {
+      case "Candidate":
+        return (
+          <>
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="LevelStudy"
+                type="text"
+                placeholder="Level of study *"
+                onChange={handleInfoChange}
+              />
+            </Form.Group>
+            <p style={{ color: "red" }}>
+              {Errors === null ? null : Errors?.LevelStudy?.msg}
+            </p>
+
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="Specialty"
+                type="text"
+                placeholder="Specialty *"
+                onChange={handleInfoChange}
+              />
+            </Form.Group>
+            <p style={{ color: "red" }}>
+              {Errors === null ? null : Errors?.Specialty?.msg}
+            </p>
+          </>
+        );
+      case "Recruiter":
+        return (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "auto auto",
+              gridColumnGap: "10px",
+            }}
+          >
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="Profession"
+                type="text"
+                placeholder="Profession"
+                onChange={handleInfoChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="SocietyName"
+                type="text"
+                placeholder="Society name *"
+                onChange={handleInfoChange}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="ActivityField"
+                type="text"
+                placeholder="Activity filed of your Society"
+                onChange={handleInfoChange}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="Category"
+                type="text"
+                placeholder="Category of you society *"
+                onChange={handleInfoChange}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="taxRegistrationNumber"
+                type="text"
+                placeholder="Tax Registration Number *"
+                onChange={handleInfoChange}
+              />
+            </Form.Group>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const Errors = useSelector((state) => state.appState.errors);
+
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "60% 40%",
+      }}
+    >
+      <div className="bckground">
+        <h3 className="paragraph">
+          Welcome to our Website, register now and be among us
+        </h3>
+      </div>
+      <div style={{ margin: "0 auto" }}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" style={{ marginLeft: "100px" }}>
+          Sign up
+        </Typography>
+        <FormControl required className={classes.formControl}>
+          <InputLabel id="demo-controlled-open-select-label">
+            Are you
+          </InputLabel>
+          <Select
+            required
+            onChange={handleChange}
+            value={selectedRole}
+            labelId="demo-controlled-open-select-label"
+            id="demo-controlled-open-select"
+          >
+            <MenuItem value={"Recruiter"}>Recruiter</MenuItem>
+            <MenuItem value={"Candidate"}>Candidate</MenuItem>
+          </Select>
+        </FormControl>
+
+        { errorMsg && <Alert
+              style={{ marginTop: "20px", width: "300px" }}
+              severity="warning"
+            >
+              {errorMsg}
+            </Alert>}
+        <Form>
           <Form.Group className="mb-3">
-    <Form.Label>Profession</Form.Label>
-    <Form.Control name="Profession" type='text' placeholder="Enter your profession" onChange={handleInfoChange} />
-  </Form.Group>  
-  <Form.Group className="mb-3">
-    <Form.Label>Society Name</Form.Label>
-    <Form.Control name="SocietyName" type='text' placeholder="Enter your Society name" onChange={handleInfoChange} />
-  </Form.Group>
-  <Form.Group className="mb-3">
-    <Form.Label>Activity Field</Form.Label>
-    <Form.Control name="ActivityField" type='text' placeholder="Enter the activity filed of your Society" onChange={handleInfoChange} />
-  </Form.Group>  
-  <Form.Group className="mb-3">
-    <Form.Label>Category</Form.Label>
-    <Form.Control name="Category" type='text' placeholder="Enter the category of you society" onChange={handleInfoChange} />
-  </Form.Group>
-  <Form.Group className="mb-3">
-    <Form.Label>Tax Registration Number</Form.Label>
-    <Form.Control name="taxRegistrationNumber" type='text' placeholder="Enter the category of you society" onChange={handleInfoChange} />
-  </Form.Group>
-  
-          </>)
-        default :
-        return null
-}
+            <Form.Control
+              required
+              name="FullName"
+              type="Fullname"
+              placeholder="Full Name *"
+              onChange={handleInfoChange}
+            />
+          </Form.Group>
+          <p style={{ color: "red" }}>
+            {Errors === null ? null : Errors?.FullName?.msg}
+          </p>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Control
+              name="Email"
+              type="email"
+              placeholder="example@gmail.com *"
+              onChange={handleInfoChange}
+            />
+          </Form.Group>
+          <p style={{ color: "red" }}>
+            {Errors === null ? null : Errors?.Email?.msg}
+          </p>
 
-    }
-    return (
-        
-      <div>
-          <h3>Welcome to our Website, register now and be among us</h3>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-controlled-open-select-label">Are you</InputLabel>
-              <Select onChange={handleChange} value={selectedRole}
-              labelId="demo-controlled-open-select-label"
-              id="demo-controlled-open-select">
-              <MenuItem value={"Recruiter"}>Recruiter</MenuItem>
-              <MenuItem value={"Candidate"}>Candidate</MenuItem>
-              </Select>
-              </FormControl>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Control
+              name="Password"
+              type="password"
+              placeholder="Password *"
+              onChange={handleInfoChange}
+            />
+          </Form.Group>
+          <p style={{ color: "red" }}>
+            {Errors === null ? null : Errors?.Password?.msg}
+          </p>
 
-              <Form>
+          <input
+            accept="image/*"
+            id="icon-button-file"
+            onChange={handleImage}
+            type="file"
+            style={{ display: "none" }}
+          />
+          <label htmlFor="icon-button-file">
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <PhotoCamera style={{ zomm: "140%", color: "#0d2a95" }} />
+            </IconButton>
+          </label>
 
-              <Form.Group className="mb-3">
-    <Form.Label>FullName</Form.Label>
-    <Form.Control name="FullName" type="Fullname" placeholder="Enter your full name" onChange={handleInfoChange} />
-  </Form.Group>             
-  <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control name="Email" type="email" placeholder="Enter email" onChange={handleInfoChange} />
-  </Form.Group>
+          {switchFunction(selectedRole)}
 
-  <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control name="Password" type="password" placeholder="Password" onChange={handleInfoChange} />
-  </Form.Group>
-  
-  <Form.Group controlId="formFile" className="mb-3">
-    <Form.Label>Upload your photo</Form.Label>
-    <Form.Control type="file" accept="image/*" onChange={handleImage} />
-  </Form.Group>
-
-  {switchFunction(selectedRole)}
-  
-  <Button variant="primary" type="submit" style={{backgroundColor:'#0d2a95'}} onClick={Register}>
-    Submit
-  </Button>
-</Form>
-
+          <Button
+            variant="primary"
+            type="submit"
+            style={{
+              backgroundColor: "white",
+              borderColor: "#0d2a95",
+              color: "#0d2a95",
+              marginLeft: "80px",
+            }}
+            onClick={Register}
+          >
+            Submit
+          </Button>
+          
+          {Errors && Errors[0] && (
+            <Alert
+              style={{ marginTop: "20px", width: "300px" }}
+              severity="warning"
+            >
+              {Errors === null ? null : Errors[0]?.msg}
+            </Alert>
+          )}
+          
+          {isRegistered && info.length>=5 &&
+          <Alert severity="success" style={{ width: "300px", margin: "15px 0" }}>
+            You are successfully registered
+          </Alert>
+        }
+        </Form>
+      </div>
     </div>
-    );
-}
+  );
+};
 export default RegisterPage;

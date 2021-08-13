@@ -1,7 +1,5 @@
 import React,{useEffect} from 'react'
 import { useDispatch,useSelector} from 'react-redux'
-import { logout } from '../Redux/Actions/AuthAction'
-import AddPost from '../Components/AddPost'
 import PostList from '../Components/PostList'
 import {getPostsAction} from '../Redux/Actions/PostActions'
 import {getDataUSer} from '../Redux/Actions/AuthAction'
@@ -11,21 +9,23 @@ const HomePosts = () => {
     const dispatch = useDispatch();
     const postList = useSelector(state=> state.Posts.PostList)
     const User =useSelector(state=> state.Auth.User)
+    const search = useSelector(state=> state.Filtre)
 
     useEffect(()=>{
-        dispatch(getPostsAction())
         dispatch(getDataUSer())
+        dispatch(getPostsAction())
 
     },[])
 
+    const Filtering =(postList,search) =>{
+        return postList.filter(post=>post.jobTitle.toLowerCase().trim().includes(search.toLowerCase().trim()))
+      }
+
     return (
         <div>
-            <h1>Welcome Home</h1>
-            <button onClick={()=>dispatch(logout())}>LOGOUT</button>
-            <AddPost/>
-            {User && postList && <PostList PostList={postList}/>}
             
-            
+            {User && postList && <PostList PostList={Filtering(postList,search)}/>}
+        
         </div>
     )
 }
