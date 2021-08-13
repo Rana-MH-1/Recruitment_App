@@ -177,6 +177,17 @@ const RegisterPage = () => {
                 onChange={handleInfoChange}
               />
             </Form.Group>
+
+
+            
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="file1"
+                type="file"
+                placeholder="Tax Registration Number *"
+                onChange={handleInfoChange}
+              />
+            </Form.Group>
           </div>
         );
       default:
