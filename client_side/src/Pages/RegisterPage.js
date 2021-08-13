@@ -10,7 +10,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import {RegisterAction} from '../Redux/Actions/AuthAction'
 import { useHistory } from 'react-router-dom';
 
-
+import axios from 'axios'
+import { prefixe } from '../helpers/prefixe';
 const useStyles = makeStyles((theme) => ({
     button: {
       display: 'block',
@@ -29,11 +30,20 @@ const useStyles = makeStyles((theme) => ({
 const RegisterPage = () => {
     const classes = useStyles();
     const [selectedRole,setSelectedRole] = useState('')
-    
+    const [file,setFile] = useState(null)
     const [info, setInfo] = useState({
       Role:''
     })
     
+
+
+//     const selectCvToUpload = (e)=>{
+// setFile(e.target.files[0])
+// let formData=new FormData()
+// formData.append("cv",e.target.files[0])
+// axios.post(`${prefixe}/api/cv`,formData)
+// .then(res=>console.log(res.data))
+//     }
     
     const handleImage=(e)=>{
       if (e.target.files.length) {
@@ -90,6 +100,13 @@ const RegisterPage = () => {
     <Form.Label>Specialty</Form.Label>
     <Form.Control name="Specialty" type='text' placeholder="Enter your specialty" onChange={handleInfoChange} />
   </Form.Group>
+
+
+{/* //pour tester upload cv */}
+  {/* <Form.Group className="mb-3">
+    <Form.Label>Cv file</Form.Label>
+    <Form.Control name="cv" type='file' placeholder="Enter your cv" onChange={selectCvToUpload} />
+  </Form.Group> */}
         </>)
         case 'Recruiter':
           return(<>
@@ -114,6 +131,10 @@ const RegisterPage = () => {
     <Form.Control name="taxRegistrationNumber" type='text' placeholder="Enter the category of you society" onChange={handleInfoChange} />
   </Form.Group>
   
+
+
+ 
+
           </>)
         default :
         return null
@@ -154,6 +175,7 @@ const RegisterPage = () => {
     <Form.Label>Upload your photo</Form.Label>
     <Form.Control type="file" accept="image/*" onChange={handleImage} />
   </Form.Group>
+  
 
   {switchFunction(selectedRole)}
   
