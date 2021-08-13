@@ -19,8 +19,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '20ch',
     },
+   display:'grid',
+   gridTemplateColumns: 'auto auto',
+   gridColumnGap:'10px'
   },
 }));
 
@@ -43,7 +46,7 @@ const AddPost = () => {
     handleClose()
    }
    const User = useSelector(state=>state.Auth.User)
-   const style={backgroundColor:'#0d2a95', border:'none'}
+   const style={backgroundColor:'white', borderColor:'#0d2a95',color:'#0d2a95',float:'right', marginRight:50,opacity:0.8}
 
     return (
     <div>

@@ -20,7 +20,7 @@ export const RegisterAction=(info)=> async(dispatch)=>{
         //dispatch(getDataUSer())
     }
     catch(err){
-        dispatch(setError(err.response.data.errors))
+        dispatch(setError(err.response?.data?.errors))
         dispatch(stopLoading())
     }
 }
@@ -40,7 +40,7 @@ export const LoginAction=(info)=> async(dispatch)=>{
         //dispatch(getDataUSer())
     }
     catch(err){
-        dispatch(setError(err.response.data.errors))
+        dispatch(setError(err.response?.data?.errors))
         dispatch(stopLoading())
     }
 }
@@ -56,7 +56,7 @@ export const getDataUSer=()=> async(dispatch)=>{
             type: types.GET_DATA_USER_SUCCESS,
             payload: data
         })
-        //dispatch(getMyPost())
+        dispatch(getMyPost())
         //dispatch(getPostsAction())
     }
     catch(err){

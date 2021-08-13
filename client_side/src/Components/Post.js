@@ -11,7 +11,6 @@ const PostRecruiter =({Post})=>{
   const User = useSelector(state=>state.Auth.User)
   const [isEdited, setIsEdited] = useState(false);
   const [infoPost,setInfoPost]= useState({
-    _id:Post._id,
     jobTitle:'',
     jobDescription:'',
     Address:'',
@@ -26,13 +25,13 @@ const PostRecruiter =({Post})=>{
   const Editing = ()=>{
     setIsEdited(!isEdited)
     setInfoPost({...infoPost,Address:Post.Address,Contrat_Type:Post.Contrat_Type,Nb_Candidate:Post.Nb_Candidate,jobTitle:Post.jobTitle,jobDescription:Post.jobDescription})
-    dispatch(EditPost({...Post,...infoPost}))
+   if(isEdited && infoPost!==Post)dispatch(EditPost({...Post,...infoPost}))
     }
     
     return(
-        <div>
-            <Card
-    style={{ width: 900 }}
+        
+            <Card className="CardPost"
+    style={{ width: 800 ,margin:'0 auto', marginTop:'40px',backgroundColor: '#cfd4ea'}}
     /* cover={
       <img
         alt="example"
@@ -43,7 +42,7 @@ const PostRecruiter =({Post})=>{
     ,
       User && User.Role==='Recruiter' && User._id === Post.owner._id && <DeleteOutlined onClick={()=>dispatch(DeletePost(Post._id))} />,
       User && User.Role==='Candidate' &&
-      <Button type="primary" style={{backgroundColor:'#0d2a95',border:'none'}}>Apply</Button>
+      <Button type="primary" style={{backgroundColor:'white',borderColor:'#0d2a95',color:'#0d2a95',fontWeight:'bold',paddingLeft:'4px',textAlign:'center'}}>Apply</Button>
     ]}
   >
     {isEdited?(<>
@@ -51,34 +50,47 @@ const PostRecruiter =({Post})=>{
       <input name='jobDescription' value={infoPost.jobDescription} onChange={handlePostChange}></input>
       </>) : 
       (<>
-        <Meta
+        <Meta style={{fontSize:"20px", fontWeight:'bold',marginBottom:"35px"}}
       avatar={<Avatar src={Post.owner.image? Post.owner.image.url : 'https://png.pngtree.com/png-clipart/20200701/original/pngtree-black-default-avatar-png-image_5407174.jpg'} />}
-      title={Post.jobTitle}
-      description={Post.jobDescription}
+      title ={Post.jobTitle}
+      
     />
       </>)
   }
     
     <div>
       {isEdited? (<>
+        
         <EnvironmentOutlined className="icon" /><input name='Address' value={infoPost.Address} onChange={handlePostChange}></input>
         <CalendarOutlined className="icon" /><input name='Contrat_Type' value={infoPost.Contrat_Type} onChange={handlePostChange}></input>
         <TeamOutlined className="icon" /><input name='Nb_Candidate' value={infoPost.Nb_Candidate} onChange={handlePostChange}></input>
       </>)
       : (
-        <>
-        <EnvironmentOutlined className="icon" /><span>{Post.Address}</span>
-        <CalendarOutlined className="icon" /><span>{Post.Contrat_Type}</span>
-        <TeamOutlined className="icon" /><span>{Post.Nb_Candidate}</span>
-        <BankOutlined  className="icon"/><span>{Post.owner.SocietyName}</span>
-       <FieldTimeOutlined className="icon" /><span>{Post.createdAt}</span>
-        </>
+        
+        <div className='flexIcons' style={{display:"flex",flexDirecton:'column'}}>
+          <p id="jobDes">{Post.jobDescription}</p>
+        <div className='col1' style={{margin:'20px 0'}}>
+         <BankOutlined  className="icon"/><span>{Post.owner.SocietyName}</span>
+         
+        <EnvironmentOutlined  style={{marginLeft:'140px'}} className="icon" /><span >{Post.Address}</span>
+         
+         <div style={{float: 'right'}}>
+          <FieldTimeOutlined className="icon" /><span>{Post.createdAt}</span>
+         </div>
+        </div>
+        <div className='col2' style={{marginTop:'25px'}}>
+         <CalendarOutlined className="icon" /><span>{Post.Contrat_Type}</span>
+         <div style={{float: 'right',marginRight:'60px'}}>
+          <TeamOutlined className="icon" /><span>{Post.Nb_Candidate}</span>
+         </div>
+        </div>
+        </div>
       )
     
       }
     </div>
   </Card>
-        </div>
+      
     )
 
 }

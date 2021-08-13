@@ -1,7 +1,30 @@
 span{
-    margin:4px;
+    
+    font-size: 15px;
+    font-weight: 300;
 }
 
 .icon{
-    margin-left:20px;
+    
+    zoom:140%;
+    color:#0d2a95
+}
+.CardPost:hover{
+    zoom: 110%;
+    
+}
+
+.title{
+    font-size: 30px;
+}
+
+.flexIcons{
+    display:flex;
+    flex-direction: column
+}
+
+#jobDes{
+    width:740px;
+    overflow-x: auto;
+    font-size: 15px;
 }

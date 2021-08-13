@@ -1,92 +1,94 @@
-import React, { useEffect, useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import {LoginAction} from '../Redux/Actions/AuthAction'
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import { LoginAction } from "../Redux/Actions/AuthAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: "100vh",
   },
   image: {
-    backgroundImage: 'url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg)',
-    backgroundRepeat: 'no-repeat',
+    backgroundImage:
+      "url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg)",
+    backgroundRepeat: "no-repeat",
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor:'#0d2a95',
+    backgroundColor: "#0d2a95",
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor:'#0d2a95'
+    backgroundColor: "#0d2a95",
   },
 }));
 
-const LoginPage=()=> {
+const LoginPage = () => {
   const classes = useStyles();
 
   const [info, setInfo] = useState({
-      Email:'',
-      Password:''
-  })
+    Email: "",
+    Password: "",
+  });
 
-  const handleInfoChange=(e)=>{
-      setInfo({...info,[e.target.name]:e.target.value})
-  }
+  const handleInfoChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  };
 
   const dispatch = useDispatch();
-const Login=(e)=>{
+  const Login = (e) => {
     e.preventDefault();
-    dispatch(LoginAction(info))
-}
+    dispatch(LoginAction(info));
+  };
 
-const Auth = useSelector(state=> state.Auth)
-const history = useHistory();
-useEffect(() => {
-  if(Auth.isAuth)
-  history.push('/')
-}, [Auth.isAuth])
+  const Auth = useSelector((state) => state.Auth);
+  const history = useHistory();
+  useEffect(() => {
+    if (Auth.isAuth) history.push("/");
+  }, [Auth.isAuth]);
 
-const Errors = useSelector(state=> state.appState.errors)
+  const Errors = useSelector((state) => state.appState.errors);
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -110,10 +112,12 @@ const Errors = useSelector(state=> state.appState.errors)
               name="Email"
               autoComplete="email"
               autoFocus
-              errorText ={(Errors===null) ? null : Errors?.Email?.msg}
+              errorText={Errors === null ? null : Errors?.Email?.msg}
               onChange={handleInfoChange}
             />
-            <p style={{color:'red'}}>{(Errors===null) ? null : Errors?.Email?.msg}</p>
+            <p style={{ color: "red" }}>
+              {Errors === null ? null : Errors?.Email?.msg}
+            </p>
             <TextField
               variant="outlined"
               margin="normal"
@@ -124,10 +128,12 @@ const Errors = useSelector(state=> state.appState.errors)
               type="password"
               id="password"
               autoComplete="current-password"
-              errorText ={(Errors===null) ? null : Errors?.Password?.msg}
+              errorText={Errors === null ? null : Errors?.Password?.msg}
               onChange={handleInfoChange}
             />
-            <p style={{color:'red'}} >{(Errors===null) ? null : Errors?.Password?.msg || Errors[0]?.msg}</p>
+            <p style={{ color: "red" }}>
+              {Errors === null ? null : Errors?.Password?.msg || Errors[0]?.msg}
+            </p>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -162,6 +168,6 @@ const Errors = useSelector(state=> state.appState.errors)
       </Grid>
     </Grid>
   );
-}
+};
 
 export default LoginPage;
