@@ -1,6 +1,6 @@
 const express = require('express')
 const multer  = require('multer');
-const { checkApplyOwner } = require('../Middlewares/CandidatureMiddleware');
+const { checkApplyOnce } = require('../Middlewares/CandidatureMiddleware');
 const {TokenVerification} = require('../Middlewares/PostMiddlewares')
 const router= express.Router();
 const File= require("../Models/FileSchema")
@@ -17,10 +17,11 @@ const storage = multer.diskStorage({
 
 
 
-router.post('/files',TokenVerification,checkApplyOwner,upload.single('cv'),(req,res)=>{
+router.post('/files',TokenVerification,checkApplyOnce,upload.single('cv'),(req,res)=>{
    
     let path=req.protocol +"://"+req.hostname+":"+8080+"/Uploads/"+req.file.filename
-    let newFile = new File({FileName: path});
+    let newFile = new File({owner:req.userId, Post:req.postId,
+      FileName: path});
     newFile.save()
         .then(file=>res.status(201).send(file))
     //console.log(newFile)
