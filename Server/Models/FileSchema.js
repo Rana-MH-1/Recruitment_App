@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment-timezone')
 
 const FileSchema = new mongoose.Schema({
 
@@ -14,7 +15,7 @@ const FileSchema = new mongoose.Schema({
     FileName: String,
     createdAt: {
         type: Date,
-        default: Date.now()
+        default:moment(Date.now()).tz('Africa/Tunis').format('LLLL')
     },
 });
 module.exports = mongoose.model('file', FileSchema)

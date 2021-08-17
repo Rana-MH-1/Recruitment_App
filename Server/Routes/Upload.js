@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 
 
-router.post('/',TokenVerification,checkApplyOwner,upload.single('cv'),(req,res)=>{
+router.post('/files',TokenVerification,checkApplyOwner,upload.single('cv'),(req,res)=>{
    
     let path=req.protocol +"://"+req.hostname+":"+8080+"/Uploads/"+req.file.filename
     let newFile = new File({FileName: path});
