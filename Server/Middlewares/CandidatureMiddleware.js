@@ -17,5 +17,3 @@ const checkApplyOwner = async (req, res, next) => {
 }
 
 module.exports ={checkApplyOwner}
-// la7dha bech tcommiti 3al main ! wela 3al branchi mta3i :req.//netsawer matbedelch saretli lezmi taaommit w mbaed update w f lekeher tpushi  behi oke check inti mzlt al branch mtaak? ui 
-//ema eni taw badeltha 3al main bhi rajaa.ha ala ton branch mesh dhaher andi l branch khatr kan akiil logo ui 7ata eni 
