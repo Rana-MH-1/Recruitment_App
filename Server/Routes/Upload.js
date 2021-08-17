@@ -1,6 +1,5 @@
 const express = require('express')
 const multer = require('multer');
-const { checkApplyOwner } = require('../Middlewares/CandidatureMiddleware');
 const { TokenVerification } = require('../Middlewares/PostMiddlewares')
 const router = express.Router();
 const Apply = require("../Models/ApplySchema")
@@ -17,10 +16,10 @@ const upload = multer({ storage: storage })
 
 
 //upoad multi files
-router.post('/files', TokenVerification, checkApplyOwner, upload.fields([{ name: 'file1', maxCount: 1 }, { name: 'file2', maxCount: 1 }]), (req, res) => {
+router.post('/files', TokenVerification, upload.fields([{ name: 'file1', maxCount: 1 }, { name: 'file2', maxCount: 1 }]), (req, res) => {
   let path = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['file1'][0].filename
   let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['file2'][0].filename
-  let newFile = new Apply({ CV: path, Motivation_letter: path2, owner: req.userId, Post: req.postId });
+  let newFile = new Apply({ CV: path, Motivation_letter: path2});
   newFile.save()
     .then(file => res.status(201).send(file))
     //console.log(newFile)
