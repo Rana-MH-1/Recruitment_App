@@ -1,9 +1,11 @@
 import React,{useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux'
-import { Card, Avatar,Button } from 'antd';
+import { Card, Avatar} from 'antd';
 import './Css/Post.css'
 import {EditPost,DeletePost} from '../Redux/Actions/PostActions'
 import { EditOutlined, DeleteOutlined,EnvironmentOutlined,CalendarOutlined,TeamOutlined,BankOutlined,FieldTimeOutlined} from '@ant-design/icons';
+import Apply from './Apply';
+//import { getIdPost } from '../Redux/Actions/getIdPost';
 
 const { Meta } = Card;
 
@@ -42,7 +44,8 @@ const PostRecruiter =({Post})=>{
     ,
       User && User.Role==='Recruiter' && User._id === Post.owner._id && <DeleteOutlined onClick={()=>dispatch(DeletePost(Post._id))} />,
       User && User.Role==='Candidate' &&
-      <Button type="primary" style={{backgroundColor:'white',borderColor:'#0d2a95',color:'#0d2a95',fontWeight:'bold',paddingLeft:'4px',textAlign:'center'}}>Apply</Button>
+      <Apply Post={Post}  type="primary" />
+      
     ]}
   >
     {isEdited?(<>
