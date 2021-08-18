@@ -107,7 +107,7 @@ const Apply = () => {
           </Form.Group>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Upload your Cover Letter</Form.Label>
-            <Form.Control name ='Motivation Letter' type="file"/>
+            <Form.Control name ='Motivation_letter' type="file"/>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -115,7 +115,7 @@ const Apply = () => {
             Close
           </Button>
           <Button style={style} variant="primary" onClick={handleClose}>
-            Save Changes
+            Send your apply
           </Button>
         </Modal.Footer>
       </Modal>
@@ -124,3 +124,4 @@ const Apply = () => {
 };
 
 export default Apply;
+

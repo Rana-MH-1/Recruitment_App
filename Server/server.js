@@ -15,8 +15,10 @@ app.use("/Uploads",express.static(__dirname+"/Uploads"))
 //routes
 app.use('/api/Posts', require('./Routes/PostRecuiterRouter'))
 app.use('/api/Users', require('./Routes/UserRouter'))
+app.use('/api/Apply',require('./Routes/ApplyRouter'))
 //upload file 
 app.use('/api/cv', require('./Routes/Upload'))
+
 
 
 //emails
