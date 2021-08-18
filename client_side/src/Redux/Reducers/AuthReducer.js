@@ -45,3 +45,5 @@ const AuthReducer =(state=initState,{type,payload})=>{
 }
 
 export default AuthReducer
+// heka bech t7ai kol chay e7na 7achta ken bel id postri rahi mrigla deja eni nahkich al local storage nahki al modal taa el apply ki nzelt al send apply matna7atch el modal 
+// atan3mlou fath .then alet post avec succee

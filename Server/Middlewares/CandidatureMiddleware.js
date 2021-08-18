@@ -1,4 +1,4 @@
-const FileSchema = require('../Models/FileSchema')
+const FileSchema = require('../Models/ApplySchema')
 
 const checkApplyOnce = async (req, res, next) => {
     try {
@@ -8,13 +8,11 @@ const checkApplyOnce = async (req, res, next) => {
         if (candidature)
             return res.status(401).json({ err: 'You have already applied !' })
          next()
-            
-        
+    
     }
     catch (err) {
         return res.status(401).json({ err: err })
     }
 }
-
 
 module.exports ={checkApplyOnce}

@@ -5,6 +5,7 @@ import './Css/Post.css'
 import {EditPost,DeletePost} from '../Redux/Actions/PostActions'
 import { EditOutlined, DeleteOutlined,EnvironmentOutlined,CalendarOutlined,TeamOutlined,BankOutlined,FieldTimeOutlined} from '@ant-design/icons';
 import Apply from './Apply';
+//import { getIdPost } from '../Redux/Actions/getIdPost';
 
 const { Meta } = Card;
 
@@ -43,7 +44,8 @@ const PostRecruiter =({Post})=>{
     ,
       User && User.Role==='Recruiter' && User._id === Post.owner._id && <DeleteOutlined onClick={()=>dispatch(DeletePost(Post._id))} />,
       User && User.Role==='Candidate' &&
-      <Apply type="primary" />
+      <Apply Post={Post}  type="primary" />
+      
     ]}
   >
     {isEdited?(<>

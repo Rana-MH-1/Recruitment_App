@@ -61,7 +61,7 @@ export const getDataUSer=()=> async(dispatch)=>{
     }
     catch(err){
         dispatch(stopLoading())
-        dispatch(setError(err.response.data.errors))
+        dispatch(setError(err.response?.data?.errors))
         
     }
 }

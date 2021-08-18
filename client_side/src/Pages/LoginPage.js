@@ -132,7 +132,7 @@ const LoginPage = () => {
               onChange={handleInfoChange}
             />
             <p style={{ color: "red" }}>
-              {Errors === null ? null : Errors?.Password?.msg || Errors[0]?.msg}
+              {Errors === null ? null : Errors?.Password?.msg || [Errors]?.msg}
             </p>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
