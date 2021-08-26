@@ -1,12 +1,19 @@
 
 import * as types from '../Actions/AuthTypes'
 import *as postTypes from '../Actions/PostTypes'
+import * as ApplyTypes from '../Actions/ApplyTypes'
+import * as MeetingTypes from '../Actions/MeetingTypes'
+
 
 const initState={
     token:localStorage.getItem('token'),
     isAuth:Boolean(localStorage.getItem('isAuth')),
     User:JSON.parse(localStorage.getItem('User')),
-    MyPosts:[]
+    MyPosts:[],
+    MyApplies:[],
+    Appliesreceived:[],
+    R_Meeting_List:[],
+    C_Meeting_List :[]
 }
 const AuthReducer =(state=initState,{type,payload})=>{
 
@@ -38,6 +45,30 @@ const AuthReducer =(state=initState,{type,payload})=>{
                 ...state,
                 User:{...state.User,
                 MyPosts:payload}
+            }
+        case ApplyTypes.GET_My_APLLIES_SUCCESS:
+            return{
+                ...state,
+                User:{...state.User,
+                MyApplies:payload}
+            }
+        case ApplyTypes.GET_RECEIVED_APPLIES_SUCCESS:
+            return{
+                ...state,
+                User:{...state.User,
+                Appliesreceived: payload}
+            }
+        case MeetingTypes.GET_MEETINGLIST_R_SUCCESS:
+            return{
+                ...state,
+                User:{...state.User,
+                R_Meeting_List: payload}
+            }
+        case MeetingTypes.GET_MEETINGLIST_C_SUCCESS :
+            return {
+                ...state,
+                User:{...state.User,
+                C_Meeting_List: payload}
             }
         default:
             return state

@@ -1,39 +1,67 @@
 const express = require('express')
-const multer  = require('multer');
+const multer = require('multer');
+const { TokenVerification } = require('../Middlewares/PostMiddlewares')
+const router = express.Router();
+const Apply = require("../Models/ApplySchema")
 const { checkApplyOnce } = require('../Middlewares/CandidatureMiddleware');
-const {TokenVerification} = require('../Middlewares/PostMiddlewares')
-const router= express.Router();
-const File= require("../Models/FileSchema")
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './Uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null,  '-' + Date.now()+ '-' +file.originalname)
-    }
-  })
-  const upload = multer({ storage: storage })
+  destination: function (req, file, cb) {
+    cb(null, './Uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, '-' + Date.now() + '-' + file.originalname)
+  }
+})
+const upload = multer({ storage: storage })
 
 
-
-router.post('/files',TokenVerification,checkApplyOnce,upload.single('cv'),(req,res)=>{
-   
-    let path=req.protocol +"://"+req.hostname+":"+8080+"/Uploads/"+req.file.filename
-    let newFile = new File({owner:req.userId, Post:req.postId,
-      FileName: path});
-    newFile.save()
-        .then(file=>res.status(201).send(file))
+//upoad multi files 
+router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: 'cv', maxCount: 1 }, { name: 'Motivation_letter', maxCount: 1 }]), (req, res) => {
+  let path = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['cv'][0].filename
+  let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['Motivation_letter'][0].filename
+  let recruiterId = JSON.parse(req.body.Recruiter_id);
+  let newFile = new Apply({ CV: path, Motivation_letter: path2 ,owner:req.userId,Post:req.postId,Recruiter_id:recruiterId});
+  newFile.save()
+    .then(file => res.status(201).send(file))
     //console.log(newFile)
-    .catch(err=>{
-        console.error(err.message)
-        res.status(500).send("Server error 500")
-    }
+    .catch(err => {
+      console.error(err.message)
+      res.status(500).send("Server error 500")
+    })
+})
 
-    )
+/*----------------------une seule input multi-selectt-------------------------------------- */
+// router.post('/files',TokenVerification,checkApplyOnce,upload.array("multi-files", 10),(req,res)=>{
+//   let path=req.protocol +"://"+req.hostname+":"+8080+"/Uploads/"+req.files[0].filename
+//   let path2=req.protocol +"://"+req.hostname+":"+8080+"/Uploads/"+req.files[1].filename
+//   let newFile = new Apply({CV: path,Motivation_letter:path2,owner:req.userId,Post:req.postId});
+//   newFile.save()
+//       .then(file=>res.status(201).send(file))
+//   //console.log(newFile)
+//   .catch(err=>{
+//       console.error(err.message)
+//       res.status(500).send("Server error 500")
+//   })
+// })
 
-    
-});
+/*----------------------une seule input multi-selectt fin -------------------------------------- */
 
+/*----------------------upload one file ------------------------------------------------- */
+// router.post('/',TokenVerification,checkApplyOwner,upload.single('cv'),(req,res)=>{
+//     let path=req.protocol +"://"+req.hostname+":"+8080+"/Uploads/"+req.file.filename
+//     let newFile = new Apply({CV: path,owner:req.userId,Post:req.postId});
+//     newFile.save()
+//         .then(file=>res.status(201).send(file))
+//     //console.log(newFile)
+//     .catch(err=>{
+//         console.error(err.message)
+//         res.status(500).send("Server error 500")
+//     }
+//     )
+// });
+/*----------------------upload one file fin ------------------------------------------------- */
 
 module.exports = router;
+
+

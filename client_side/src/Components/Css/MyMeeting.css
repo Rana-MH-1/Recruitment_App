@@ -1,0 +1,7 @@
+
+.MymeetingList{
+    display:grid;
+    grid-template-columns: auto auto;
+    row-gap: 30px;
+    margin-top:30px;
+}

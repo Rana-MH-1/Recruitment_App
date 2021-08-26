@@ -3,6 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
+import {SidebarDataRecruiter} from './SidebarDataRecruiter'
 import "./Css/Navbar.css";
 import { IconContext } from "react-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -201,7 +202,7 @@ const Navbar = () => {
                   <AiIcons.AiOutlineClose />
                 </Link>
               </li>
-              {SidebarData.map((item, index) => {
+              {(Auth.User?.Role ==='Candidate')? SidebarData.map((item, index) => {
                 return (
                   <li key={index} className={item.cName}>
                     <Link to={item.path}>
@@ -210,7 +211,19 @@ const Navbar = () => {
                     </Link>
                   </li>
                 );
-              })}
+              }) :
+
+              SidebarDataRecruiter.map((item, index) => {
+                return (
+                  <li key={index} className={item.cName}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                );
+              })
+              }
             </ul>
           </nav>
         </IconContext.Provider>

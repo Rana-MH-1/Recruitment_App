@@ -112,7 +112,6 @@ const LoginPage = () => {
               name="Email"
               autoComplete="email"
               autoFocus
-              errorText={Errors === null ? null : Errors?.Email?.msg}
               onChange={handleInfoChange}
             />
             <p style={{ color: "red" }}>

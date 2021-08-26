@@ -71,6 +71,7 @@ const RegisterPage = () => {
   useEffect(() => {
     console.log(Auth.isAuth);
     if (Auth.isAuth) history.push("/login");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Auth.isAuth]);
 
   const handleChange = (e) => {

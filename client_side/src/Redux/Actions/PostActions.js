@@ -34,7 +34,6 @@ export const getPostsAction=()=> async(dispatch)=>{
             type: types.GET_POSTS_SUCCESS,
             payload: data
         })
-        console.log(data)
         dispatch(stopLoading())
     }
     catch(err){
@@ -73,7 +72,7 @@ export const EditPost = (EditedPost) => async (dispatch) => {
             payload: res.data
         })
         dispatch(stopLoading())
-        
+        dispatch(getPostsAction())
     }
     catch (err) {
         dispatch(setError(err.response?.data?.errors))

@@ -6,17 +6,27 @@ const MeetingSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref:'user'
     },
-    candidature: {
+    Apply: {
         type: mongoose.Types.ObjectId,
-        ref:'candidature'
+        ref:'Apply'
     },
+
+    Id_Candidat: String,
+    Name_Candidat:String,
+    
     Date_Meeting:{
-        type:Date,
+        type:String,
         required:true
     },
 
     Duration:{
-        type:String
+        type:String,
+        required:true
+    },
+    
+    jobTitle:{
+        type:String,
+        required:true
     }
 
 })

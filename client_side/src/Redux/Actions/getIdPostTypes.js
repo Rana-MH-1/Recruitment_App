@@ -1,0 +1,1 @@
+export const GET_ID_POST = 'GET_ID_POST'
