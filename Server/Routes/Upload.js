@@ -20,7 +20,8 @@ const upload = multer({ storage: storage })
 router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: 'cv', maxCount: 1 }, { name: 'Motivation_letter', maxCount: 1 }]), (req, res) => {
   let path = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['cv'][0].filename
   let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['Motivation_letter'][0].filename
-  let newFile = new Apply({ CV: path, Motivation_letter: path2 ,owner:req.userId,Post:req.postId});
+  let recruiterId = JSON.parse(req.body.Recruiter_id);
+  let newFile = new Apply({ CV: path, Motivation_letter: path2 ,owner:req.userId,Post:req.postId,Recruiter_id:recruiterId});
   newFile.save()
     .then(file => res.status(201).send(file))
     //console.log(newFile)
@@ -63,7 +64,4 @@ router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: '
 
 module.exports = router;
 
-//khamamt n3adi history taa component Post 
-//wala ndispatchi action trecuperi l id taa post ki tecliqui ui ritek 5demtha fel delete kia haka 5ir je pense
-//behi juste arjaali lil app components Post
 

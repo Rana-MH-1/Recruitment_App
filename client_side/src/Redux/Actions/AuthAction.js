@@ -4,6 +4,7 @@ import * as types from './AuthTypes';
 import {startLoading,stopLoading,setError,clearError} from './AppStateActions'
 import { setToken } from '../../helpers/setToken';
 import { getMyPost } from './PostActions';
+import {getReceivedApplies} from './ApplyAction'
 
 export const RegisterAction=(info)=> async(dispatch)=>{
     
@@ -57,7 +58,7 @@ export const getDataUSer=()=> async(dispatch)=>{
             payload: data
         })
         dispatch(getMyPost())
-        //dispatch(getPostsAction())
+        dispatch(getReceivedApplies())
     }
     catch(err){
         dispatch(stopLoading())

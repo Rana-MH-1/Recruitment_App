@@ -1,0 +1,21 @@
+.contain{
+    display:grid;
+    grid-template-columns: 300px 300px 200px 150px;
+    grid-row-gap: 30px;
+    text-align: center;
+    margin-left:150px;
+}
+
+.oneline{
+    display:grid;
+    grid-template-columns: 300px 300px 200px ;
+    grid-row-gap: 30px;
+    text-align: center;
+    background-color:#cfd4ea;
+    margin-top:50px;
+    margin-bottom:30px;
+    width:1000px;
+    margin-left:150px;
+
+
+}
