@@ -11,7 +11,7 @@ const ReceivedApplyList = ({receivedapplylist}) => {
 
                 
             </div>
-            {receivedapplylist.length && receivedapplylist.map(apply=> <ReceivedApply key={apply._id} receivedapply={apply} />)}
+            {receivedapplylist.length && receivedapplylist.map(apply=> <ReceivedApply key={apply._id} receivedapply={apply} />).reverse()}
         </div>
     )
 }

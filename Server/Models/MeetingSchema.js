@@ -13,6 +13,7 @@ const MeetingSchema = new mongoose.Schema({
 
     Id_Candidat: String,
     Name_Candidat:String,
+    Email_Candidat:String,
     
     Date_Meeting:{
         type:String,

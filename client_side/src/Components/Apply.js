@@ -75,7 +75,8 @@ const Apply = ({ Post }) => {
     let formData = new FormData();
     formData.append("cv", file1);
     formData.append("Motivation_letter", file2);
-    formData.append("Recruiter_id",JSON.stringify(Post.owner))
+    formData.append("Recruiter_id",JSON.stringify(Post.owner._id))
+    formData.append("Recruiter_email",Post.owner.Email)
     dispatch(AddApply(formData));
     console.log(formData)
   };

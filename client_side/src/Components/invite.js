@@ -55,6 +55,7 @@ const Invite = ({ apply }) => {
   const [meetinginfo, setMeetinginfo] = useState({
     Id_Candidat: apply.owner._id,
     Name_Candidat: apply.owner.FullName,
+    Email_Candidat: apply.owner.Email,
     Date_Meeting: "",
     Duration: "",
     jobTitle: apply.Post.jobTitle,

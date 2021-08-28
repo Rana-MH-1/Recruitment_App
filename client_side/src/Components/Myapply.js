@@ -6,10 +6,9 @@ const Myapply = ({myapply}) => {
     return (
         <div>
         <div className='containeer'>
-            {console.log(myapply)}
-            <p>{myapply.Post.jobTitle}</p>
-            <p>{myapply.Post.Address}</p>
-            <p>{myapply.createdAt}</p>
+            {myapply.Post?.jobTitle && <p>{myapply.Post.jobTitle}</p>}
+            {myapply.Post?.Address && <p>{myapply.Post.Address}</p>}
+            {myapply.createdAt && <p>{myapply.createdAt}</p>}
             
         </div>
         <hr/>

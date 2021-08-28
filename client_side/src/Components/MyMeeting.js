@@ -8,11 +8,11 @@ import Typography from "@material-ui/core/Typography";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { GiDuration } from "react-icons/gi";
 import { useSelector } from "react-redux";
-import Modal from '@material-ui/core/Modal';
-import Fade from '@material-ui/core/Fade';
-import Backdrop from '@material-ui/core/Backdrop';
+import Modal from "@material-ui/core/Modal";
+import Fade from "@material-ui/core/Fade";
+import Backdrop from "@material-ui/core/Backdrop";
 
-const useStyles = makeStyles(theme=>({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 400,
     paddingLeft: "100px",
@@ -30,14 +30,14 @@ const useStyles = makeStyles(theme=>({
     marginBottom: 12,
   },
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    width:'700px',
-    height:'600px',
+    width: "700px",
+    height: "600px",
     padding: theme.spacing(2, 4, 3),
   },
 }));
@@ -93,10 +93,11 @@ const MyMeeting = ({ myMeeting }) => {
             }}
             size="mb-2"
             onClick={handleOpen}
+            Disabled={(Date.now() === myMeeting.Date_Meeting)? false : true}
           >
             JOIN
           </Button>
-          <Modal
+          <Modal 
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
@@ -108,11 +109,14 @@ const MyMeeting = ({ myMeeting }) => {
               timeout: 500,
             }}
           >
-            <Fade in={open}>
+            <Fade in={open} onClose>
               <div className={classes.paper}>
-                <iframe src={`https://meet.jit.si/${myMeeting._id}`}
-                        title='Online Interview meeting'
-                        width='100%' height='100%'
+                <h2 id="transition-modal-title">Online Interview Meeting</h2>
+                <iframe
+                  src={`https://meet.jit.si/${myMeeting._id}`}
+                  title="Online Interview meeting"
+                  width="100%"
+                  height="90%"
                 ></iframe>
               </div>
             </Fade>
