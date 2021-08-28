@@ -15,7 +15,7 @@ const MyapplyList = ({ myapplyList }) => {
       {myapplyList.length &&
         myapplyList.map((MyApply) => (
           <Myapply key={MyApply._id} myapply={MyApply} />
-        ))}
+        )).reverse()}
     </div>
   );
 };

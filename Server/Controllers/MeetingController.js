@@ -1,8 +1,10 @@
 const meeting = require('../Models/MeetingSchema')
+const nodemailer = require('nodemailer');
+
 
 const SaveMeeting= async(req,res)=>{
     try{
-    const {Id_Candidat,Name_Candidat,Date_Meeting,Duration,jobTitle} = req.body
+    const {Id_Candidat,Name_Candidat,Date_Meeting,Duration,jobTitle,Email_Candidat} = req.body
     const newMetting = meeting({
         owner:req.userId,
         Apply:req.applyId,
@@ -10,9 +12,38 @@ const SaveMeeting= async(req,res)=>{
         Name_Candidat,
         Date_Meeting,
         Duration,
-        jobTitle
+        jobTitle,
+        Email_Candidat
     })
     const savedMeeting = await newMetting.save()
+
+    //send Email to the recruiter----------------------------------------------------------------------------------------
+  
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }
+});
+// Email info
+const mailOptions = {
+    from: '"Recruitment Agency"<syrinemabrouk6@gmail.com>',
+    to: `${Email_Candidat}`,
+    subject: 'Invitation for an Online Interview meeting',
+    text: `A Recruiter has invites you for an online interview meeting on ${Date_Meeting} for the job ${jobTitle}, please check your list of meeting for more informations`,
+    html:`A Recruiter has invites you for an online interview meeting on <b> ${Date_Meeting}</b> for the job <b> ${jobTitle}</b> , please check your list of meeting for more informations`,
+};
+// Send email 📧  and retrieve server response
+transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Email sent: ' + info.response);
+    }
+});
+/* end od sending mail-------------------------------------------------------------------------------------*/
+
     res.json(savedMeeting)
     }
     catch{res.status(400).json({ err: err.message })}

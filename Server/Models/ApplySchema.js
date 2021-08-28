@@ -12,6 +12,7 @@ const ApplySchema = new mongoose.Schema({
         ref: 'user'
     },
     Recruiter_id:String,
+    Recruiter_email:String,
     CV: {
         type:String,
         required:true
