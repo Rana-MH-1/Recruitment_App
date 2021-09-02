@@ -25,10 +25,7 @@ const MeetingSchema = new mongoose.Schema({
         required:true
     },
     
-    jobTitle:{
-        type:String,
-        required:true
-    }
+    jobTitle:String
 
 })
 

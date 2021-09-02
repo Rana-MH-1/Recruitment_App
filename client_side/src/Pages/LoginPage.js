@@ -15,6 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { LoginAction } from "../Redux/Actions/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import {clearError} from '../Redux/Actions/AppStateActions'
 
 function Copyright() {
   return (
@@ -74,6 +75,7 @@ const LoginPage = () => {
 
   const handleInfoChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
+    dispatch(clearError())
   };
 
   const dispatch = useDispatch();
@@ -112,11 +114,10 @@ const LoginPage = () => {
               name="Email"
               autoComplete="email"
               autoFocus
+              error={Errors?.Email?.msg}
+              helperText={Errors?.Email?.msg}
               onChange={handleInfoChange}
             />
-            <p style={{ color: "red" }}>
-              {Errors === null ? null : Errors?.Email?.msg}
-            </p>
             <TextField
               variant="outlined"
               margin="normal"
@@ -127,12 +128,11 @@ const LoginPage = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              errorText={Errors === null ? null : Errors?.Password?.msg}
+              error={(Errors===null)? null: Errors?.Password?.msg|| Errors[0]?.msg}
+              helperText={(Errors===null)? null: Errors?.Password?.msg || Errors[0]?.msg}
               onChange={handleInfoChange}
             />
-            <p style={{ color: "red" }}>
-              {Errors === null ? null : Errors?.Password?.msg || Errors[0]?.msg}
-            </p>
+            {/* <p style={{color:'red'}}>{(Errors===null)? null: Errors[0]?.msg}</p> */}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

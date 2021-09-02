@@ -20,8 +20,6 @@ export const AddApply=(files)=> async(dispatch)=>{
         })
         dispatch(stopLoading());
         dispatch(getMyApplies());
-        alert('You have successfully applied')
-        
     }
     catch(err){
         dispatch(stopLoading())

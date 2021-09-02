@@ -1,7 +1,8 @@
 import * as types from '../Actions/PostTypes'
 
 const initState={
-    PostList:[]
+    PostList:[],
+    count:0
 }
 
 const PostReducer =(state = initState,{type,payload})=>{
@@ -20,6 +21,11 @@ const PostReducer =(state = initState,{type,payload})=>{
             return {
                 ...state,
                 PostList:state.PostList.filter(post=> post._id !== payload._id)
+            }
+        case types.GET_POST_COUNT_SUCCESS:
+            return{
+                ...state,
+                count:payload
             }
         default :
         return state;

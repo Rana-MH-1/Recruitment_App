@@ -23,4 +23,12 @@ export const clearError = () => {
     return {
         type: types.CLEAR_ERROR
     }
+    
+}
+
+export const clearMsg = () => {
+    return {
+        type: types.CLEAR_MSG,
+    }
+    
 }

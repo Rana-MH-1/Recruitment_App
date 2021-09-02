@@ -1,9 +1,14 @@
 const meeting = require('../Models/MeetingSchema')
 const nodemailer = require('nodemailer');
+const {validationResult} = require('express-validator')
+
 
 
 const SaveMeeting= async(req,res)=>{
     try{
+    const errors = validationResult(req)
+    if (!errors.isEmpty())
+        return res.status(400).json({ errors: errors.mapped() })
     const {Id_Candidat,Name_Candidat,Date_Meeting,Duration,jobTitle,Email_Candidat} = req.body
     const newMetting = meeting({
         owner:req.userId,
@@ -44,9 +49,9 @@ transporter.sendMail(mailOptions, function(error, info) {
 });
 /* end od sending mail-------------------------------------------------------------------------------------*/
 
-    res.json(savedMeeting)
+    res.json({savedMeeting,msg:'The meeting was successfully saved, check your list of meeting'})
     }
-    catch{res.status(400).json({ err: err.message })}
+    catch{res.status(400).json({ errors: [{ msg: err.message }] })}
 }
 
 const getRecruiterMeeting = async(req, res)=>{

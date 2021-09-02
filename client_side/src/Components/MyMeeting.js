@@ -57,6 +57,7 @@ const MyMeeting = ({ myMeeting }) => {
 
   return (
     <div>
+      {console.log(myMeeting)}
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <Typography

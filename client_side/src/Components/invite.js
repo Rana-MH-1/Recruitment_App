@@ -6,7 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { getIdApply } from "../Redux/Actions/getIdApply";
 import { useDispatch, useSelector } from "react-redux";
 import { SaveMeeting } from "../Redux/Actions/MeetingAction";
-import { clearError } from "../Redux/Actions/AppStateActions";
+import { clearError,clearMsg } from "../Redux/Actions/AppStateActions";
 import Alert from "@material-ui/lab/Alert";
 
 
@@ -36,10 +36,12 @@ const Invite = ({ apply }) => {
   const classes = useStyles();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [show, setShow] = useState(false);
+  const [isInvited, setIsInvited] = useState(false);
 
   const handleClose = () => {
     setShow(false);
     dispatch(clearError());
+    dispatch(clearMsg())
   };
 
   const handleShow = () => {
@@ -58,7 +60,7 @@ const Invite = ({ apply }) => {
     Email_Candidat: apply.owner.Email,
     Date_Meeting: "",
     Duration: "",
-    jobTitle: apply.Post.jobTitle,
+    jobTitle: apply?.Post?.jobTitle,
   });
 
   const handleInfoMeeting = (e) => {
@@ -66,10 +68,12 @@ const Invite = ({ apply }) => {
   };
 
   const savingMeeting = () => {
-    dispatch(SaveMeeting(meetinginfo));
+    meetinginfo.Date_Meeting && meetinginfo.Duration && dispatch(SaveMeeting(meetinginfo));
+    setIsInvited(true)
   };
 
   const errors = useSelector((state) => state.appState.errors);
+  const msgSuccess = useSelector(state=> state.appState.msg)
 
   return (
     <div>
@@ -100,6 +104,8 @@ const Invite = ({ apply }) => {
                 shrink: true,
               }}
               name="Date_Meeting"
+              error={meetinginfo.Date_Meeting==='' && isInvited}
+              helperText={meetinginfo.Date_Meeting==='' && isInvited ?'Time meeting is required' : ' '}
               onChange={handleInfoMeeting}
             />
             <TextField
@@ -108,6 +114,8 @@ const Invite = ({ apply }) => {
               variant="outlined"
               name="Duration"
               size="small"
+              error={meetinginfo.Duration==='' && isInvited}
+              helperText={meetinginfo.Duration==='' && isInvited ?'Duration is required' : ' '}
               onChange={handleInfoMeeting}
             />
             <TextField
@@ -126,11 +134,12 @@ const Invite = ({ apply }) => {
               variant="outlined"
               name="jobTitle"
               size="small"
-              value={apply.Post.jobTitle}
+              value={apply?.Post?.jobTitle}
               disabled
             />
           </form>
           {errors && <Alert severity="warning">{errors}</Alert>}
+          {msgSuccess && <Alert severity="success">{msgSuccess}</Alert>}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

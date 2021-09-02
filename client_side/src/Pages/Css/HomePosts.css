@@ -1,0 +1,10 @@
+
+.grid{
+    display: grid;
+    grid-template-columns: 1000px 200px;
+    margin-left: 150px
+
+    
+}
+
+

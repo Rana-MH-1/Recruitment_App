@@ -3,3 +3,4 @@ export const STOP_LOADING = "STOP_LOADING"
 
 export const SET_ERROR = "SET_ERROR"
 export const CLEAR_ERROR = "CLEAR_ERROR"
+export const CLEAR_MSG = 'CLEAR_MSG'
