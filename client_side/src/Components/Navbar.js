@@ -16,7 +16,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Avatar } from "@material-ui/core";
 import { logout } from "../Redux/Actions/AuthAction";
-import AddPost from "./AddPost";
 import { FiltreAction } from "../Redux/Actions/FiltreAction";
 import Chip from "@material-ui/core/Chip";
 
@@ -142,9 +141,6 @@ const Navbar = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </div>
-
-            {/*Add a post*/}
-            <AddPost />
 
             {/*avatar with user Fullname */}
             <IconButton 

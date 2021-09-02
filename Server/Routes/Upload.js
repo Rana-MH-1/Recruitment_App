@@ -62,7 +62,7 @@ router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: '
   /* end od sending mail-------------------------------------------------------------------------------------*/
   
   newFile.save()
-    .then(file => res.status(201).send(file))
+    .then(file => res.status(201).send({file,msg:'You have successfully applied,check your list of applies'}))
     //console.log(newFile)
     .catch(err => {
       console.error(err.message)

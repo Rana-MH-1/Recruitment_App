@@ -1,7 +1,12 @@
 const postRecuiter = require('../Models/PostRecruiterSchema')
+const {validationResult} = require('express-validator')
+
 
 const AddPost= async(req,res)=>{
     try{ 
+        const errors = validationResult(req)
+        if (!errors.isEmpty())
+            return res.status(400).json({ errors: errors.mapped() })
         const {jobTitle,jobDescription,Contrat_Type,Address,Deadline,Nb_Candidate}=req.body
         const newPost = new postRecuiter({
             owner:req.userId,
@@ -14,17 +19,26 @@ const AddPost= async(req,res)=>{
             })
 
         const savedPost = await newPost.save()
-        res.json(savedPost)
+        res.json({savedPost,msg:'Post added successfully'})
         
     }
     catch{
-        res.status(400).json({ err: err.message })
+        res.status(400).json({ errors: [{ msg: err.message }] })
     }
 }
 
 const getAllPosts = async(req, res)=>{
     try{
-        const posts = await postRecuiter.find({})/*.sort({createdAt:-1})*/.populate({path:'owner',select:'-Password'})
+        let limit = +req.query.limit
+        let pageNumber = +req.query.page
+        let documentCount = await postRecuiter.find().countDocuments()
+        let TotalNumberOfPages = Math.ceil(documentCount / limit);
+
+        const posts = await postRecuiter.find({})
+        .sort({createdAt:-1})
+        .populate({path:'owner',select:'-Password'})
+        .skip((pageNumber - 1) * limit)
+        .limit(limit)
         res.json(posts)
     }
     catch{res.status(400).json({ err: err.message })}
@@ -51,5 +65,16 @@ const DeletePost = async(req, res)=>{
     postRecuiter.findByIdAndRemove(req.params.id,(err,data)=>err? res.status(400).json({ err: err.message }) : res.json(data))
 }
 
+const getPostsCount = async (req, res) => {
+    try {
+        const count = await postRecuiter.find().countDocuments()
+        res.json(count)
+    }
+    catch (err) {
+        res.status(400).json({ errors: [{ msg: err.message }] })
 
-module.exports= {AddPost,getAllPosts,getMyPosts,EditPost,DeletePost}
+    }
+}
+
+
+module.exports= {AddPost,getAllPosts,getMyPosts,EditPost,DeletePost,getPostsCount}

@@ -9,9 +9,9 @@ const MyapplyList = ({ myapplyList }) => {
         <h5>Job</h5>
         <h5>Address</h5>
         <h5>Sent at</h5>
+        <h5>CV</h5>
+        <h5>Motivation Letter</h5>
       </div>
-      <hr/>
-
       {myapplyList.length &&
         myapplyList.map((MyApply) => (
           <Myapply key={MyApply._id} myapply={MyApply} />

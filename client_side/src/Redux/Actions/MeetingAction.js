@@ -17,13 +17,11 @@ export const SaveMeeting=(meeting)=> async(dispatch)=>{
             payload: data
         })
         dispatch(stopLoading());
-        alert('You have successfully saved the meeting')
         dispatch(getRecruiterMeeting())        
     }
     catch(err){
-        dispatch(stopLoading())
         dispatch(setError(err.response?.data?.errors))
-        
+        dispatch(stopLoading())
     }
 }
 

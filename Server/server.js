@@ -53,10 +53,9 @@ app.use('/api/cv', require('./Routes/Upload'))
 
 
 
-
-
 //connect to the db
 mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true,useFindAndModify: false })
 .then(res=> console.log('Db connected'))
 .catch(err=> console.log(err))
 app.listen(PORT, err=> err? console.log(err) : console.log('server is running on port', PORT))
+
