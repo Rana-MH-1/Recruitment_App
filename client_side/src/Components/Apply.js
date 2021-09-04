@@ -14,9 +14,6 @@ import { prefixe } from '../helpers/prefixe'
 import { setToken } from '../helpers/setToken';
 import {setPostID} from '../helpers/setPostId';
 import { getIdPost } from "../Redux/Actions/getIdPost";
-//trah testi maw khatfit 7a9a manghir settoken el token ui
-//mesh mawjouda f header req uime7atithech fel local_storage!
-//
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +76,7 @@ setFile1(e.target.files[0])
     axios.post(`${prefixe}/api/cv/files`, formData)
       .then(res => console.log(res.data))
   }
-  //b3athlek vocal asm3ou si nn zid chouf tnajemech trodha bel redux sinn 5aliha nrml
+ //hawke c'est bon juste l w
   return (
     <div style={{ margin: '0 auto' }}>
       <Button style={style} variant="primary" onClick={handleShow}>
