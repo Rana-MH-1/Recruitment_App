@@ -1,0 +1,13 @@
+.avatar{
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    padding: 1rem 0;
+  
+}
+.avatar img{
+    width: 70%;
+    border-radius: 50%;
+    border: 8px solid var(--border-color);
+    margin-left: -40px;
+}

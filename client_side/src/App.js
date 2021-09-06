@@ -3,7 +3,7 @@ import './App.css';
 
 
 
-
+import AboutPage from './Pages/AboutPage';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage'
 import HomePosts from './Pages/HomePosts'
@@ -22,7 +22,9 @@ function App() {
          <Switch>
            <Route exact path="/register" component={RegisterPage} />
            <Route exact path="/login" component={LoginPage} />
-        
+           <Route path="/about" exact>
+              <AboutPage />
+            </Route>
            <PrivateRoute exact path="/" component={HomePosts} />
            
          </Switch>

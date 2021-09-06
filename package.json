@@ -25,7 +25,7 @@
     "mongoose-schema-extend": "^0.2.2",
     "multer": "^1.4.3",
     "nodemailer": "^6.6.3",
-    "raw-body": "^2.4.1"
-    
+    "raw-body": "^2.4.1",
+    "styled-components": "^5.3.1"
   }
 }
