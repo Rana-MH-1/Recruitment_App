@@ -31,7 +31,10 @@ const PostRecruiterSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    Nb_Candidate:Number
+    Nb_Candidate:{
+        type:Number,
+        required:true
+    }
 })
 
 module.exports= mongoose.model('postRecuiter',PostRecruiterSchema)

@@ -71,6 +71,7 @@ const RegisterPage = () => {
   useEffect(() => {
     console.log(Auth.isAuth);
     if (Auth.isAuth) history.push("/login");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Auth.isAuth]);
 
   const handleChange = (e) => {
@@ -173,17 +174,6 @@ const RegisterPage = () => {
               <Form.Control
                 name="taxRegistrationNumber"
                 type="text"
-                placeholder="Tax Registration Number *"
-                onChange={handleInfoChange}
-              />
-            </Form.Group>
-
-
-            
-            <Form.Group className="mb-3">
-              <Form.Control
-                name="file1"
-                type="file"
                 placeholder="Tax Registration Number *"
                 onChange={handleInfoChange}
               />

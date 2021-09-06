@@ -4,7 +4,7 @@ import {startLoading,stopLoading,setError,clearError} from './AppStateActions'
 import { setToken } from '../../helpers/setToken';
 import * as types from './PostTypes'
 
-export const PostAction=(newPost)=> async(dispatch)=>{
+export const PostAction=(newPost,page,limit)=> async(dispatch)=>{
     
     dispatch(clearError())
     dispatch(startLoading("Adding post ..."))
@@ -15,7 +15,9 @@ export const PostAction=(newPost)=> async(dispatch)=>{
             type: types.ADD_POST_SUCCESS,
             payload: data
         })
-        dispatch(getPostsAction())
+        dispatch(getPostsAction(page,limit))
+        dispatch(getPostCount())
+
     }
     catch(err){
         dispatch(stopLoading())
@@ -24,17 +26,16 @@ export const PostAction=(newPost)=> async(dispatch)=>{
     }
 }
 
-export const getPostsAction=()=> async(dispatch)=>{
+export const getPostsAction=(page,limit)=> async(dispatch)=>{
     
     dispatch(clearError())
     dispatch(startLoading("get all Posts"))
     try{
-        const {data} = await axios.get(`${prefixe}/api/Posts/AllPosts`)
+        const {data} = await axios.get(`${prefixe}/api/Posts/AllPosts?page=${page}&limit=${limit}`)
         dispatch({
             type: types.GET_POSTS_SUCCESS,
             payload: data
         })
-        console.log(data)
         dispatch(stopLoading())
     }
     catch(err){
@@ -61,11 +62,10 @@ export const getMyPost = () => async (dispatch) => {
     }
 }
 
-export const EditPost = (EditedPost) => async (dispatch) => {
+export const EditPost = (EditedPost,page,limit) => async (dispatch) => {
     dispatch(clearError())
     dispatch(startLoading("Editing Posts..."))
     try {
-        console.log(EditedPost)
         setToken()
         const res = await axios.put(`${prefixe}/api/Posts/EditPosts/${EditedPost._id}`,EditedPost)
         dispatch({
@@ -73,7 +73,7 @@ export const EditPost = (EditedPost) => async (dispatch) => {
             payload: res.data
         })
         dispatch(stopLoading())
-        
+        dispatch(getPostsAction(page,limit))
     }
     catch (err) {
         dispatch(setError(err.response?.data?.errors))
@@ -93,9 +93,27 @@ export const DeletePost = (id) => async (dispatch) => {
             payload: res.data
         })
         dispatch(stopLoading())
+        dispatch(getPostCount())
     }
     catch (err) {
         dispatch(stopLoading())
         dispatch(setError(err.response?.data?.errors))
     }
-}  
+} 
+
+export const getPostCount = () => async (dispatch) => {
+    dispatch(clearError())
+    dispatch(startLoading("Get post count"))
+    try {
+        const { data } = await axios.get(`${prefixe}/api/Posts/postcount`)
+        dispatch({
+            type: types.GET_POST_COUNT_SUCCESS,
+            payload: data
+        })
+        dispatch(stopLoading())
+    }
+    catch (err) {
+        dispatch(stopLoading())
+        dispatch(setError(err.response?.data?.errors))
+    }
+}

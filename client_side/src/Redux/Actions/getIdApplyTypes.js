@@ -1,0 +1,1 @@
+export const GET_ID_APPLY_SUCCESS = 'GET_ID_APPLY_SUCCESS';

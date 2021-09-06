@@ -3,6 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
+import {SidebarDataRecruiter} from './SidebarDataRecruiter'
 import "./Css/Navbar.css";
 import { IconContext } from "react-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +16,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Avatar } from "@material-ui/core";
 import { logout } from "../Redux/Actions/AuthAction";
-import AddPost from "./AddPost";
 import { FiltreAction } from "../Redux/Actions/FiltreAction";
 import Chip from "@material-ui/core/Chip";
 
@@ -170,9 +170,6 @@ const Navbar = () => {
               />
             </div>
 
-            {/*Add a post*/}
-            <AddPost />
-
             {/*avatar with user Fullname */}
             <IconButton
               aria-label="account of current user"
@@ -235,9 +232,19 @@ const Navbar = () => {
                   <AiIcons.AiOutlineClose />
                 </Link>
               </li>
-              <AvatarIMG />
-             
-              {SidebarData.map((item, index) => {
+              <AvatarIMG/>
+              {(Auth.User?.Role ==='Candidate')? SidebarData.map((item, index) => {
+                return (
+                  <li key={index} className={item.cName}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                );
+              }) :
+
+              SidebarDataRecruiter.map((item, index) => {
                 return (
                   <li  key={index} className={item.cName}>
                     <Link to={item.path}>
@@ -246,7 +253,8 @@ const Navbar = () => {
                     </Link>
                   </li>
                 );
-              })}
+              })
+              }
             </ul>
           </nav>
         </IconContext.Provider>
