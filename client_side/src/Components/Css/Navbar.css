@@ -1,9 +1,4 @@
 .navbar {
-    position:fixed;
-    z-index: 1030;
-    left:0;
-    right: 0;
-    top:0;
     background-color: #0d2a95;
     height: 65px;
     display: flex;

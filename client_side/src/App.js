@@ -9,6 +9,7 @@ import Navbar from './Components/Navbar';
 import MyApplies from './Pages/MyApplies';
 import ReceivedApplies from './Pages/ReceivedApplies'
 import MyMeeting from './Pages/MyMeeting'
+import MyPosts from './Pages/MyPosts';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
            <PrivateRoute exact path="/MyApplies" component={MyApplies}/>
            <PrivateRoute exact path="/AppliesList" component={ReceivedApplies}/>
            <PrivateRoute exact path='/MyMeeting' component={MyMeeting} />
+           <PrivateRoute exact path='/MyPosts' component={MyPosts} />
            
          </Switch>
       </Router>

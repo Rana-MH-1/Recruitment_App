@@ -97,6 +97,8 @@ const Navbar = () => {
     setAnchorEl(event.currentTarget);
   };
 
+  const User = useSelector(state=> state.Auth.User)
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -121,7 +123,7 @@ const Navbar = () => {
     <>
       {Auth.isAuth && (
         <IconContext.Provider value={{ color: "#fff" }}>
-          <div className="navbar">
+          <div className='navbar'>
             <Link to="#" className="menu-bars">
               <FaIcons.FaBars onClick={showSidebar} />
             </Link>
@@ -132,7 +134,7 @@ const Navbar = () => {
               </div>
               <InputBase
                 onChange={HandleSearch}
-                placeholder="Search by job…"
+                placeholder="Search ..."
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,

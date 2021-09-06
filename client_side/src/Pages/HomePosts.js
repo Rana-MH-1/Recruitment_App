@@ -33,11 +33,12 @@ const HomePosts = () => {
     dispatch(getPostsAction(page, limit));
     dispatch(getDataUSer())
     dispatch(getMyApplies())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const Filtering = (postList, search) => {
     return postList.filter((post) =>
-      post.jobTitle.toLowerCase().trim().includes(search.toLowerCase().trim())
+      post.jobTitle.toLowerCase().trim().includes(search.toLowerCase().trim()) || post.jobDescription.toLowerCase().trim().includes(search.toLowerCase().trim()) || post.Contrat_Type.toLowerCase().trim().includes(search.toLowerCase().trim()) || post.Address.toLowerCase().trim().includes(search.toLowerCase().trim())
     );
   };
 
@@ -63,7 +64,7 @@ const HomePosts = () => {
           />
         </div>
       </div>
-      <div style={{border: '1px solid #0d2a95',marginTop:'40px',marginRight:'19px',padding:'30px 0',overflowY:'scroll'}}>
+      <div style={{border: '2px solid #0d2a95',marginTop:'50px',marginRight:'19px',overflowY:'scroll',paddingTop:'30px',paddingLeft:'20px',height:"310px",borderRadius:'15px'}}>
         <AddPost page={page} limit={limit} />
         <br/><br/><br/>
         <LimitSelector setLimit={setLimit} />
