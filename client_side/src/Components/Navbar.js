@@ -19,6 +19,12 @@ import { logout } from "../Redux/Actions/AuthAction";
 import { FiltreAction } from "../Redux/Actions/FiltreAction";
 import Chip from "@material-ui/core/Chip";
 
+
+import { useEffect } from "react";
+
+import AvatarIMG from "./profile_components/AvatarIMG";
+
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -112,14 +118,36 @@ const Navbar = () => {
   const showSidebar = () => setSidebar(!sidebar);
   const Auth = useSelector((state) => state.Auth);
 
-  { /* filter by job */}
+  { /* filter by job */ }
   const [search, setSearch] = useState("");
   const HandleSearch = (e) => {
     setSearch(e.target.value);
     dispatch(FiltreAction(search));
   };
 
+
+  const [theme, setTheme] = useState('dark-theme');
+  const [checked, setChecked] = useState(false);
+  const [navToggle, setNavToggle] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+  }, [theme]);
+
+  const themeToggler = () => {
+    if (theme === 'light-theme') {
+      setTheme('dark-theme');
+      setChecked(false)
+    } else {
+      setTheme('light-theme');
+      setChecked(true)
+    }
+  }
+
   return (
+
+
+
     <>
       {Auth.isAuth && (
         <IconContext.Provider value={{ color: "#fff" }}>
@@ -145,7 +173,7 @@ const Navbar = () => {
             </div>
 
             {/*avatar with user Fullname */}
-            <IconButton 
+            <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -163,8 +191,8 @@ const Navbar = () => {
                           className={classes.small}
                         />
                       ) : (
-                        <AccountCircle 
-                          style={{ color: "white"}}
+                        <AccountCircle
+                          style={{ color: "white" }}
                         />
                       )}
                     </div>
@@ -172,9 +200,12 @@ const Navbar = () => {
                 }
                 label={Auth.User && Auth.User.FullName && Auth.User.FullName}
                 variant="outlined"
-                style={{color: "white",borderColor:'white'}}
+                style={{ color: "white", borderColor: 'white' }}
               />
             </IconButton>
+
+
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
@@ -193,13 +224,17 @@ const Navbar = () => {
               <MenuItem onClick={LogOut}>Log Out</MenuItem>
             </Menu>
           </div>
+          
           <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
+
+       
             <ul className="nav-menu-items" onClick={showSidebar}>
               <li className="navbar-toggle">
                 <Link to="#" className="menu-bars">
                   <AiIcons.AiOutlineClose />
                 </Link>
               </li>
+              <AvatarIMG/>
               {(Auth.User?.Role ==='Candidate')? SidebarData.map((item, index) => {
                 return (
                   <li key={index} className={item.cName}>
@@ -213,7 +248,7 @@ const Navbar = () => {
 
               SidebarDataRecruiter.map((item, index) => {
                 return (
-                  <li key={index} className={item.cName}>
+                  <li  key={index} className={item.cName}>
                     <Link to={item.path}>
                       {item.icon}
                       <span>{item.title}</span>
