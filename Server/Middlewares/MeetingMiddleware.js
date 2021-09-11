@@ -1,8 +1,14 @@
 const MeetingSchema = require('../Models/MeetingSchema')
+var dayjs = require('dayjs')
+const moment = require('moment-timezone')
+
 
 const CheckNoRepeatedDate = async (req, res, next) => {
     try {
         const meeting = await MeetingSchema.findOne({owner:req.userId,Date_Meeting:req.body.Date_Meeting})
+        const meetingowner = await MeetingSchema.find({owner:req.userId})
+        const addedDuration= meetingowner.map(meeting=> meeting.Date_Meeting= dayjs(meeting.Date_Meeting).add(+req.body.Duration,'minute').$d )
+        console.log(addedDuration)
         if (!meeting)
          next()
          
@@ -33,5 +39,27 @@ const CheckMeetingOnce = async (req, res, next) => {
     }
 }
 
+const CheckDateDuration = async (req, res, next) => {
+    try {
+        const meetingowner = await MeetingSchema.find({owner:req.userId})
+        if(meetingowner.length){
+            const addedDuration= meetingowner.map(meeting=> meeting.Date_Meeting= dayjs(meeting.Date_Meeting).add(+req.body.Duration,'minute').$d )
 
-module.exports={CheckMeetingOnce,CheckNoRepeatedDate}
+        const findMeeting = addedDuration.indexOf(req.body.Date_Meeting.substring(0,16))
+        console.log(findMeeting)
+        if (findMeeting!=-1)
+        return res.status(400).json({ errors: 'You have already a meeting during that time, please select another Date !' })
+
+        }
+        
+        next()
+         
+    
+    }
+    catch (err) {
+        return res.status(401).json({ err: err })
+    }
+}
+
+
+module.exports={CheckMeetingOnce,CheckNoRepeatedDate,CheckDateDuration}

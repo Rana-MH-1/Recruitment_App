@@ -81,6 +81,7 @@ const MyMeeting = ({ myMeeting }) => {
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
             <GiDuration /> {myMeeting.Duration}
+            <span>min</span>
           </Typography>
           {User.Role === "Recruiter" && (
             <Typography variant="body2" component="p">
@@ -94,7 +95,7 @@ const MyMeeting = ({ myMeeting }) => {
           )}        
         </CardContent>
         <CardActions>
-          <LightTooltip title={`start your online interview meeting on ${myMeeting.Date_Meeting.substring(0,10)} at ${myMeeting.Date_Meeting.substring(11,16)} `} >
+          {new Date().toISOString().substring(0,16) <= myMeeting.Date_Meeting && <LightTooltip title={`start your online interview meeting on ${myMeeting.Date_Meeting.substring(0,10)} at ${myMeeting.Date_Meeting.substring(11,16)} `} >
             <Button
               style={{
                 backgroundColor: "#0d2a95",
@@ -103,36 +104,10 @@ const MyMeeting = ({ myMeeting }) => {
               }}
               size="mb-2"
               onClick={handleOpen}
-              Disabled={new Date().toISOString().substring(0,16) < myMeeting.Date_Meeting ? true : false}
             >
-              JOIN
+              <a style={{color:'white'}} href={`https://meet.jit.si/${myMeeting._id}`} target='_blank' rel='noopener noreferrer'>join</a>
             </Button>
-          </LightTooltip>
-
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open} onClose>
-              <div className={classes.paper}>
-                <h2 id="transition-modal-title">Online Interview Meeting</h2>
-                <iframe
-                  src={`https://meet.jit.si/${myMeeting._id}`}
-                  title="Online Interview meeting"
-                  width="100%"
-                  height="90%"
-                ></iframe>
-              </div>
-            </Fade>
-          </Modal>
+          </LightTooltip>}
         </CardActions>
       </Card>
     </div>

@@ -8,7 +8,9 @@ const ReceivedApply = ({ receivedapply }) => {
     <div>
       { (receivedapply.Post===null)? null : (<>
       <div className="contain">
+        
         <p>{receivedapply.owner.FullName}</p>
+        
         {(receivedapply.Post===null)? null : <p>{receivedapply?.Post?.jobTitle}</p>}
         <p>{receivedapply.createdAt.substring(0, 10)}</p>
         <a style={{textDecoration:'none'}} href={receivedapply.CV} target="_blank" >CV</a>

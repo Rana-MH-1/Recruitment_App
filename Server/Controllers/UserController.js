@@ -158,8 +158,9 @@ const getDataUser = async (req, res)=>{
 
 const EditProfile = async(req, res)=>{
     try{
-        const updatedProfile = await user.findByIdAndUpdate(req.params.id, req.body)
+        const updatedProfile = await user.findByIdAndUpdate(req.params.id, req.body,{new:true})
         res.json(updatedProfile)
+        console.log(updatedProfile)
     }
     catch{res.status(400).json({ err: err.message })}
 }

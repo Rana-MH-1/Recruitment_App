@@ -4,31 +4,21 @@ import {InnerLayout} from '../../styles/Layouts';
 import Title from './Title';
 import ServiceCard from './ServiceCard';
 import design from '../../img/design.svg';
-import intelligence from '../../img/intelligence.svg';
-import gamedev from '../../img/game-dev.svg';
+import {useSelector} from 'react-redux';
+
 
 function ServicesSection() {
+        const User = useSelector(state=> state.Auth.User)
+
     return (
         <InnerLayout>
             <ServicesSectionStyled>
-                <Title title={'Services'} span={'services'} />
+                <Title title={User?.Role==='Candidate'? 'Specialty' : 'Profession'} span={User?.Role==='Candidate'? 'Specialty' : 'Profession'} />
                 <div className="services">
                     <ServiceCard 
                         image={design} 
-                        title={'Web Design'} 
-                        paragraph={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tenetur ratione quod.'}
-                    />
-                    <div className="mid-card">
-                        <ServiceCard 
-                            image={intelligence} 
-                            title={'Artificial Intelligence'} 
-                            paragraph={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tenetur ratione quod.'}
-                        />
-                    </div>
-                    <ServiceCard 
-                        image={gamedev} 
-                        title={'Game Development'} 
-                        paragraph={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tenetur ratione quod.'}
+                        title={User?.Role==='Candidate'? User.Specialty : User.Profession} 
+                        
                     />
                 </div>
             </ServicesSectionStyled>
@@ -38,6 +28,7 @@ function ServicesSection() {
 
 const ServicesSectionStyled = styled.section`
     .services{
+        width:300px;
         margin-top: 5rem;
         display: grid;
         grid-template-columns: repeat(3, 1fr);

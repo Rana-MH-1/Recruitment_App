@@ -4,25 +4,24 @@ import styled from 'styled-components';
 function Title({title, span}) {
     return (
         <TitleStyled>
-            <h2>{title} <b><span>{span}</span></b></h2>
+            <h5>{title} <b><span>{span}</span></b></h5>
         </TitleStyled>
     )
 }
 
 const TitleStyled = styled.div`
     position: relative;
-    h2{
+    h5{
         color: var(--white-color);
-        font-size: 3.1rem;
+        font-size: 2rem;
         font-weight: 600;
         text-transform: uppercase;
         position: relative;
-        padding-bottom: .7rem;
         @media screen and (max-width: 496px){
-            font-size: 2.8rem;
+            font-size: 1.8rem;
         }
         @media screen and (max-width: 370px){
-            font-size: 2rem;
+            font-size: 1rem;
         }
         &::before{
             content: "";
@@ -47,16 +46,16 @@ const TitleStyled = styled.div`
         span{
             font-weight: 900;
             color: rgba(25,29,43,.44);
-            font-size: 5rem;
+            font-size: 2rem;
             position: absolute;
             left: 0;
             top: 30%;
             z-index: -1;
             @media screen and (max-width: 620px){
-                font-size: 4rem;
+                font-size: 1.8rem;
             }
             @media screen and (max-width: 496px){
-                font-size: 3rem;
+                font-size: 1rem;
             }
             @media screen and (max-width: 370px){
                 font-size: 2rem;

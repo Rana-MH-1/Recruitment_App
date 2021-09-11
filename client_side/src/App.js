@@ -26,9 +26,7 @@ function App() {
          <Switch>
            <Route exact path="/register" component={RegisterPage} />
            <Route exact path="/login" component={LoginPage} />
-           <Route path="/about" exact>
-              <AboutPage />
-            </Route>
+           <PrivateRoute path={'/Profile/:id'} exact component={AboutPage} />
            <PrivateRoute exact path="/" component={HomePosts} />
            <PrivateRoute exact path="/MyApplies" component={MyApplies}/>
            <PrivateRoute exact path="/AppliesList" component={ReceivedApplies}/>

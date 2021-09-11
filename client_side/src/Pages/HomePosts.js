@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
       justifyContent: "center",
       display: "flex",
+      backgroundColor:'white',
+      borderRadius:'15px',
     },
   },
 }));
@@ -49,8 +51,18 @@ const HomePosts = () => {
     setPage(p);
     dispatch(getPostsAction(p, limit));
   };
+
+  const style1={
+  position: 'fixed',
+  right: 0,
+  bottom: 0,
+  zIndex:-1
+  }
   return (
     <div className='grid'>
+      <video autoPlay loop muted style={style1}>
+        <source src={'video.mp4'} type='video/mp4' />
+      </video>
       <div className="posts">
         {User && postList && (
           <PostList PostList={Filtering(postList, search)} page={page} limit={limit} />
