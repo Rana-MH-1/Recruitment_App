@@ -3,8 +3,7 @@ import './Css/home2.css'
 
 const Home = () => {
     return (
-        <div>
-
+        
             <div>
                 {/* Google Tag Manager (noscript) */}
                 <noscript>&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NTLG55B"
@@ -20,10 +19,10 @@ const Home = () => {
                     <div id="navigation">
                         <ul id="main-menu" className="menu">
                             <li id="menu-item-152" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-152">
-                                <a href="">register</a>
+                                <a href="./Register">register</a>
                             </li>
                             <li id="menu-item-646550" className="alt menu-item menu-item-type-custom menu-item-object-custom menu-item-646550">
-                                <a href="/careers">Sing IN</a>
+                                <a href="./login">Sing IN</a>
                             </li>
                         </ul>
                     </div>
@@ -126,9 +125,8 @@ const Home = () => {
                 <div>
                     <div className="grecaptcha-badge" data-style="bottomright" style={{ width: '256px', height: '60px', display: 'block', transition: 'right 0.3s ease 0s', position: 'fixed', bottom: '14px', right: '-186px', boxShadow: 'gray 0px 0px 5px', borderRadius: '2px', overflow: 'hidden' }}><div className="grecaptcha-logo"><iframe title="reCAPTCHA" src="https://www.google.com/recaptcha/api2/anchor?ar=2&k=6LcSKtIZAAAAANwd-_vIpsU3WvH6JK1ZMGYZscgx&co=aHR0cHM6Ly9ub25zdG9wY29uc3VsdGluZy5jb206NDQz&hl=fr&v=wxAi4AKLXL2kBAvXqI4XLSWS&size=invisible&cb=1pkdz39r0sit" width={256} height={60} role="presentation" name="a-h2bl51egtt94" frameBorder={0} scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" /></div><div className="grecaptcha-error" /><textarea id="g-recaptcha-response-100000" name="g-recaptcha-response" className="g-recaptcha-response" style={{ width: '250px', height: '40px', border: '1px solid rgb(193, 193, 193)', margin: '10px 25px', padding: '0px', resize: 'none', display: 'none' }} defaultValue={""} /></div><iframe style={{ display: 'none' }} /></div><iframe name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="https://vars.hotjar.com/box-dfc01efbdc94bb0936d9a35a502b0b64.html" style={{ display: 'none !important', width: '1px !important', height: '1px !important', opacity: '0 !important', pointerEvents: 'none !important' }} />
             </div>
-        </div>
-
+       
     )
 }
 
-export default Home
+export default Home;
