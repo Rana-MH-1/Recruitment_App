@@ -14,10 +14,9 @@ import {
 } from "@ant-design/icons";
 import Apply from "./Apply";
 
-
 const { Meta } = Card;
 
-const PostRecruiter = ({ Post,page,limit }) => {
+const PostRecruiter = ({ Post, page, limit }) => {
   const User = useSelector((state) => state.Auth.User);
   const [isEdited, setIsEdited] = useState(false);
   const [infoPost, setInfoPost] = useState({
@@ -43,17 +42,19 @@ const PostRecruiter = ({ Post,page,limit }) => {
       jobDescription: Post.jobDescription,
     });
     if (isEdited && infoPost !== Post)
-      dispatch(EditPost({ ...Post, ...infoPost },page,limit));
+      dispatch(EditPost({ ...Post, ...infoPost }, page, limit));
   };
 
   return (
     <Card
       className="CardPost"
       style={{
-        width: 800,
+        width: 600,
         margin: "0 auto",
         marginTop: "40px",
-        backgroundColor: "#cfd4ea",
+        
+        fontFamily: 'Montserrat'
+      
       }}
       /* cover={
       <img
@@ -73,94 +74,96 @@ const PostRecruiter = ({ Post,page,limit }) => {
         ),
       ]}
     >
-      {isEdited ? (
-        <>
-          <input
-            name="jobTitle"
-            value={infoPost.jobTitle}
-            onChange={handlePostChange}
-          ></input>
-          <input
-            name="jobDescription"
-            value={infoPost.jobDescription}
-            onChange={handlePostChange}
-          ></input>
-        </>
-      ) : (
-        <>
-          <Meta
-            style={{
-              fontSize: "20px",
-              fontWeight: "bold",
-              marginBottom: "35px",
-            }}
-            avatar={
-              <Avatar
-                src={
-                  Post.owner.image
-                    ? Post.owner.image.url
-                    : "https://png.pngtree.com/png-clipart/20200701/original/pngtree-black-default-avatar-png-image_5407174.jpg"
-                }
-              />
+      <Meta
+        style={{
+          fontSize: "20px",
+          fontWeight: "bold",
+          marginBottom: "35px",
+        }}
+        avatar={
+          <Avatar
+            src={
+              Post.owner.image
+                ? Post.owner.image.url
+                : "https://png.pngtree.com/png-clipart/20200701/original/pngtree-black-default-avatar-png-image_5407174.jpg"
             }
-            title={Post.jobTitle}
           />
-        </>
-      )}
+        }
+        title={
+          !isEdited ? (
+            Post.jobTitle
+          ) : (
+            <input
+              name="jobTitle"
+              value={infoPost.jobTitle}
+              onChange={handlePostChange}
+            ></input>
+          )
+        }
+      />
 
       <div>
-        {isEdited ? (
-          <>
-            <EnvironmentOutlined className="icon" />
+        <div
+          className="flexIcons"
+          style={{ display: "flex", flexDirecton: "column" }}
+        >
+          {isEdited ? (
             <input
-              name="Address"
-              value={infoPost.Address}
+              name="jobDescription"
+              value={infoPost.jobDescription}
               onChange={handlePostChange}
             ></input>
-            <CalendarOutlined className="icon" />
-            <input
-              name="Contrat_Type"
-              value={infoPost.Contrat_Type}
-              onChange={handlePostChange}
-            ></input>
-            <TeamOutlined className="icon" />
-            <input
-              name="Nb_Candidate"
-              value={infoPost.Nb_Candidate}
-              onChange={handlePostChange}
-            ></input>
-          </>
-        ) : (
-          <div
-            className="flexIcons"
-            style={{ display: "flex", flexDirecton: "column" }}
-          >
+          ) : (
             <p id="jobDes">{Post.jobDescription}</p>
-            <div className="col1" style={{ margin: "20px 0" }}>
-              <BankOutlined className="icon" />
-              <span>{Post.owner.SocietyName}</span>
+          )}
+          <div className="col1" style={{ margin: "20px 0" }}>
+            <BankOutlined className="icon" />
+            <span>{Post.owner.SocietyName}</span>
 
-              <EnvironmentOutlined
-                style={{ marginLeft: "140px" }}
-                className="icon"
-              />
+            <EnvironmentOutlined
+              style={{ marginLeft: "140px" }}
+              className="icon"
+            />
+            {isEdited ? (
+              <input
+                name="Address"
+                value={infoPost.Address}
+                onChange={handlePostChange}
+              ></input>
+            ) : (
               <span>{Post.Address}</span>
+            )}
 
-              <div style={{ float: "right" }}>
-                <FieldTimeOutlined className="icon" />
-                <span>{Post.createdAt.substring(0, 10)}</span>
-              </div>
+            <div style={{ float: "right" }}>
+              <FieldTimeOutlined className="icon" />
+              <span>{Post.createdAt.substring(0, 10)}</span>
             </div>
-            <div className="col2" style={{ marginTop: "25px" }}>
-              <CalendarOutlined className="icon" />
+          </div>
+          <div className="col2" style={{ marginTop: "25px" }}>
+            <CalendarOutlined className="icon" />
+            {isEdited ? (
+              <input
+                name="Contrat_Type"
+                value={infoPost.Contrat_Type}
+                onChange={handlePostChange}
+              ></input>
+            ) : (
               <span>{Post.Contrat_Type}</span>
+            )}
+            {isEdited ? (
+              <input
+                name="Nb_Candidate"
+                value={infoPost.Nb_Candidate}
+                onChange={handlePostChange}
+              ></input>
+            ) : (
               <div style={{ float: "right", marginRight: "60px" }}>
                 <TeamOutlined className="icon" />
                 <span>{Post.Nb_Candidate}</span>
               </div>
-            </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </Card>
   );

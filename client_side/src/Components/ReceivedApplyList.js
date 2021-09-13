@@ -5,7 +5,7 @@ const ReceivedApplyList = ({receivedapplylist}) => {
     return (
         <div>
             <div className='oneline'>
-                <h5>Candidate</h5>
+                <h5 style={{paddingTop:'25px'}}>Candidate</h5>
                 <h5>Applied on</h5>
                 <h5>Sent at</h5>
                 <h5>CV</h5>

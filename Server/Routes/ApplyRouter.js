@@ -6,5 +6,6 @@ const {TokenVerification} = require('../Middlewares/PostMiddlewares')
 
 router.get('/MyApply',TokenVerification,ApplyController.getMyApply)
 router.get('/ApplyReceived',TokenVerification,ApplyController.getApplybyRecruiter)
+router.get('/countMyApplies',TokenVerification,ApplyController.CountMyApplies)
 
 module.exports = router

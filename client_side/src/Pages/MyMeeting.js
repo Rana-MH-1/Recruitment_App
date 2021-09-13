@@ -14,6 +14,7 @@ const MyMeeting = () => {
   return (
     <div>
       {(User.R_Meeting_List ||User.C_Meeting_List) && <MyMeetingList myMeetingList={(User.Role==='Recruiter')? User.R_Meeting_List : User.C_Meeting_List} />}
+      {/*(User.Role ==='Recruiter'? User.R_Meeting_List.length===0 : User.C_Meeting_List.length===0) && <h1>You have 0 meeting</h1>*/ }
     </div>
   );
 };

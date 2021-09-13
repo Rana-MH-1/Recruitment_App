@@ -58,7 +58,7 @@ const Invite = ({ apply }) => {
     Id_Candidat: apply.owner._id,
     Name_Candidat: apply.owner.FullName,
     Email_Candidat: apply.owner.Email,
-    Date_Meeting: "",
+    Date_Meeting: null,
     Duration: "",
     jobTitle: apply?.Post?.jobTitle,
   });
@@ -96,7 +96,7 @@ const Invite = ({ apply }) => {
               id="date"
               label="Date Meeting"
               type="datetime-local"
-              defaultValue="2021-06-12T08:30"
+              defaultValue="2019-06-12T08:30"
               min="2021-06-07T00:00"
               max="2021-06-14T00:00"
               className={classes.textField}
@@ -104,13 +104,13 @@ const Invite = ({ apply }) => {
                 shrink: true,
               }}
               name="Date_Meeting"
-              error={meetinginfo.Date_Meeting==='' && isInvited}
-              helperText={meetinginfo.Date_Meeting==='' && isInvited ?'Time meeting is required' : ' '}
+              error={meetinginfo.Date_Meeting===null && isInvited}
+              helperText={meetinginfo.Date_Meeting===null && isInvited ?'Time meeting is required' : ' '}
               onChange={handleInfoMeeting}
             />
             <TextField
               id="outlined-size-small"
-              label="Duration *"
+              label="Duration(min) *"
               variant="outlined"
               name="Duration"
               size="small"

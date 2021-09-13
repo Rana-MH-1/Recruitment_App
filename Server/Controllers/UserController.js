@@ -156,4 +156,13 @@ const getDataUser = async (req, res)=>{
 
 }
 
-module.exports = {registerCandidate,registerRecruiter,loginUser,getDataUser}
+const EditProfile = async(req, res)=>{
+    try{
+        const updatedProfile = await user.findByIdAndUpdate(req.params.id, req.body,{new:true})
+        res.json(updatedProfile)
+        console.log(updatedProfile)
+    }
+    catch{res.status(400).json({ err: err.message })}
+}
+
+module.exports = {registerCandidate,registerRecruiter,loginUser,getDataUser,EditProfile}

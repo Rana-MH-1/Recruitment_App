@@ -2,26 +2,25 @@ import styled from 'styled-components';
 import {InnerLayout} from '../../styles/Layouts';
 import Title from './Title';
 import ReviewItem from './ReviewItem';
+import {useSelector} from 'react-redux';
 
 
 
 
 
+function ReviewsSetion({count}) {
+    const User = useSelector(state=> state.Auth.User)
 
-
-function ReviewsSetion() {
 
 return(
         <ReviewsStyled>
-            <Title title={'Reviews'} span={'Reviews'} />
+            <Title title={User.Role==='Recruiter'? 'Number of Posts' : 'My applies'} span={User.Role==='Recruiter'? 'Number of Posts' : 'My applies'} />
             <InnerLayout>
                 <div className="reviews">
                     <ReviewItem 
-                        text={'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt culpa ad itaque quas?'} 
+                        text={count} 
                     />
-                    <ReviewItem 
-                        text={'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt culpa ad itaque quas? Dos ir por culpa ad itaque quas!'} 
-                    />
+                    
                     
                 </div>
             </InnerLayout>

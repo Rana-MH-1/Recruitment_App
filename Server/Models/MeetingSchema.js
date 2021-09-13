@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const moment = require('moment-timezone')
+
 
 const MeetingSchema = new mongoose.Schema({
 
@@ -16,7 +18,7 @@ const MeetingSchema = new mongoose.Schema({
     Email_Candidat:String,
     
     Date_Meeting:{
-        type:String,
+        type:Date,
         required:true
     },
 

@@ -6,7 +6,7 @@ const MyapplyList = ({ myapplyList }) => {
   return (
     <div>
       <div className="container">
-        <h5>Job</h5>
+        <h5 style={{paddingTop:'24px'}}>Job</h5>
         <h5>Address</h5>
         <h5>Sent at</h5>
         <h5>CV</h5>

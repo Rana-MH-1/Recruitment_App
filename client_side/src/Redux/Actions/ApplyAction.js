@@ -68,5 +68,25 @@ export const getReceivedApplies =()=> async(dispatch)=>{
     }
 }
 
+export const getCOUNTApplies =()=> async(dispatch)=>{
+    
+    dispatch(clearError())
+    dispatch(startLoading("get My applies count"))
+    try{
+        setToken()
+        const {data} = await axios.get(`${prefixe}/api/Apply/countMyApplies`)
+        dispatch({
+            type: ApplyTypes.GET_COUNT_MY_APPLIES,
+            payload: data
+        })
+        dispatch(stopLoading())
+    }
+    catch(err){
+        dispatch(stopLoading())
+        dispatch(setError(err.response?.data?.errors))
+        
+    }
+}
+
 
 

@@ -4,6 +4,7 @@ import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as SiIcons from  'react-icons/si'
 
+
 export const SidebarData = [
   {
     title: 'HomePosts',
@@ -15,7 +16,7 @@ export const SidebarData = [
     title: 'Profile',
     path: '/Profile/:id',
     icon: <IoIcons.IoMdPeople />,
-    cName: 'nav-text'
+    cName: 'nav-text',
   },
   {
     title: 'My Applies',
