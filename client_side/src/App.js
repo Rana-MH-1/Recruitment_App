@@ -16,22 +16,26 @@ import MyMeeting from './Pages/MyMeeting';
 
 import Home from './Pages/Home'
 
+
+
 function App() {
   return (
     <>
       <Router>
-        
+      
         <Loading />
         <Navbar />
         <Switch>
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/home2"  component={Home} />
+          
+       
           <Route path="/about" exact>
             <AboutPage />
           </Route>
-          <Route path="/home" exact>
-          <Home />
-        </Route>
+       
+       
           <PrivateRoute exact path="/" component={HomePosts} />
           <PrivateRoute exact path="/MyApplies" component={MyApplies} />
           <PrivateRoute exact path="/AppliesList" component={ReceivedApplies} />
