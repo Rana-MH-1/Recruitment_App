@@ -72,3 +72,23 @@ export const logout = () => {
         type: types.LOGOUT
     }
 }
+
+export const EditProfile = (EditedProfile) => async (dispatch) => {
+    dispatch(clearError())
+    dispatch(startLoading("Editing data..."))
+    try {
+        console.log(EditedProfile)
+        setToken()
+        const res = await axios.put(`${prefixe}/api/Users/EditProfile/${EditedProfile._id}`,EditedProfile)
+        dispatch({
+            type: types.UPDATE_PROFILE_USER,
+            payload: res.data
+        })
+        dispatch(stopLoading())
+        dispatch(getDataUSer())
+    }
+    catch (err) {
+        dispatch(setError(err.response?.data?.errors))
+        dispatch(stopLoading())
+    }
+}  

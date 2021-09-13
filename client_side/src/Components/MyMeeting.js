@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import Backdrop from "@material-ui/core/Backdrop";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,11 +37,19 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    width: "700px",
-    height: "600px",
+    width: "1000px",
+    height: "650px",
     padding: theme.spacing(2, 4, 3),
   },
 }));
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: "#cfd4ea",
+    color: "black",
+    boxShadow: theme.shadows[1],
+    fontSize: 15,
+  },
+}))(Tooltip);
 
 const MyMeeting = ({ myMeeting }) => {
   const classes = useStyles();
@@ -57,7 +66,6 @@ const MyMeeting = ({ myMeeting }) => {
 
   return (
     <div>
-      {console.log(myMeeting)}
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <Typography
@@ -66,13 +74,14 @@ const MyMeeting = ({ myMeeting }) => {
             gutterBottom
           >
             <AiOutlineFieldTime />
-            {myMeeting.Date_Meeting}
+            {myMeeting.Date_Meeting.substring(0,10)} at {myMeeting.Date_Meeting.substring(11,16)}
           </Typography>
           <Typography variant="h5" component="h5">
             {myMeeting.jobTitle}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
             <GiDuration /> {myMeeting.Duration}
+            <span>min</span>
           </Typography>
           {User.Role === "Recruiter" && (
             <Typography variant="body2" component="p">
@@ -83,45 +92,22 @@ const MyMeeting = ({ myMeeting }) => {
             <Typography variant="body2" component="p">
               Recruiter: {myMeeting.owner.FullName}
             </Typography>
-          )}
+          )}        
         </CardContent>
         <CardActions>
-          <Button
-            style={{
-              backgroundColor: "#0d2a95",
-              marginLeft: "60px",
-              borderColor: "#0d2a95",
-            }}
-            size="mb-2"
-            onClick={handleOpen}
-            Disabled={(Date.now() === myMeeting.Date_Meeting)? false : true}
-          >
-            JOIN
-          </Button>
-          <Modal 
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open} onClose>
-              <div className={classes.paper}>
-                <h2 id="transition-modal-title">Online Interview Meeting</h2>
-                <iframe
-                  src={`https://meet.jit.si/${myMeeting._id}`}
-                  title="Online Interview meeting"
-                  width="100%"
-                  height="90%"
-                ></iframe>
-              </div>
-            </Fade>
-          </Modal>
+          {new Date().toISOString().substring(0,16) <= myMeeting.Date_Meeting && <LightTooltip title={`start your online interview meeting on ${myMeeting.Date_Meeting.substring(0,10)} at ${myMeeting.Date_Meeting.substring(11,16)} `} >
+            <Button
+              style={{
+                backgroundColor: "#0d2a95",
+                marginLeft: "60px",
+                borderColor: "#0d2a95",
+              }}
+              size="mb-2"
+              onClick={handleOpen}
+            >
+              <a style={{color:'white'}} href={`https://meet.jit.si/${myMeeting._id}`} target='_blank' rel='noopener noreferrer'>join</a>
+            </Button>
+          </LightTooltip>}
         </CardActions>
       </Card>
     </div>

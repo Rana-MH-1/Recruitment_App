@@ -4,19 +4,17 @@ import styled from 'styled-components';
 function ReviewItem({text}) {
     return (
         <RevivewItemStyled>
-            <p>{text}</p>
+            <h1>{text}</h1>
         </RevivewItemStyled>
     )
 }
 
 const RevivewItemStyled = styled.div`
-    padding: 2rem 1rem;
     border-left: 6px solid var(--border-color);
     background-color: var(--background-dark-grey);
     position: relative;
     width: 100%;
     &:not(:first-child){
-        
     }
     &::after{
         content: "";
@@ -27,8 +25,8 @@ const RevivewItemStyled = styled.div`
         border-style: solid;
         border-color: var(--background-dark-grey) transparent transparent var(--background-dark-grey);
     }
-    p{
-        padding: 1rem 0;
+    h1{
+        font-size:40px;
     }
 `;
 

@@ -18,4 +18,13 @@ const getApplybyRecruiter = async(req, res)=>{
 
 }
 
-module.exports = {getMyApply,getApplybyRecruiter}
+const CountMyApplies = async(req, res)=>{
+    try{
+        const count = await ApplySchema.find({owner: req.userId}).countDocuments()
+        res.json(count)
+    }
+    catch{res.status(400).json({ err: err.message })}
+
+}
+
+module.exports = {getMyApply,getApplybyRecruiter,CountMyApplies}

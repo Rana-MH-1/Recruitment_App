@@ -9,11 +9,6 @@ const initState={
     token:localStorage.getItem('token'),
     isAuth:Boolean(localStorage.getItem('isAuth')),
     User:JSON.parse(localStorage.getItem('User')),
-    MyPosts:[],
-    MyApplies:[],
-    Appliesreceived:[],
-    R_Meeting_List:[],
-    C_Meeting_List :[]
 }
 const AuthReducer =(state=initState,{type,payload})=>{
 
@@ -58,6 +53,12 @@ const AuthReducer =(state=initState,{type,payload})=>{
                 User:{...state.User,
                 Appliesreceived: payload}
             }
+        case ApplyTypes.GET_COUNT_MY_APPLIES:
+            return{
+                ...state,
+                User:{...state.User,
+                CountMyApplies: payload}
+            }
         case MeetingTypes.GET_MEETINGLIST_R_SUCCESS:
             return{
                 ...state,
@@ -69,6 +70,11 @@ const AuthReducer =(state=initState,{type,payload})=>{
                 ...state,
                 User:{...state.User,
                 C_Meeting_List: payload}
+            }
+        case types.UPDATE_PROFILE_USER :
+            return{
+                ...state,
+                User:{...state.User,payload}
             }
         default:
             return state
