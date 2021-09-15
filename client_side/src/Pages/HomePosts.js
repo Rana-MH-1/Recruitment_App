@@ -56,10 +56,10 @@ const HomePosts = () => {
   position: 'fixed',
   right: 0,
   bottom: 0,
-  zIndex:-1
+  zIndex:-1,
   }
   return (
-    <div className='grid'>
+    <div className='grid '>
       <video autoPlay loop muted style={style1}>
         <source src={'video.mp4'} type='video/mp4' />
       </video>

@@ -35,8 +35,10 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-    backgroundImage:
-      "url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg)",
+    // backgroundImage:
+    //   "url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg)",
+      backgroundImage:
+      "url(/signin.gif)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"

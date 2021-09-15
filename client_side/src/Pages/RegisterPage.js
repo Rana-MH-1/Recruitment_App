@@ -133,9 +133,11 @@ const RegisterPage = () => {
               display: "grid",
               gridTemplateColumns: "auto auto",
               gridColumnGap: "10px",
+              backgroundImage :"url(https://media0.giphy.com/media/3oKIPz6FWhfMAOsZAk/giphy.gif)"
+          
             }}
           >
-            <Form.Group className="mb-3">
+            <Form.Group  className="mb-3">
               <Form.Control
                 name="Profession"
                 type="text"
@@ -178,6 +180,7 @@ const RegisterPage = () => {
                 onChange={handleInfoChange}
               />
             </Form.Group>
+  
           </div>
         );
       default:
@@ -188,18 +191,20 @@ const RegisterPage = () => {
   const Errors = useSelector((state) => state.appState.errors);
 
   return (
-    <div
+    <div 
       style={{
         display: "grid",
-        gridTemplateColumns: "60% 40%",
+        gridTemplateColumns: "60% 40%",  
+      
+        
       }}
     >
-      <div className="bckground">
+      <div className="bckground"  style={{}}>
         <h3 className="paragraph">
           Welcome to our Website, register now and be among us
         </h3>
       </div>
-      <div style={{ margin: "0 auto" }}>
+      <div style={{ margin: "0 auto" , textAlign: "center" }}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -228,7 +233,7 @@ const RegisterPage = () => {
             >
               {errorMsg}
             </Alert>}
-        <Form>
+        <Form >
           <Form.Group className="mb-3">
             <Form.Control
               required
@@ -298,6 +303,7 @@ const RegisterPage = () => {
             Submit
           </Button>
           
+
           {Errors && Errors[0] && (
             <Alert
               style={{ marginTop: "20px", width: "300px" }}
@@ -314,7 +320,8 @@ const RegisterPage = () => {
         }
         </Form>
       </div>
-    </div>
+      </div>
+    
   );
 };
 export default RegisterPage;
