@@ -52,17 +52,24 @@ const HomePosts = () => {
     dispatch(getPostsAction(p, limit));
   };
 
+  // const style1={
+  // position: 'fixed',
+  // right: 0,
+  // bottom: 0,
+  // zIndex:-1
+  // }
   const style1={
-  position: 'fixed',
-  right: 0,
-  bottom: 0,
-  zIndex:-1
+    width:'100%',
+    height:'50%',
+   zIndex:-1
   }
   return (
-    <div className='grid'>
+    <div>
       <video autoPlay loop muted style={style1}>
-        <source src={'video.mp4'} type='video/mp4' />
+        <source src={'https://thumbs.gfycat.com/CalculatingOddballCarpenterant-mobile.mp4'} type='video/mp4' />
       </video>
+      
+    <div className='grid'>
       <div className="posts">
         {User && postList && (
           <PostList PostList={Filtering(postList, search)} page={page} limit={limit} />
@@ -81,6 +88,7 @@ const HomePosts = () => {
         <br/><br/><br/>
         <LimitSelector setLimit={setLimit} />
       </div>
+    </div>
     </div>
   );
 };

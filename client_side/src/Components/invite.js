@@ -58,7 +58,7 @@ const Invite = ({ apply }) => {
     Id_Candidat: apply.owner._id,
     Name_Candidat: apply.owner.FullName,
     Email_Candidat: apply.owner.Email,
-    Date_Meeting: null,
+    Date_Meeting: '',
     Duration: "",
     jobTitle: apply?.Post?.jobTitle,
   });

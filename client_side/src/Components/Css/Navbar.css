@@ -1,5 +1,5 @@
 .navbar {
-    background-color: black;
+    background-image: url('../../img/blue.png');
     height: 65px;
     display: flex;
     justify-content: start;
@@ -14,7 +14,7 @@
   }
   
   .nav-menu {
-    background-color: black;
+    background-color: #0d2a95;
     width: 200px;
     height: 100vh;
     display: flex;
@@ -61,12 +61,13 @@
   }
   
   .navbar-toggle {
-    background-color: black;
+    background-color: #0d2a95;
     width: 100%;
-    height: 80px;
+    height: 65px;
     display: flex;
     justify-content: start;
     align-items: center;
+    
   }
   
   span {

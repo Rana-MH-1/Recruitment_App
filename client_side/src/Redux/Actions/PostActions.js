@@ -117,3 +117,23 @@ export const getPostCount = () => async (dispatch) => {
         dispatch(setError(err.response?.data?.errors))
     }
 }
+
+export const FiltrePosts=(search)=> async(dispatch)=>{
+    
+    dispatch(clearError())
+    dispatch(getPostsAction())
+    dispatch(startLoading("get data search by Title"))
+    try{
+        const {data} = await axios.get(`${prefixe}/api/Posts/FilterPosts?search=${search}`)
+        dispatch({
+            type: types.FILTER_POSTS_SUCCESS,
+            payload: data
+        })
+        dispatch(stopLoading())
+    }
+    catch(err){
+        dispatch(setError(err.response?.data?.errors))
+        dispatch(stopLoading())
+    }
+}
+

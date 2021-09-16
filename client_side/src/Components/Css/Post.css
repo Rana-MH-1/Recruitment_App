@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&family=Oswald&display=swap');
+
+body{
+    font-family: 'Montserrat Alternates', sans-serif;
+font-family: 'Oswald', sans-serif;
+}
+
 span{
     
     font-size: 15px;
@@ -14,6 +22,7 @@ span{
     
 }
 
+
 .title{
     font-size: 30px;
 }
@@ -24,7 +33,7 @@ span{
 }
 
 #jobDes{
-    width:740px;
-    overflow-x: auto;
+    width:450px;
+    overflow-x: hidden;
     font-size: 15px;
 }

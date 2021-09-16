@@ -32,7 +32,7 @@ const FiltreApply = ({handleField,handleSearchChange}) => {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label"><BsFilter style={{zoom:'150%'}}/> Filters </InputLabel>
+        <InputLabel id="demo-simple-select-label"><BsFilter style={{zoom:'190%'}}/> Filters </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"

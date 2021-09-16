@@ -49,11 +49,12 @@ const PostRecruiter = ({ Post, page, limit }) => {
     <Card
       className="CardPost"
       style={{
-        width: 600,
+        width: 500,
         margin: "0 auto",
         marginTop: "40px",
-        
-        fontFamily: 'Montserrat'
+        boxShadow: 'rgb(182 182 182 / 50%) 0px 2px 4px',
+        borderLeft:'5px solid #0d2a95',
+
       
       }}
       /* cover={

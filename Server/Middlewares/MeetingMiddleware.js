@@ -6,9 +6,6 @@ const moment = require('moment-timezone')
 const CheckNoRepeatedDate = async (req, res, next) => {
     try {
         const meeting = await MeetingSchema.findOne({owner:req.userId,Date_Meeting:req.body.Date_Meeting})
-        const meetingowner = await MeetingSchema.find({owner:req.userId})
-        const addedDuration= meetingowner.map(meeting=> meeting.Date_Meeting= dayjs(meeting.Date_Meeting).add(+req.body.Duration,'minute').$d )
-        console.log(addedDuration)
         if (!meeting)
          next()
          
@@ -43,11 +40,12 @@ const CheckDateDuration = async (req, res, next) => {
     try {
         const meetingowner = await MeetingSchema.find({owner:req.userId})
         if(meetingowner.length){
-            const addedDuration= meetingowner.map(meeting=> meeting.Date_Meeting= dayjs(meeting.Date_Meeting).add(+req.body.Duration,'minute').$d )
+           
+        const addedDuration= meetingowner.map(meetingg=> meetingg.Date_Meeting= dayjs(meetingg.Date_Meeting).add(30,'minute').add(1,'hour').$d.toISOString().substring(0,16))
 
         const findMeeting = addedDuration.indexOf(req.body.Date_Meeting.substring(0,16))
         console.log(findMeeting)
-        if (findMeeting!=-1)
+        if (findMeeting!==-1)
         return res.status(400).json({ errors: 'You have already a meeting during that time, please select another Date !' })
 
         }

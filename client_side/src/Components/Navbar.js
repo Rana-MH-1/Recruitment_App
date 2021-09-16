@@ -23,6 +23,7 @@ import Chip from "@material-ui/core/Chip";
 import { useEffect } from "react";
 
 import AvatarIMG from "./profile_components/AvatarIMG";
+import { FiltrePosts } from "../Redux/Actions/PostActions";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -122,7 +123,7 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const HandleSearch = (e) => {
     setSearch(e.target.value);
-    dispatch(FiltreAction(search));
+    dispatch(FiltrePosts(search))
   };
 
 

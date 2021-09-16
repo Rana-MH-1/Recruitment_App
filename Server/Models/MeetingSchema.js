@@ -18,7 +18,7 @@ const MeetingSchema = new mongoose.Schema({
     Email_Candidat:String,
     
     Date_Meeting:{
-        type:Date,
+        type:String,
         required:true
     },
 

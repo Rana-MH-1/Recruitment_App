@@ -12,12 +12,18 @@ import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import Backdrop from "@material-ui/core/Backdrop";
 import Tooltip from "@material-ui/core/Tooltip";
+import * as FiIcons from 'react-icons/fi';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 400,
-    paddingLeft: "100px",
+    width: 350,
+    paddingLeft: "70px",
     margin: "0px auto",
+    boxShadow: 'rgb(182 182 182 / 50%) 0px 2px 4px',
+    lineHeight: '1.5',
+    borderLeft: '20px solid #0d2a95',
+
+    borderRadius:'3px'
   },
   bullet: {
     display: "inline-block",
@@ -68,6 +74,7 @@ const MyMeeting = ({ myMeeting }) => {
     <div>
       <Card className={classes.root} variant="outlined">
         <CardContent>
+          { new Date().toISOString().substring(0,16) > myMeeting.Date_Meeting && <FiIcons.FiDelete style={{zoom:'150%',float:'right',color:'#0d2a95'}}/>}
           <Typography
             className={classes.title}
             color="textSecondary"
@@ -98,14 +105,19 @@ const MyMeeting = ({ myMeeting }) => {
           {new Date().toISOString().substring(0,16) <= myMeeting.Date_Meeting && <LightTooltip title={`start your online interview meeting on ${myMeeting.Date_Meeting.substring(0,10)} at ${myMeeting.Date_Meeting.substring(11,16)} `} >
             <Button
               style={{
-                backgroundColor: "#0d2a95",
-                marginLeft: "60px",
+                backgroundColor: "white",
+                marginLeft: "20px",
                 borderColor: "#0d2a95",
+                width:'100px',
+                borderRadius:'10px',
+                fontWeight:'bold',
+                fontSize:'15px',
+                marginBottom:'10px'
               }}
               size="mb-2"
               onClick={handleOpen}
             >
-              <a style={{color:'white'}} href={`https://meet.jit.si/${myMeeting._id}`} target='_blank' rel='noopener noreferrer'>join</a>
+              <a style={{color:'#0d2a95'}} href={`https://meet.jit.si/${myMeeting._id}`} target='_blank' rel='noopener noreferrer'>JOIN</a>
             </Button>
           </LightTooltip>}
         </CardActions>

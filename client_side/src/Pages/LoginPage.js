@@ -114,8 +114,8 @@ const LoginPage = () => {
               name="Email"
               autoComplete="email"
               autoFocus
-              error={Errors?.Email?.msg}
-              helperText={Errors?.Email?.msg}
+              error={Errors?.Email?.msg || Errors?.message}
+              helperText={Errors?.Email?.msg || Errors?.message}
               onChange={handleInfoChange}
             />
             <TextField
@@ -128,8 +128,8 @@ const LoginPage = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              error={(Errors===null)? null: Errors?.Password?.msg|| Errors[0]?.msg}
-              helperText={(Errors===null)? null: Errors?.Password?.msg || Errors[0]?.msg}
+              error={(Errors===null)? null: Errors?.Password?.msg || Errors?.msg}
+              helperText={(Errors===null)? null: Errors?.Password?.msg || Errors?.msg}
               onChange={handleInfoChange}
             />
             {/* <p style={{color:'red'}}>{(Errors===null)? null: Errors[0]?.msg}</p> */}
