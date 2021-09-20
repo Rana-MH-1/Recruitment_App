@@ -62,6 +62,24 @@ export const getMyPost = () => async (dispatch) => {
     }
 }
 
+export const getMyPostCount = () => async (dispatch) => {
+    dispatch(clearError())
+    dispatch(startLoading("Get My PostsCount..."))
+    try {
+        setToken()
+        const { data } = await axios.get(`${prefixe}/api/Posts/MyPostsCount`)
+        dispatch({
+            type: types.GE_MY_POSTS_COUNT_SUCCESS,
+            payload: data
+        })
+        dispatch(stopLoading())
+    }
+    catch (err) {
+        dispatch(stopLoading())
+        dispatch(setError(err.response.data.errors))
+    }
+}
+
 export const EditPost = (EditedPost,page,limit) => async (dispatch) => {
     dispatch(clearError())
     dispatch(startLoading("Editing Posts..."))
@@ -85,7 +103,6 @@ export const DeletePost = (id) => async (dispatch) => {
     dispatch(clearError())
     dispatch(startLoading("Deleting Posts..."))
     try {
-        console.log(id)
         setToken()
         const res = await axios.delete(`${prefixe}/api/Posts/DeletePost/${id}`)
         dispatch({
@@ -117,3 +134,23 @@ export const getPostCount = () => async (dispatch) => {
         dispatch(setError(err.response?.data?.errors))
     }
 }
+
+export const FiltrePosts=(search)=> async(dispatch)=>{
+    
+    dispatch(clearError())
+    dispatch(getPostsAction())
+    dispatch(startLoading("get data search by Title"))
+    try{
+        const {data} = await axios.get(`${prefixe}/api/Posts/FilterPosts?search=${search}`)
+        dispatch({
+            type: types.FILTER_POSTS_SUCCESS,
+            payload: data
+        })
+        dispatch(stopLoading())
+    }
+    catch(err){
+        dispatch(setError(err.response?.data?.errors))
+        dispatch(stopLoading())
+    }
+}
+

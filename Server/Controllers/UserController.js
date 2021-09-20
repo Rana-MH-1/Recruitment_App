@@ -16,6 +16,7 @@ const registerCandidate = async (req, res) => {
         const candidatee = await candidate.findOne({ Email })
         if (candidatee)
             return res.status(400).json({ errors: [{ msg: 'User already exists !' }] })
+        
         const newCandidate = new candidate({
             FullName,
             Email,
@@ -73,6 +74,7 @@ const registerRecruiter = async (req, res) => {
         const recruiterr = await recruiter.findOne({ Email })
         if (recruiterr)
             return res.status(400).json({ errors: [{ msg: 'User already exists !' }] })
+
         const newRecruiter = new recruiter({
             FullName,
             Email,
@@ -130,11 +132,11 @@ const loginUser = async (req, res) =>{
         const {Email, Password} = req.body;
         const Userr = await user.findOne({ Email })
         if (!Userr)
-            return res.status(404).json({ errors: [{ msg: 'You have to sign up first' }] })
+            return res.status(404).json({ errors: { message: 'The Email is Uncorrect' } })
             //compare between password(1) in req.body and in db 
             const isMatch = await bcrypt.compare(Password, Userr.Password)
         if (!isMatch)
-            return res.status(404).json({ errors: [{ msg: 'The password is uncorrect' }] })
+            return res.status(404).json({ errors: { msg: 'The password is uncorrect' } })
         const payload = {
             sub: Userr._id
         }

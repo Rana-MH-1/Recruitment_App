@@ -108,7 +108,7 @@ function ImageSection() {
                         <div class="ui input"><input type="text" name='LevelStudy' value={infoCandidate.LevelStudy} onChange={handleCandidateInfoChange} /></div>
                         <div class="ui input"><input type="text" name='Specialty' value={infoCandidate.Specialty} onChange={handleCandidateInfoChange} /></div>
                         </div>)}
-
+                        <div className='containR'>
                         {User.Role ==='Recruiter' && (<>
                         <div class="ui input"><input type="text" name='FullName' value={infoRecruiter.FullName} onChange={handleRecruiterInfoChange} /></div>
                         <div class="ui input"><input type="text" name='Email' value={infoRecruiter.Email} onChange={handleRecruiterInfoChange} /></div>
@@ -118,6 +118,7 @@ function ImageSection() {
                         <div class="ui input"><input type="text" name='Category' value={infoRecruiter.Category} onChange={handleRecruiterInfoChange} /></div>
                         <div class="ui input"><input type="text" name='taxRegistrationNumber' value={infoRecruiter.taxRegistrationNumber} onChange={handleRecruiterInfoChange} /></div>
                         </>)}
+                        </div>
                     </div>}
                     
                 </div>
@@ -204,7 +205,13 @@ const ImageSectionStyled = styled.div`
     .contain{
         display:grid;
         grid-template-columns:auto;
-        grid-row-gap:5px
+        grid-row-gap:10px
+    }
+
+    .containR{
+        display:grid;
+        grid-template-columns:auto;
+        grid-row-gap:10px
     }
 `;
 export default ImageSection;

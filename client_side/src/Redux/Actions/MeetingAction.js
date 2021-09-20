@@ -68,3 +68,41 @@ export const getCandidateMeeting =()=> async(dispatch)=>{
         
     }
 }
+
+export const DeleteMeeting = (id) => async (dispatch) => {
+    dispatch(clearError())
+    dispatch(startLoading("Deleting Meeting..."))
+    try {
+        setToken()
+        const res = await axios.delete(`${prefixe}/api/meeting/deleteMeeting/${id}`)
+        dispatch({
+            type: MeetingTypes.DELETING_Meeting_SUCCESS,
+            payload: res.data
+        })
+        dispatch(stopLoading())
+        
+    }
+    catch (err) {
+        dispatch(stopLoading())
+        dispatch(setError(err.response?.data?.errors))
+    }
+} 
+
+export const DeleteMeetingCandidate = (id) => async (dispatch) => {
+    dispatch(clearError())
+    dispatch(startLoading("Deleting Meeting..."))
+    try {
+        setToken()
+        const res = await axios.delete(`${prefixe}/api/meeting/deleteMeeting/${id}`)
+        dispatch({
+            type: MeetingTypes.DELETING_Meeting_CANDIDATE_SUCCESS,
+            payload: res.data
+        })
+        dispatch(stopLoading())
+        
+    }
+    catch (err) {
+        dispatch(stopLoading())
+        dispatch(setError(err.response?.data?.errors))
+    }
+} 

@@ -7,12 +7,11 @@
     font-weight: bold;
     width:650px;
     text-align: center;
-    margin-top: 240px;
     margin-left: 60px;
-    color: #0d2a95;
+    color: #25a3ff;
     background-color: white;
     opacity: 0.4;
-    border-radius:25px
+    border-radius:25px;    
 }
 
 .bckground{

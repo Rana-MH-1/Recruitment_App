@@ -76,6 +76,24 @@ const AuthReducer =(state=initState,{type,payload})=>{
                 ...state,
                 User:{...state.User,payload}
             }
+        case MeetingTypes.DELETING_Meeting_SUCCESS:
+            return{
+                ...state,
+                User:{...state.User,
+                    R_Meeting_List: state.User.R_Meeting_List.filter(meeting => meeting._id !== payload._id)}       
+            }
+        case MeetingTypes.DELETING_Meeting_CANDIDATE_SUCCESS:
+            return{
+                ...state,
+                User:{...state.User,
+                    C_Meeting_List: state.User.C_Meeting_List.filter(meeting => meeting._id !== payload._id)}       
+            }
+         case postTypes.GE_MY_POSTS_COUNT_SUCCESS:
+             return{
+                ...state,
+                User:{...state.User,
+                MyPostsCount: payload}
+            }
         default:
             return state
     }

@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components';
+import {useSelector} from 'react-redux'
 
 function Title({title, span}) {
+    const User = useSelector(state=> state.Auth.User)
     return (
         <TitleStyled>
-            <h5>{title} <b><span>{span}</span></b></h5>
+            <h5>{title} <b><span style={{color: User.Role==='Recruiter'? '#78d8e8' :'#ed6034'}}>{span}</span></b></h5>
         </TitleStyled>
     )
 }
@@ -45,7 +47,6 @@ const TitleStyled = styled.div`
         }
         span{
             font-weight: 900;
-            color: rgba(25,29,43,.44);
             font-size: 2rem;
             position: absolute;
             left: 0;

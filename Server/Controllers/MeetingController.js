@@ -33,7 +33,7 @@ const SaveMeeting= async(req,res)=>{
 });
 // Email info
 const mailOptions = {
-    from: '"Recruitment Agency"<syrinemabrouk6@gmail.com>',
+    from: '"Recruitment Agency"<jobonlinewebsite13@gmail.com>',
     to: `${Email_Candidat}`,
     subject: 'Invitation for an Online Interview meeting',
     text: `A Recruiter has invites you for an online interview meeting on ${Date_Meeting} for the job ${jobTitle}, please check your list of meeting for more informations`,
@@ -47,7 +47,7 @@ transporter.sendMail(mailOptions, function(error, info) {
         console.log('Email sent: ' + info.response);
     }
 });
-/* end od sending mail-------------------------------------------------------------------------------------*/
+/* end of sending mail-------------------------------------------------------------------------------------*/
 
     res.json({savedMeeting,msg:'The meeting was successfully saved, check your list of meeting'})
     }
@@ -72,4 +72,8 @@ const getCandidateMeeting = async(req, res)=>{
 
 }
 
-module.exports = {SaveMeeting,getRecruiterMeeting,getCandidateMeeting}
+const DeleteMeeting = async(req, res)=>{
+    meeting.findByIdAndRemove(req.params.id,(err,data)=>err? res.status(400).json({ err: err.message }) : res.json(data))
+}
+
+module.exports = {SaveMeeting,getRecruiterMeeting,getCandidateMeeting,DeleteMeeting}

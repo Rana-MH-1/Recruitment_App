@@ -1,11 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 function ServiceCard({image, title, paragraph}) {
+
     return (
         <ServiceCardStyled >
             <div className="container">
-                <img src={image} alt=""/>
+                <img style={{fill:'black'}} src={image} alt=""/>
                 <h4>{title}</h4>
                 <p>{paragraph}</p>
             </div>
@@ -25,6 +27,7 @@ const ServiceCardStyled = styled.div`
         transform: translateY(3px);
     }
     .container{
+        background-color:#fbf4e9;
         padding: 1.2rem;
         h4{
             color: var(--white-color);

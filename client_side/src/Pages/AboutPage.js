@@ -6,7 +6,7 @@ import {MainLayout} from '../styles/Layouts';
 import ServicesSection from '../Components/profile_components/ServicesSection';
 import ReviewsSection from '../Components/profile_components/ReviewsSetion';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPostCount } from '../Redux/Actions/PostActions';
+import { getMyPostCount } from '../Redux/Actions/PostActions';
 import { getCOUNTApplies } from '../Redux/Actions/ApplyAction';
 
 
@@ -14,10 +14,9 @@ import { getCOUNTApplies } from '../Redux/Actions/ApplyAction';
 function AboutPage() {
     const dispatch = useDispatch()
     const User = useSelector(state=> state.Auth.User)
-    const count  = useSelector(state=> state.Posts.count)
     useEffect(() => {
         User.Role ==='Candidate' && dispatch(getCOUNTApplies());
-        User.Role ==='Recruiter' && dispatch(getPostCount());
+        User.Role ==='Recruiter' && dispatch(getMyPostCount());
     },[])
       
         return (  
@@ -26,7 +25,7 @@ function AboutPage() {
                 <Title title={'About Me'} span={'About Me'} />
                 <ImageSection />
                 <ServicesSection />
-                <ReviewsSection count={User?.Role ==='Candidate' ? User.CountMyApplies : count} />
+                <ReviewsSection count={User?.Role ==='Candidate' ? User.CountMyApplies : User.MyPostsCount} />
             </AboutStyled >
         </MainLayout>
         

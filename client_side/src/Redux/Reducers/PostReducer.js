@@ -27,6 +27,12 @@ const PostReducer =(state = initState,{type,payload})=>{
                 ...state,
                 count:payload
             }
+        case types.FILTER_POSTS_SUCCESS:
+            return {
+                ...state,
+                PostList: state.PostList.filter(post => payload.some(el => post._id === el._id))
+            }
+
         default :
         return state;
 

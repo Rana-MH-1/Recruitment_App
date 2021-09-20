@@ -52,17 +52,30 @@ const HomePosts = () => {
     dispatch(getPostsAction(p, limit));
   };
 
-  const style1={
-  position: 'fixed',
-  right: 0,
-  bottom: 0,
-  zIndex:-1,
-  }
+  // const style1={
+  // position: 'fixed',
+  // right: 0,
+  // bottom: 0,
+  // zIndex:-1
+  // }
+  // const style1={
+  //   width:'100%',
+  //   height:'50%',
+  //  zIndex:-1
+  // }
+  
   return (
-    <div className='grid '>
-      <video autoPlay loop muted style={style1}>
-        <source src={'video.mp4'} type='video/mp4' />
-      </video>
+    <div>
+      <div style={{float:'right',marginTop:'30px'}}>
+      <AddPost page={page} limit={limit} />
+      </div>
+      <div style={{marginLeft:'865px'}}>
+      <LimitSelector setLimit={setLimit} style={{marginLeft:'800px'}}/>
+      </div>
+    <div className='grid'>
+      {/* <video autoPlay loop muted style={style1}>
+        <source src={'https://thumbs.gfycat.com/CalculatingOddballCarpenterant-mobile.mp4'} type='video/mp4' />
+      </video> */}
       <div className="posts">
         {User && postList && (
           <PostList PostList={Filtering(postList, search)} page={page} limit={limit} />
@@ -76,11 +89,7 @@ const HomePosts = () => {
           />
         </div>
       </div>
-      <div style={{border: '2px solid #0d2a95',marginTop:'50px',marginRight:'19px',overflowY:'scroll',paddingTop:'30px',paddingLeft:'20px',height:"310px",borderRadius:'15px'}}>
-        <AddPost page={page} limit={limit} />
-        <br/><br/><br/>
-        <LimitSelector setLimit={setLimit} />
-      </div>
+    </div>
     </div>
   );
 };

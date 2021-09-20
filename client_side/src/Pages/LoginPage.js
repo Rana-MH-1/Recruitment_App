@@ -11,11 +11,33 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles,withStyles } from "@material-ui/core/styles";
 import { LoginAction } from "../Redux/Actions/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {clearError} from '../Redux/Actions/AppStateActions'
+
+const CssTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: '#ed6034',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'grey',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'black',
+      },
+      '&:hover fieldset': {
+        borderColor: 'black',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#ed6034',
+      },
+    },
+  },
+})(TextField);
 
 function Copyright() {
   return (
@@ -55,15 +77,19 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "#0d2a95",
+    backgroundColor: "#ed6034",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    color:'#ed6034'
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: "#0d2a95",
+    backgroundColor: "#ed6034",
+    '&:hover': {
+      backgroundColor: '#ed6034',
+    },
   },
 }));
 
@@ -106,7 +132,9 @@ const LoginPage = () => {
             Sign in
           </Typography>
           <form className={classes.form} noValidate>
-            <TextField
+           
+          <CssTextField      
+
               variant="outlined"
               margin="normal"
               required
@@ -116,11 +144,13 @@ const LoginPage = () => {
               name="Email"
               autoComplete="email"
               autoFocus
-              error={Errors?.Email?.msg}
-              helperText={Errors?.Email?.msg}
+              error={Errors?.Email?.msg || Errors?.message}
+              helperText={Errors?.Email?.msg || Errors?.message}
               onChange={handleInfoChange}
             />
-            <TextField
+           
+           <CssTextField      
+            
               variant="outlined"
               margin="normal"
               required
@@ -130,11 +160,12 @@ const LoginPage = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              error={(Errors===null)? null: Errors?.Password?.msg|| Errors[0]?.msg}
-              helperText={(Errors===null)? null: Errors?.Password?.msg || Errors[0]?.msg}
+              error={(Errors===null)? null: Errors?.Password?.msg || Errors?.msg}
+              helperText={(Errors===null)? null: Errors?.Password?.msg || Errors?.msg}
               onChange={handleInfoChange}
             />
-            {/* <p style={{color:'red'}}>{(Errors===null)? null: Errors[0]?.msg}</p> */}
+           
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

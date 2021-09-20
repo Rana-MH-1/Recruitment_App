@@ -52,6 +52,15 @@ const getMyPosts = async(req, res)=>{
     catch{res.status(400).json({ err: err.message })}
 }
 
+const getMyPostsCount = async(req, res)=>{
+    try{
+        const posts = await postRecuiter.find({owner: req.userId}).countDocuments()
+        res.json(posts)
+    }
+    catch{res.status(400).json({ err: err.message })}
+}
+
+
 const EditPost = async(req, res)=>{
     try{
         const updatedPost = await postRecuiter.findByIdAndUpdate(req.params.id, req.body)
@@ -76,5 +85,22 @@ const getPostsCount = async (req, res) => {
     }
 }
 
+const FilterPosts = async(req, res)=>{
+    try{
+        // let search1 = req.query.search1.trim();
+        // let search2 = req.query.search2.trim();
+        // const FilteredPosts = await postRecuiter.find({$or: [{jobTitle: {$regex: `^${search1}`}, Contrat_Type: {$regex: `^${search2}`}}]})
+        let search = req.query.search.trim();
+        const FilteredPostbyTitle = await postRecuiter.find({jobTitle:{$regex: new RegExp('^'+search+'.*','i')}}).exec()
+        const FilteredPostsDESC = await postRecuiter.find({jobDescription:{$regex: new RegExp('^'+search+'.*','i')}}).exec()
+        const FilteredPostC = await postRecuiter.find({Contrat_Type:{$regex: new RegExp('^'+search+'.*','i')}}).exec()
+        const FilteredPostAddress = await postRecuiter.find({Address:{$regex: new RegExp('^'+search+'.*','i')}}).exec()
 
-module.exports= {AddPost,getAllPosts,getMyPosts,EditPost,DeletePost,getPostsCount}
+
+        res.json([...FilteredPostbyTitle,...FilteredPostsDESC,...FilteredPostC,...FilteredPostAddress])
+    }
+    catch{res.status(400).json({ err: err.message })}
+}
+
+
+module.exports= {AddPost,getAllPosts,getMyPosts,EditPost,DeletePost,getPostsCount,getMyPostsCount,FilterPosts}
