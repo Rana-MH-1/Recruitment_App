@@ -43,11 +43,7 @@ const Apply = ({ Post }) => {
     dispatch(getIdPost(Post._id));
     localStorage.setItem("id_Post", Post._id);
   };
-  const style = {
-    backgroundColor: "white",
-    borderColor: "#0d2a95",
-    color: "#0d2a95",
-  };
+  
   const style1 = {
     display: "inline",
   };
@@ -69,7 +65,7 @@ const Apply = ({ Post }) => {
   //     .then(res => console.log(res.data))
   // }
   /*----------------------une seule input-------------------------------------- */
-
+  const User = useSelector(state=> state.Auth.User)
   const errors = useSelector((state) => state.appState.errors);
   const msgSuccess = useSelector((state) => state.appState.msg);
 
@@ -86,13 +82,13 @@ const Apply = ({ Post }) => {
 
   return (
     <div style={{ margin: "0 auto" }}>
-      <Button style={style} variant="primary" onClick={handleShow}>
+      <Button style={{backgroundColor: "white",borderColor: User.Role ==='Recruiter' ? "#0d2a95" : '#ed6034',color: User.Role ==='Recruiter' ? "#0d2a95" : '#ed6034'}} variant="primary" onClick={handleShow}>
         Apply
       </Button>
 
       <Modal show={show}>
         <Modal.Header>
-          <Modal.Title style={{ color: "#0d2a95" }}>
+          <Modal.Title style={{ color: User.Role ==='Recruiter' ? "#0d2a95" : '#ed6034' }}>
             Apply and upload your files
           </Modal.Title>
         </Modal.Header>
@@ -197,7 +193,7 @@ const Apply = ({ Post }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button style={style} variant="primary" onClick={OnSubmit}>
+          <Button style={{backgroundColor: "white",borderColor: User.Role ==='Recruiter' ? "#0d2a95" : '#ed6034',color: User.Role ==='Recruiter' ? "#0d2a95" : '#ed6034'}} variant="primary" onClick={OnSubmit}>
             Send your Apply
           </Button>
         </Modal.Footer>

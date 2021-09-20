@@ -16,6 +16,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import IconButton from "@material-ui/core/IconButton";
+import {clearError} from '../Redux/Actions/AppStateActions'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -26,11 +27,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 150,
     marginBottom: "20px",
+    color:'#25a3ff'
   },
   avatar: {
     //margin: theme.spacing(1),
-    backgroundColor: "#0d2a95",
-    marginLeft: "120px",
+    backgroundColor: "#25a3ff",
+    marginLeft: "100px",
     marginTop: "20px",
   },
   input: {
@@ -77,14 +79,12 @@ const RegisterPage = () => {
   const handleChange = (e) => {
     setSelectedRole(e.target.value);
     setInfo({ ...info, Role: e.target.value });
+    setErrorMsg('');
+    dispatch(clearError())
   };
   const handleInfoChange = (e) => {
-    if (e.target.value) setInfo({ ...info, [e.target.name]: e.target.value });
-    else {
-      let obj = info;
-      delete obj[e.target.name];
-      setInfo(obj);
-    }
+    setInfo({ ...info, [e.target.name]: e.target.value });
+    dispatch(clearError())
   };
   const dispatch = useDispatch();
   const Register = (e) => {
@@ -105,7 +105,7 @@ const RegisterPage = () => {
               <Form.Control
                 name="LevelStudy"
                 type="text"
-                placeholder="Level of study *"
+                placeholder="Level of study "
                 onChange={handleInfoChange}
               />
             </Form.Group>
@@ -117,7 +117,7 @@ const RegisterPage = () => {
               <Form.Control
                 name="Specialty"
                 type="text"
-                placeholder="Specialty *"
+                placeholder="Specialty "
                 onChange={handleInfoChange}
               />
             </Form.Group>
@@ -133,9 +133,11 @@ const RegisterPage = () => {
               display: "grid",
               gridTemplateColumns: "auto auto",
               gridColumnGap: "10px",
+              
+          
             }}
           >
-            <Form.Group className="mb-3">
+            <Form.Group  className="mb-3">
               <Form.Control
                 name="Profession"
                 type="text"
@@ -147,7 +149,7 @@ const RegisterPage = () => {
               <Form.Control
                 name="SocietyName"
                 type="text"
-                placeholder="Society name *"
+                placeholder="Society name "
                 onChange={handleInfoChange}
               />
             </Form.Group>
@@ -165,7 +167,7 @@ const RegisterPage = () => {
               <Form.Control
                 name="Category"
                 type="text"
-                placeholder="Category of you society *"
+                placeholder="Category of you society "
                 onChange={handleInfoChange}
               />
             </Form.Group>
@@ -174,7 +176,7 @@ const RegisterPage = () => {
               <Form.Control
                 name="taxRegistrationNumber"
                 type="text"
-                placeholder="Tax Registration Number *"
+                placeholder="Tax Registration Number "
                 onChange={handleInfoChange}
               />
             </Form.Group>
@@ -188,10 +190,12 @@ const RegisterPage = () => {
   const Errors = useSelector((state) => state.appState.errors);
 
   return (
-    <div
+    <div 
       style={{
         display: "grid",
-        gridTemplateColumns: "60% 40%",
+        gridTemplateColumns: "60% 40%",  
+      
+        
       }}
     >
       <div className="bckground">
@@ -199,11 +203,11 @@ const RegisterPage = () => {
           Welcome to our Website, register now and be among us
         </h3>
       </div>
-      <div style={{ margin: "0 auto" }}>
+      <div style={{ margin: "0 auto" , textAlign: "center" }}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" style={{ marginLeft: "100px" }}>
+        <Typography component="h1" variant="h5">
           Sign up
         </Typography>
         <FormControl required className={classes.formControl}>
@@ -216,6 +220,7 @@ const RegisterPage = () => {
             value={selectedRole}
             labelId="demo-controlled-open-select-label"
             id="demo-controlled-open-select"
+            style={{color: selectedRole ==='Recruiter'? '#25a3ff' : '#ed6034'}}
           >
             <MenuItem value={"Recruiter"}>Recruiter</MenuItem>
             <MenuItem value={"Candidate"}>Candidate</MenuItem>
@@ -223,12 +228,12 @@ const RegisterPage = () => {
         </FormControl>
 
         { errorMsg && <Alert
-              style={{ marginTop: "20px", width: "300px" }}
+              style={{ marginTop: "10px",marginBottom:'15px', width: "300px" }}
               severity="warning"
             >
               {errorMsg}
             </Alert>}
-        <Form>
+        <Form >
           <Form.Group className="mb-3">
             <Form.Control
               required
@@ -278,7 +283,7 @@ const RegisterPage = () => {
               aria-label="upload picture"
               component="span"
             >
-              <PhotoCamera style={{ zomm: "140%", color: "#0d2a95" }} />
+              <PhotoCamera style={{ zoom: "160%", color: "#25a3ff" }} />
             </IconButton>
           </label>
 
@@ -289,15 +294,17 @@ const RegisterPage = () => {
             type="submit"
             style={{
               backgroundColor: "white",
-              borderColor: "#0d2a95",
-              color: "#0d2a95",
-              marginLeft: "80px",
+              borderColor: "#25a3ff",
+              color: "#25a3ff",
+              marginLeft: "60px",
+              fontWeight:'bold'
             }}
             onClick={Register}
           >
             Submit
           </Button>
           
+
           {Errors && Errors[0] && (
             <Alert
               style={{ marginTop: "20px", width: "300px" }}
@@ -314,7 +321,8 @@ const RegisterPage = () => {
         }
         </Form>
       </div>
-    </div>
+      </div>
+    
   );
 };
 export default RegisterPage;

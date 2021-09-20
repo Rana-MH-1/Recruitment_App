@@ -8,4 +8,5 @@ const {CheckNoRepeatedDate,CheckMeetingOnce,CheckDateDuration} = require('../Mid
 router.post('/add',TokenVerification,CheckNoRepeatedDate,CheckMeetingOnce,CheckDateDuration,MeetingController.SaveMeeting)
 router.get('/RecruiterMeeting',TokenVerification,MeetingController.getRecruiterMeeting)
 router.get('/CandidateMeeting',TokenVerification,MeetingController.getCandidateMeeting)
+router.delete('/deleteMeeting/:id',TokenVerification,MeetingController.DeleteMeeting)
 module.exports= router;

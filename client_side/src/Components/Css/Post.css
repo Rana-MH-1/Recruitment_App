@@ -7,19 +7,29 @@ font-family: 'Oswald', sans-serif;
 }
 
 span{
-    
+    font-family: 'Montserrat Alternates', sans-serif;
     font-size: 15px;
     font-weight: 300;
 }
 
 .icon{
-    
     zoom:140%;
-    color:#0d2a95
+    color:#0d2a95;
+}
+
+.iconCandidate{
+    zoom:140%;
+    color:#ed6034;
 }
 .CardPost:hover{
     zoom: 110%;
     
+}
+
+.CardPost{
+    font-size:15px;
+    font-family: 'Montserrat Alternates', sans-serif;
+font-family: 'Oswald', sans-serif;
 }
 
 
@@ -27,13 +37,28 @@ span{
     font-size: 30px;
 }
 
-.flexIcons{
-    display:flex;
-    flex-direction: column
-}
+
 
 #jobDes{
-    width:450px;
+    margin-top: -10px;
+    padding-bottom: 8px;
+    width:500px;
     overflow-x: hidden;
     font-size: 15px;
+    font-family: 'Montserrat Alternates', sans-serif;
 }
+
+p{
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.CardPost input{
+  border-radius: 10px;
+  padding:12px 10px 
+}
+
+.spanAccordion{
+   margin:15px;
+   
+}
+

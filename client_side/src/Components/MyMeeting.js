@@ -8,11 +8,12 @@ import Typography from "@material-ui/core/Typography";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { GiDuration } from "react-icons/gi";
 import { useSelector } from "react-redux";
-import Modal from "@material-ui/core/Modal";
-import Fade from "@material-ui/core/Fade";
-import Backdrop from "@material-ui/core/Backdrop";
 import Tooltip from "@material-ui/core/Tooltip";
 import * as FiIcons from 'react-icons/fi';
+import {useDispatch} from 'react-redux'
+import {Modal} from 'react-bootstrap';
+import {TiDeleteOutline} from 'react-icons/ti'
+import {DeleteMeeting,DeleteMeetingCandidate} from '../Redux/Actions/MeetingAction'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px auto",
     boxShadow: 'rgb(182 182 182 / 50%) 0px 2px 4px',
     lineHeight: '1.5',
-    borderLeft: '20px solid #0d2a95',
+  
 
     borderRadius:'3px'
   },
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
-    backgroundColor: "#cfd4ea",
+    backgroundColor: "#fbf4e9",
     color: "black",
     boxShadow: theme.shadows[1],
     fontSize: 15,
@@ -58,23 +59,47 @@ const LightTooltip = withStyles((theme) => ({
 }))(Tooltip);
 
 const MyMeeting = ({ myMeeting }) => {
+  const dispatch = useDispatch()
   const classes = useStyles();
   const User = useSelector((state) => state.Auth.User);
-  const [open, setOpen] = React.useState(false);
+  const [show, setShow] = React.useState(false);
 
   const handleOpen = () => {
-    setOpen(true);
+    setShow(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setShow(false);
   };
-
+  
+  const Deletemeeting=()=>{
+    User.Role==='Recruiter' && dispatch(DeleteMeeting(myMeeting._id))
+    User.Role==='Candidate' && dispatch(DeleteMeetingCandidate(myMeeting._id))
+    handleClose()
+  }
+  const style1={borderLeft: User.Role==='Recruiter'? '20px solid #0d2a95' : '20px solid #ed6034'}
   return (
     <div>
-      <Card className={classes.root} variant="outlined">
+      <Card className={classes.root} style={style1} variant="outlined">
         <CardContent>
-          { new Date().toISOString().substring(0,16) > myMeeting.Date_Meeting && <FiIcons.FiDelete style={{zoom:'150%',float:'right',color:'#0d2a95'}}/>}
+          { new Date().toISOString().substring(0,16) > myMeeting.Date_Meeting && (<>
+
+          <boutton onClick={handleOpen}><FiIcons.FiDelete style={{zoom:'150%',float:'right',color: User.Role==='Recruiter'? '#0d2a95' : '#ed6034' }} /></boutton>
+          <Modal show={show} onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title> <TiDeleteOutline style={{zoom:'200%',color:'red'}}/> Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure to delete the meeting ? </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button style={{backgroundColor: "white",borderColor:User.Role==='Recruiter' ? '#0d2a95' : '#ed6034',color:User.Role==='Recruiter' ? '#0d2a95' : '#ed6034',fontWeight:'bold',borderSize:'3px'}} variant="primary" onClick={Deletemeeting}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
+          </>)}
           <Typography
             className={classes.title}
             color="textSecondary"
@@ -96,7 +121,7 @@ const MyMeeting = ({ myMeeting }) => {
             </Typography>
           )}
           {User.Role === "Candidate" && (
-            <Typography variant="body2" component="p">
+            <Typography style={{fontSize:'16px'}} variant="body2" component="p">
               Recruiter: {myMeeting.owner.FullName}
             </Typography>
           )}        
@@ -107,7 +132,7 @@ const MyMeeting = ({ myMeeting }) => {
               style={{
                 backgroundColor: "white",
                 marginLeft: "20px",
-                borderColor: "#0d2a95",
+                borderColor: User.Role==='Recruiter' ? '#0d2a95' : '#ed6034',
                 width:'100px',
                 borderRadius:'10px',
                 fontWeight:'bold',
@@ -117,7 +142,7 @@ const MyMeeting = ({ myMeeting }) => {
               size="mb-2"
               onClick={handleOpen}
             >
-              <a style={{color:'#0d2a95'}} href={`https://meet.jit.si/${myMeeting._id}`} target='_blank' rel='noopener noreferrer'>JOIN</a>
+              <a style={{color:User.Role==='Recruiter' ? '#0d2a95' : '#ed6034'}} href={`https://meet.jit.si/${myMeeting._id}`} target='_blank' rel='noopener noreferrer'>Join</a>
             </Button>
           </LightTooltip>}
         </CardActions>

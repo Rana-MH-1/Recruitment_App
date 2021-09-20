@@ -41,10 +41,10 @@ const CheckDateDuration = async (req, res, next) => {
         const meetingowner = await MeetingSchema.find({owner:req.userId})
         if(meetingowner.length){
            
-        const addedDuration= meetingowner.map(meetingg=> meetingg.Date_Meeting= dayjs(meetingg.Date_Meeting).add(30,'minute').add(1,'hour').$d.toISOString().substring(0,16))
-
+            const addedDuration15= meetingowner.map(meetingg=> meetingg.Date_Meeting= dayjs(meetingg.Date_Meeting).add(15,'minute').add(1,'hour').$d.toISOString().substring(0,16))
+            const addedDuration30= meetingowner.map(meetingg=> meetingg.Date_Meeting= dayjs(meetingg.Date_Meeting).add(30,'minute').add(45,'minute').$d.toISOString().substring(0,16))   
+            const addedDuration = [...addedDuration15,...addedDuration30] 
         const findMeeting = addedDuration.indexOf(req.body.Date_Meeting.substring(0,16))
-        console.log(findMeeting)
         if (findMeeting!==-1)
         return res.status(400).json({ errors: 'You have already a meeting during that time, please select another Date !' })
 

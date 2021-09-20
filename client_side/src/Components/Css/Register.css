@@ -7,16 +7,15 @@
     font-weight: bold;
     width:650px;
     text-align: center;
-    margin-top: 240px;
     margin-left: 60px;
-    color: #0d2a95;
+    color: #25a3ff;
     background-color: white;
     opacity: 0.4;
-    border-radius:25px
+    border-radius:25px;    
 }
 
 .bckground{
-    background-image: url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg);
+    background-image: url(https://cdn.dribbble.com/users/751212/screenshots/2510592/registerflow_v1r1.gif);
     height:700px;
     overflow-y: auto;
 }

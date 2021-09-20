@@ -152,7 +152,7 @@ const Navbar = () => {
     <>
       {Auth.isAuth && (
         <IconContext.Provider value={{ color: "#fff" }}>
-          <div className='navbar'>
+          <div className='navbar' id={User?.Role==='Recruiter' ? 'navR' : 'navC'}>
             <Link to="#" className="menu-bars">
               <FaIcons.FaBars onClick={showSidebar} />
             </Link>
@@ -226,11 +226,11 @@ const Navbar = () => {
             </Menu>
           </div>
           
-          <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
+          <nav className={sidebar ? "nav-menu active" : "nav-menu"} style={{backgroundColor: User?.Role==="Recruiter"? '#0d2a95' : '#ed6034'}}>
 
        
             <ul className="nav-menu-items" onClick={showSidebar}>
-              <li className="navbar-toggle">
+              <li className="navbar-toggle" style={{backgroundColor: User?.Role==="Recruiter"? '#0d2a95' : '#ed6034'}}>
                 <Link to="#" className="menu-bars">
                   <AiIcons.AiOutlineClose />
                 </Link>

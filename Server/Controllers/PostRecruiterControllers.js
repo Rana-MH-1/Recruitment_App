@@ -52,6 +52,15 @@ const getMyPosts = async(req, res)=>{
     catch{res.status(400).json({ err: err.message })}
 }
 
+const getMyPostsCount = async(req, res)=>{
+    try{
+        const posts = await postRecuiter.find({owner: req.userId}).countDocuments()
+        res.json(posts)
+    }
+    catch{res.status(400).json({ err: err.message })}
+}
+
+
 const EditPost = async(req, res)=>{
     try{
         const updatedPost = await postRecuiter.findByIdAndUpdate(req.params.id, req.body)
@@ -94,4 +103,4 @@ const FilterPosts = async(req, res)=>{
 }
 
 
-module.exports= {AddPost,getAllPosts,getMyPosts,EditPost,DeletePost,getPostsCount,FilterPosts}
+module.exports= {AddPost,getAllPosts,getMyPosts,EditPost,DeletePost,getPostsCount,getMyPostsCount,FilterPosts}

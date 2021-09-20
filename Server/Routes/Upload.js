@@ -37,7 +37,7 @@ router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: '
   });
   // Email info
   const mailOptions = {
-      from: '"Recruitment Agency"<syrinemabrouk6@gmail.com>',
+      from: '"Recruitment Agency"<jobonlinewebsite13@gmail.com>',
       to: `${Email}`,
       subject: 'Apply for your post',
       text: 'A candidate has applied for your post attached with documents, check your list of applies',
