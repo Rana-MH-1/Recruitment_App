@@ -24,29 +24,29 @@ const SaveMeeting= async(req,res)=>{
 
     //send Email to the recruiter----------------------------------------------------------------------------------------
   
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
-    }
-});
-// Email info
-const mailOptions = {
-    from: '"Recruitment Agency"<jobonlinewebsite13@gmail.com>',
-    to: `${Email_Candidat}`,
-    subject: 'Invitation for an Online Interview meeting',
-    text: `A Recruiter has invites you for an online interview meeting on ${Date_Meeting} for the job ${jobTitle}, please check your list of meeting for more informations`,
-    html:`A Recruiter has invites you for an online interview meeting on <b> ${Date_Meeting}</b> for the job <b> ${jobTitle}</b> , please check your list of meeting for more informations`,
-};
-// Send email 📧  and retrieve server response
-transporter.sendMail(mailOptions, function(error, info) {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('Email sent: ' + info.response);
-    }
-});
+//   const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: process.env.EMAIL,
+//         pass: process.env.PASSWORD
+//     }
+// });
+// // Email info
+// const mailOptions = {
+//     from: '"Recruitment Agency"<jobonlinewebsite13@gmail.com>',
+//     to: `${Email_Candidat}`,
+//     subject: 'Invitation for an Online Interview meeting',
+//     text: `A Recruiter has invites you for an online interview meeting on ${Date_Meeting} for the job ${jobTitle}, please check your list of meeting for more informations`,
+//     html:`A Recruiter has invites you for an online interview meeting on <b> ${Date_Meeting}</b> for the job <b> ${jobTitle}</b> , please check your list of meeting for more informations`,
+// };
+// // Send email 📧  and retrieve server response
+// transporter.sendMail(mailOptions, function(error, info) {
+//     if (error) {
+//         console.log(error);
+//     } else {
+//         console.log('Email sent: ' + info.response);
+//     }
+// });
 /* end of sending mail-------------------------------------------------------------------------------------*/
 
     res.json({savedMeeting,msg:'The meeting was successfully saved, check your list of meeting'})
@@ -63,9 +63,27 @@ const getRecruiterMeeting = async(req, res)=>{
 
 }
 
+const getRecruiterMeetingCount = async(req, res)=>{
+    try{
+        const meetingR = await meeting.find({owner: req.userId}).countDocuments()
+        res.json(meetingR)
+    }
+    catch{res.status(400).json({ err: err.message })}
+
+}
+
 const getCandidateMeeting = async(req, res)=>{
     try{
         const meetingC = await meeting.find({Id_Candidat:req.userId}).populate({path:'owner',select:'-Password'}).populate('Apply')
+        res.json(meetingC)
+    }
+    catch{res.status(400).json({ err: err.message })}
+
+}
+
+const getCandidateMeetingCount = async(req, res)=>{
+    try{
+        const meetingC = await meeting.find({Id_Candidat:req.userId}).countDocuments()
         res.json(meetingC)
     }
     catch{res.status(400).json({ err: err.message })}
@@ -76,4 +94,4 @@ const DeleteMeeting = async(req, res)=>{
     meeting.findByIdAndRemove(req.params.id,(err,data)=>err? res.status(400).json({ err: err.message }) : res.json(data))
 }
 
-module.exports = {SaveMeeting,getRecruiterMeeting,getCandidateMeeting,DeleteMeeting}
+module.exports = {SaveMeeting,getRecruiterMeeting,getCandidateMeeting,DeleteMeeting,getRecruiterMeetingCount,getCandidateMeetingCount}

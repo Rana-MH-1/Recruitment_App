@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -115,7 +116,7 @@ const LoginPage = () => {
   const Auth = useSelector((state) => state.Auth);
   const history = useHistory();
   useEffect(() => {
-    if (Auth.isAuth) history.push("/");
+    if (Auth.isAuth) history.push("/home");
   }, [Auth.isAuth]);
 
   const Errors = useSelector((state) => state.appState.errors);

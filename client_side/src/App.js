@@ -3,7 +3,6 @@ import './App.css';
 
 
 
-import AboutPage from './Pages/AboutPage';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage'
 import HomePosts from './Pages/HomePosts'
@@ -14,6 +13,7 @@ import MyApplies from './Pages/MyApplies';
 import ReceivedApplies from './Pages/ReceivedApplies'
 import MyMeeting from './Pages/MyMeeting'
 import MyPosts from './Pages/MyPosts';
+import UserProfile from './Pages/UserProfile'
 
 import Home from './Pages/Home'
 
@@ -28,9 +28,9 @@ function App() {
          <Switch>
            <Route exact path="/register" component={RegisterPage} />
            <Route exact path="/login" component={LoginPage} />
-           <Route exact path="/home" component={Home} />
-           <PrivateRoute path={'/Profile/:id'} exact component={AboutPage} />
-           <PrivateRoute exact path="/" component={HomePosts} />
+           <Route exact path="/" component={Home} />
+           <PrivateRoute path={'/Profile/:id'} exact component={UserProfile} />
+           <PrivateRoute exact path="/home" component={HomePosts} />
            <PrivateRoute exact path="/MyApplies" component={MyApplies}/>
            <PrivateRoute exact path="/AppliesList" component={ReceivedApplies}/>
            <PrivateRoute exact path='/MyMeeting' component={MyMeeting} />

@@ -142,7 +142,7 @@ const MyMeeting = ({ myMeeting }) => {
               size="mb-2"
               onClick={handleOpen}
             >
-              <a style={{color:User.Role==='Recruiter' ? '#0d2a95' : '#ed6034'}} href={`https://meet.jit.si/${myMeeting._id}`} target='_blank' rel='noopener noreferrer'>Join</a>
+              <a style={{color:User.Role==='Recruiter' ? '#0d2a95' : '#ed6034',textDecoration: 'none'}} href={`https://meet.jit.si/${myMeeting._id}`} target='_blank' rel='noopener noreferrer'>Join</a>
             </Button>
           </LightTooltip>}
         </CardActions>

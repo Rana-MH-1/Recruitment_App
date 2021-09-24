@@ -10,7 +10,7 @@ import * as BsIcons from 'react-icons/bs'
 export const SidebarDataRecruiter = [
   {
     title: 'HomePosts',
-    path: '/',
+    path: '/home',
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
   },

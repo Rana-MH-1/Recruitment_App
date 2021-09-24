@@ -19,6 +19,10 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import {Button, Modal} from 'react-bootstrap';
+import {TiDeleteOutline} from 'react-icons/ti'
+
+
 
 import Apply from "./Apply";
 
@@ -93,7 +97,6 @@ const PostRecruiter = ({ Post, page, limit }) => {
     if (isEdited && infoPost !== Post)
       dispatch(EditPost({ ...Post, ...infoPost }, page, limit));
   };
-
   return (
     <Card
       className="CardPost"
@@ -121,7 +124,7 @@ const PostRecruiter = ({ Post, page, limit }) => {
         ),
         User && User.Role === "Recruiter" && User._id === Post.owner._id && (
           <DeleteOutlined onClick={() => dispatch(DeletePost(Post._id))} />
-        ),
+          ),
         User && User.Role === "Candidate" && (
           <Apply Post={Post} type="primary" />
         ),

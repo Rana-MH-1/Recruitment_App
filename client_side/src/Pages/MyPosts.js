@@ -4,16 +4,15 @@ import PostList from '../Components/PostList'
 import { getMyPost } from '../Redux/Actions/PostActions'
 
 const MyPosts = () => {
-    const User = useSelector(state=> state.Auth.User)
+    const MyPosts = useSelector(state=> state.Auth.User.MyPosts)
+    const User = useSelector(state=>state.Auth.User)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getMyPost())
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
+      }, [dispatch]);
     return (
         <div>
-            {User.Role==='Recruiter' && User && User.MyPosts && <PostList PostList={User.MyPosts} />
+            {User.Role==='Recruiter' && User && User.MyPosts && <PostList PostList={MyPosts} />
             }
 {            console.log(User.MyPosts)
 }            

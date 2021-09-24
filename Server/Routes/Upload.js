@@ -28,37 +28,37 @@ router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: '
   
   //send Email to the recruiter----------------------------------------------------------------------------------------
   
-  const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASSWORD
-      }
-  });
-  // Email info
-  const mailOptions = {
-      from: '"Recruitment Agency"<jobonlinewebsite13@gmail.com>',
-      to: `${Email}`,
-      subject: 'Apply for your post',
-      text: 'A candidate has applied for your post attached with documents, check your list of applies',
-      html:'<b>A candidate has applied for your post attached with documents, check your list of applies</b>',
-      attachments :[
-          {filename:'CV',
-           path:`${path}`
-      },
-          {filename:'Motivation Letter',
-           path:`${path2}`
-    },
-      ]
-  };
-  // Send email 📧  and retrieve server response
-  transporter.sendMail(mailOptions, function(error, info) {
-      if (error) {
-          console.log(error);
-      } else {
-          console.log('Email sent: ' + info.response);
-      }
-  });
+  // const transporter = nodemailer.createTransport({
+  //     service: 'gmail',
+  //     auth: {
+  //         user: process.env.EMAIL,
+  //         pass: process.env.PASSWORD
+  //     }
+  // });
+  // // Email info
+  // const mailOptions = {
+  //     from: '"Recruitment Agency"<jobonlinewebsite13@gmail.com>',
+  //     to: `${Email}`,
+  //     subject: 'Apply for your post',
+  //     text: 'A candidate has applied for your post attached with documents, check your list of applies',
+  //     html:'<b>A candidate has applied for your post attached with documents, check your list of applies</b>',
+  //     attachments :[
+  //         {filename:'CV',
+  //          path:`${path}`
+  //     },
+  //         {filename:'Motivation Letter',
+  //          path:`${path2}`
+  //   },
+  //     ]
+  // };
+  // // Send email 📧  and retrieve server response
+  // transporter.sendMail(mailOptions, function(error, info) {
+  //     if (error) {
+  //         console.log(error);
+  //     } else {
+  //         console.log('Email sent: ' + info.response);
+  //     }
+  // });
   /* end od sending mail-------------------------------------------------------------------------------------*/
   
   newFile.save()

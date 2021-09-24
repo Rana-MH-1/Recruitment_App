@@ -87,6 +87,7 @@ const Invite = ({ apply }) => {
             color: User.Role === "Recruiter" ? "#0d2a95" : "#ed6034",
             fontWeight: "bold",
             border: "3px",
+            marginTop:'-0.1px'
           }}
           onClick={handleShow}
         >

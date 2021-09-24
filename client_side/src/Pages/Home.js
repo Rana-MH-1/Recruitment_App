@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./Css/home2.css";
 import Timeline from '@mui/lab/Timeline';
@@ -258,7 +260,7 @@ const Home = () => {
         <div id="vmap">
           <div id="overlay">
             <div id="Zug" className="office active">
-              <img src="https://nonstopconsulting.com/wp-content/uploads/Zug_baarerstrasse_3.jpg" />
+              <img src="https://nonstopconsulting.com/wp-content/uploads/Zug_baarerstrasse_3.jpg" alt='imgnoCON'/>
               <div className="text">
                 <h5 className="caps">Zug</h5>
                 <p>

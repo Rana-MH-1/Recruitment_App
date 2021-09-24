@@ -1,21 +1,17 @@
 .contain{
     display:grid;
-    grid-template-columns: 300px 300px 200px 100px 220px 150px;
-    grid-row-gap: 30px;
+    grid-template-columns: 300px 300px 200px 120px 220px 150px;
     text-align: center;
     padding-left:50px;
 }
 
 .oneline{
     display:grid;
-    grid-template-columns: 300px 300px 200px 100px 220px ;
-    grid-row-gap: 30px;
+    grid-template-columns: 300px 300px 200px 120px 220px ;
     text-align: center;
     margin-top:50px;
-    margin-bottom:15px;
-    padding-left:50px;
-    padding-bottom:13px
-
+    padding-left:70px;
+    padding-bottom:13px;
 }
 
 .oneline h5{
@@ -23,7 +19,7 @@
 }
 
 .contain p, .contain a {
-    padding-top:8px;
+    padding-top:10px;
     font-size: 15px;
 }
 

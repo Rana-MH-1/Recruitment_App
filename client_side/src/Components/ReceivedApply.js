@@ -13,12 +13,12 @@ const ReceivedApply = ({ receivedapply }) => {
         
         {(receivedapply.Post===null)? null : <p>{receivedapply?.Post?.jobTitle}</p>}
         <p>{receivedapply.createdAt.substring(0, 10)}</p>
-        <a style={{textDecoration:'none'}} href={receivedapply.CV} target="_blank" >CV</a>
-        <a style={{textDecoration:'none'}} href={receivedapply.Motivation_letter} target="_blank">Motivation Letter</a>
+        <a style={{textDecoration:'none'}} href={receivedapply.CV} target="_blank" rel='noopener noreferrer' >CV</a>
+        <a style={{textDecoration:'none'}} href={receivedapply.Motivation_letter} target="_blank" rel='noopener noreferrer'>Motivation Letter</a>
         <Invite apply={receivedapply}/>
       </div>
 
-      <hr/>
+      <hr style={{border:'1px solid #68bfdb',opacity:1}}/>
       </>)
 }
     </div>
