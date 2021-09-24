@@ -16,13 +16,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Avatar } from "@material-ui/core";
 import { logout } from "../Redux/Actions/AuthAction";
-import { FiltreAction } from "../Redux/Actions/FiltreAction";
 import Chip from "@material-ui/core/Chip";
 
-
-import { useEffect } from "react";
-
-import AvatarIMG from "./profile_components/AvatarIMG";
+import AvatarIMG from "./Profile/AvatarIMG";
 import { FiltrePosts } from "../Redux/Actions/PostActions";
 
 
@@ -119,31 +115,12 @@ const Navbar = () => {
   const showSidebar = () => setSidebar(!sidebar);
   const Auth = useSelector((state) => state.Auth);
 
-  { /* filter by job */ }
+
   const [search, setSearch] = useState("");
   const HandleSearch = (e) => {
     setSearch(e.target.value);
     dispatch(FiltrePosts(search))
   };
-
-
-  const [theme, setTheme] = useState('dark-theme');
-  const [checked, setChecked] = useState(false);
-  const [navToggle, setNavToggle] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.className = theme;
-  }, [theme]);
-
-  const themeToggler = () => {
-    if (theme === 'light-theme') {
-      setTheme('dark-theme');
-      setChecked(false)
-    } else {
-      setTheme('light-theme');
-      setChecked(true)
-    }
-  }
 
   return (
 
@@ -230,7 +207,7 @@ const Navbar = () => {
 
        
             <ul className="nav-menu-items" onClick={showSidebar}>
-              <li className="navbar-toggle" style={{backgroundColor: User?.Role==="Recruiter"? '#0d2a95' : '#ed6034'}}>
+              <li className="navbar-toggle" style={{backgroundColor: User?.Role==="Recruiter"? '#0d2a95' : '#ed6034',listStyle: 'none'}}>
                 <Link to="#" className="menu-bars">
                   <AiIcons.AiOutlineClose />
                 </Link>
@@ -238,10 +215,10 @@ const Navbar = () => {
               <AvatarIMG/>
               {(Auth.User?.Role ==='Candidate')? SidebarData.map((item, index) => {
                 return (
-                  <li key={index} className={item.cName}>
-                    <Link to={item.path}>
+                  <li key={index} className={item.cName} style={{listStyle: 'none'}}>
+                    <Link to={item.path} style={{listStyle: 'none'}}>
                       {item.icon}
-                      <span>{item.title}</span>
+                      <span style={{listStyle: 'none'}}>{item.title}</span>
                     </Link>
                   </li>
                 );

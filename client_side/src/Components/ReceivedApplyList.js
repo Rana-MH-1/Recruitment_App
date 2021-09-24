@@ -1,17 +1,18 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import ReceivedApply from './ReceivedApply'
 
 const ReceivedApplyList = ({receivedapplylist}) => {
+    const style={paddingTop:'25px'}
+    const style1={paddingTop:'25px',paddingRight:'40px'}
     
     return (
         <div>
-            <div className='oneline' style={{backgroundColor:'#cfd4ea'}}>
-                <h5 style={{paddingTop:'25px'}}>Candidate</h5>
-                <h5>Applied on</h5>
-                <h5>Sent at</h5>
-                <h5>CV</h5>
-                <h5>Motivation Letter</h5>
+            <div className='oneline' style={{backgroundColor:'#68bfdb'}}>
+                <h5 style={style}>Candidate</h5>
+                <h5 style={style}>Applied on</h5>
+                <h5 style={style1}>Sent at</h5>
+                <h5 style={style1}>CV</h5>
+                <h5 style={style1}>Motivation Letter</h5>
             </div>
             {receivedapplylist.length && receivedapplylist.map(apply=> <ReceivedApply key={apply._id} receivedapply={apply} />).reverse()}
         </div>

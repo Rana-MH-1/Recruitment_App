@@ -106,3 +106,45 @@ export const DeleteMeetingCandidate = (id) => async (dispatch) => {
         dispatch(setError(err.response?.data?.errors))
     }
 } 
+
+export const getRecruiterMeetingCount =()=> async(dispatch)=>{
+    
+    dispatch(clearError())
+    dispatch(startLoading("get R meeting Count..."))
+    try{
+        setToken()
+        const {data} = await axios.get(`${prefixe}/api/meeting/RecruiterMeetingCount`)
+        dispatch({
+            type: MeetingTypes.GET_MEETING_R_COUNT,
+            payload: data
+        })
+        dispatch(stopLoading());
+        
+    }
+    catch(err){
+        dispatch(stopLoading())
+        dispatch(setError(err.response?.data?.errors))
+        
+    }
+}
+
+export const getCandidateMeetingCount =()=> async(dispatch)=>{
+    
+    dispatch(clearError())
+    dispatch(startLoading("get C meeting Count..."))
+    try{
+        setToken()
+        const {data} = await axios.get(`${prefixe}/api/meeting/CandidateMeetingCount`)
+        dispatch({
+            type: MeetingTypes.GET_MEETING_C_COUNT,
+            payload: data
+        })
+        dispatch(stopLoading());
+        
+    }
+    catch(err){
+        dispatch(stopLoading())
+        dispatch(setError(err.response?.data?.errors))
+        
+    }
+}

@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 require('dotenv').config({path:'./config/.env'})
 const mongoose = require('mongoose');
+const path = require('path')
 
 const nodemailer = require('nodemailer');
 
@@ -19,6 +20,15 @@ app.use('/api/Apply',require('./Routes/ApplyRouter'))
 app.use('/api/meeting', require('./Routes/MeetingRouter'))
 //upload file 
 app.use('/api/cv', require('./Routes/Upload'))
+
+
+//setup for deployment
+// app.use(express.static(path.join(__dirname,'../','client_side','build')))
+
+// app.get('*',(req,res)=>{
+//     res.sendFile(path.join(__dirname,'../','client_side','build','index.html'))
+// })
+
 
 
 

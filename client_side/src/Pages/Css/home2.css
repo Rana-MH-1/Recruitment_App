@@ -57,7 +57,6 @@ h4 {
 h5 {
   font-size: 1.2em;
   line-height:1.4em;
-  margin-bottom: 1em;
 }
 h6 {
   font-size: 1em;
@@ -127,8 +126,6 @@ hr, .divider {
   border: 0;
   clear:both;
   height: 1px;
-  background: #e2e8ed;
-  margin:2em auto;
 }
 body > hr {
   margin:0 auto;
@@ -137,12 +134,7 @@ body > hr {
 .divider {
   margin:3em auto;
 }
-div > hr:first-child {
-  margin-top:1em;
-}
-div > hr:last-child {
-  margin-bottom:0;
-}
+
 hr.divider {
   margin: 2em auto 0;
   max-width: 1100px;
@@ -375,20 +367,21 @@ input[type="button"], input[type="submit"], button, .button, .button-wrapper > a
   position: relative;
   width:auto;
   display:inline-block;
-  text-transform: uppercase;
   letter-spacing: .1em;
   margin-top: .5em;
   border:0;
   background:#2d68ee;
   color:#fff;
+  text-decoration: none;
 }
 input[type="submit"] {
   padding: 15px 20px;
 }
-input[type="button"]:hover, input[type="submit"]:hover, button:hover, .button:hover, .button-wrapper > a:hover {
+ .button:hover, .button-wrapper > a:hover {
   -webkit-box-shadow: inset 0px 0px 100px 0px rgba(0,0,0,0.2);
   -moz-box-shadow: inset 0px 0px 100px 0px rgba(0,0,0,0.2);
-  box-shadow: inset 0px 0px 100px 0px rgba(0,0,0,0.2);
+  box-shadow: inset 0px 0px 100px 0px rgba(207, 142, 142, 0.2);
+  text-decoration: none;
 }
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#329fdc+0,226fb8+94 */
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#226fb8+6,329fdc+100 */
@@ -397,9 +390,7 @@ input[type="button"]:hover, input[type="submit"]:hover, button:hover, .button:ho
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#351f54+0,542e7c+100 */
 
 
-.button:hover, .button-wrapper > a:hover {
 
-}
 a.button.alt, .button-wrapper.alt > a {
   background: #333!important;
 }
@@ -1429,11 +1420,8 @@ ul.menu a {
 
 
 .container {
-  max-width:1100px;
-  margin-left:auto;
-  margin-right:auto;
-  padding-left:25px;
-  padding-right:25px;
+  width:800px;
+  text-align:'center'
 }
 #content.aligncenter, #login, #register {
   text-align:center;
@@ -1484,9 +1472,7 @@ ul.menu a {
   /*overflow:hidden;*/
   text-align:left;
 }
-#banner .container {
 
-}
 #banner * {
   margin-bottom:0;
 }
@@ -1675,7 +1661,7 @@ a.upload:hover {
 	left: 0;
 	width: 0;
 	height: 100%;
-	color: #2571b9;
+	color: #0859ed;
 	overflow: hidden;
 	position: absolute;
 	content: attr(data-text);

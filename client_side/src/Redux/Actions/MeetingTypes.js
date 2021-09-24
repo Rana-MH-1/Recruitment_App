@@ -6,3 +6,6 @@ export const GET_MEETINGLIST_C_SUCCESS = 'get-meeting-list-c-success'
 
 export const DELETING_Meeting_SUCCESS = 'DELETING_Meeting_SUCCESS'
 export const DELETING_Meeting_CANDIDATE_SUCCESS = 'DELETING_Meeting_CANDIDATE_SUCCESS'
+
+export const GET_MEETING_R_COUNT = 'GET_MEETING_R_COUNT'
+export const GET_MEETING_C_COUNT = 'GET_MEETING_C_COUNT'

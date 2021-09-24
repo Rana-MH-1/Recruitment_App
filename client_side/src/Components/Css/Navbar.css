@@ -1,7 +1,7 @@
 .navbar {
     height: 65px;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center; 
   }
 
@@ -21,7 +21,7 @@
   
   .nav-menu {
     
-    width: 220px;
+    width: 200px;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -61,6 +61,7 @@
   .nav-text a:hover {
     background-color: #6D7FBF;
     color: white;
+    text-decoration: none;
 
   }
   

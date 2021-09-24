@@ -4,7 +4,9 @@ import * as types from './AuthTypes';
 import {startLoading,stopLoading,setError,clearError} from './AppStateActions'
 import { setToken } from '../../helpers/setToken';
 import { getMyPost } from './PostActions';
-import {getReceivedApplies} from './ApplyAction'
+import {getReceivedApplies,getCOUNTApplies} from './ApplyAction'
+import{getRecruiterMeetingCount,getCandidateMeetingCount} from './MeetingAction'
+import{getMyPostCount} from './PostActions'
 
 export const RegisterAction=(info)=> async(dispatch)=>{
     
@@ -86,9 +88,15 @@ export const EditProfile = (EditedProfile) => async (dispatch) => {
         })
         dispatch(stopLoading())
         dispatch(getDataUSer())
+        dispatch(getRecruiterMeetingCount())
+        dispatch(getCandidateMeetingCount())
+        dispatch(getMyPostCount())
+        dispatch(getCOUNTApplies())
     }
     catch (err) {
         dispatch(setError(err.response?.data?.errors))
         dispatch(stopLoading())
+        dispatch(getRecruiterMeetingCount())
+        dispatch(getCandidateMeetingCount())
     }
 }  

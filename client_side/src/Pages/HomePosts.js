@@ -7,8 +7,8 @@ import { getMyApplies } from "../Redux/Actions/ApplyAction";
 import Pagination from "@material-ui/lab/Pagination";
 import LimitSelector from "../Components/LimitSelector";
 import { makeStyles } from "@material-ui/core/styles";
-import './Css/HomePosts.css'
-import AddPost from '../Components/AddPost';
+import "./Css/HomePosts.css";
+import AddPost from "../Components/AddPost";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
       justifyContent: "center",
       display: "flex",
-      backgroundColor:'white',
-      borderRadius:'15px',
     },
   },
 }));
@@ -33,14 +31,26 @@ const HomePosts = () => {
   useEffect(() => {
     dispatch(getPostCount());
     dispatch(getPostsAction(page, limit));
-    dispatch(getDataUSer())
-    dispatch(getMyApplies())
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(getDataUSer());
+    dispatch(getMyApplies());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const Filtering = (postList, search) => {
-    return postList.filter((post) =>
-      post.jobTitle.toLowerCase().trim().includes(search.toLowerCase().trim()) || post.jobDescription.toLowerCase().trim().includes(search.toLowerCase().trim()) || post.Contrat_Type.toLowerCase().trim().includes(search.toLowerCase().trim()) || post.Address.toLowerCase().trim().includes(search.toLowerCase().trim())
+    return postList.filter(
+      (post) =>
+        post.jobTitle
+          .toLowerCase()
+          .trim()
+          .includes(search.toLowerCase().trim()) ||
+        post.jobDescription
+          .toLowerCase()
+          .trim()
+          .includes(search.toLowerCase().trim()) ||
+        post.Contrat_Type.toLowerCase()
+          .trim()
+          .includes(search.toLowerCase().trim()) ||
+        post.Address.toLowerCase().trim().includes(search.toLowerCase().trim())
     );
   };
 
@@ -63,33 +73,37 @@ const HomePosts = () => {
   //   height:'50%',
   //  zIndex:-1
   // }
-  
+
   return (
-    <div>
-      <div style={{float:'right',marginTop:'30px'}}>
-      <AddPost page={page} limit={limit} />
+    <div style={{ backgroundColor: "#efeff4" }}>
+      <div style={{ float: "right", marginTop: "30px" }}>
+        <AddPost page={page} limit={limit} />
       </div>
-      <div style={{marginLeft:'865px'}}>
-      <LimitSelector setLimit={setLimit} style={{marginLeft:'800px'}}/>
+      <div style={{ marginLeft: "865px" }}>
+        <LimitSelector setLimit={setLimit} style={{ marginLeft: "800px" }} />
       </div>
-    <div className='grid'>
-      {/* <video autoPlay loop muted style={style1}>
+      <div className="grid">
+        {/* <video autoPlay loop muted style={style1}>
         <source src={'https://thumbs.gfycat.com/CalculatingOddballCarpenterant-mobile.mp4'} type='video/mp4' />
       </video> */}
-      <div className="posts">
-        {User && postList && (
-          <PostList PostList={Filtering(postList, search)} page={page} limit={limit} />
-        )}
-        <div className={classes.root}>
-          <Pagination
-            count={Math.ceil(count / limit)}
-            onChange={handlePageChange}
-            variant="outlined"
-            color="primary"
-          />
+        <div className="posts">
+          {User && postList && (
+            <PostList
+              PostList={Filtering(postList, search)}
+              page={page}
+              limit={limit}
+            />
+          )}
+          <div className={classes.root}>
+            <Pagination
+              count={Math.ceil(count / limit)}
+              onChange={handlePageChange}
+              variant="outlined"
+              color="primary"
+            />
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

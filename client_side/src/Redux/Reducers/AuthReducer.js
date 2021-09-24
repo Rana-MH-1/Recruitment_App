@@ -94,6 +94,20 @@ const AuthReducer =(state=initState,{type,payload})=>{
                 User:{...state.User,
                 MyPostsCount: payload}
             }
+        case MeetingTypes.GET_MEETING_R_COUNT:
+            return{
+                ...state,
+                User:{...state.User,
+                R_Meeting_Count : payload
+                }
+            }
+            case MeetingTypes.GET_MEETING_C_COUNT:
+                return{
+                    ...state,
+                    User:{...state.User,
+                    C_Meeting_Count : payload
+                    }
+                }
         default:
             return state
     }
