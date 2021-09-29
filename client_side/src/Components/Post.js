@@ -97,6 +97,7 @@ const PostRecruiter = ({ Post, page, limit }) => {
     if (isEdited && infoPost !== Post)
       dispatch(EditPost({ ...Post, ...infoPost }, page, limit));
   };
+  console.log('post',Post)
   return (
     <Card
       className="CardPost"

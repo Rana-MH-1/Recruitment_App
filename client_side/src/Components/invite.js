@@ -69,7 +69,7 @@ const Invite = ({ apply }) => {
 
   const savingMeeting = () => {
     meetinginfo.Date_Meeting &&
-      meetinginfo.Duration &&
+      meetinginfo.Duration && meetinginfo.Date_Meeting >=new Date().toISOString().substring(0,16) &&
       dispatch(SaveMeeting(meetinginfo));
     setIsInvited(true);
   };
@@ -117,14 +117,16 @@ const Invite = ({ apply }) => {
                 shrink: true,
               }}
               name="Date_Meeting"
-              error={meetinginfo.Date_Meeting === "" && isInvited}
+              error={(meetinginfo.Date_Meeting === "" && isInvited) ||(meetinginfo.Date_Meeting <= new Date().toISOString().substring(0,16) && isInvited)}
               helperText={
-                meetinginfo.Date_Meeting === "" && isInvited
+                (meetinginfo.Date_Meeting === "" && isInvited
                   ? "Time meeting is required"
-                  : " "
+                  : " ")
+  
               }
               onChange={handleInfoMeeting}
             />
+            {(meetinginfo.Date_Meeting <=new Date().toISOString().substring(0,16) && isInvited && meetinginfo.Date_Meeting!=='') && <Alert style={{width:'200px'}} severity="warning">Time has already passed</Alert>}
 
             <FormControl required sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-simple-select-required-label">

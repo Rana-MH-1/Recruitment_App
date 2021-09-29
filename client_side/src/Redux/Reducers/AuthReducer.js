@@ -108,6 +108,11 @@ const AuthReducer =(state=initState,{type,payload})=>{
                     C_Meeting_Count : payload
                     }
                 }
+            case types.UPDATE_PROFILE_IMAGE_USER:
+                return{
+                    ...state,
+                    User:{...state.User,...payload}
+                }
         default:
             return state
     }

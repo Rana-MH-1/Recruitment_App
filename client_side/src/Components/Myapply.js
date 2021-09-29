@@ -27,7 +27,7 @@ const Myapply = ({ myapply }) => {
               Motivation Letter
             </a>
           </div>
-          <hr style={{ width: "1140px", margin: "auto",border:'1px solid #fbf4e9',opacity:'1' }} />
+          <hr style={{margin: "auto",border:'1px solid #fbf4e9',opacity:'1' }} />
         </>
       )}
     </div>

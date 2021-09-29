@@ -3,7 +3,7 @@ import Myapply from "./Myapply";
 import '../Components/Css/MyapplyList.css'
 
 const MyapplyList = ({ myapplyList }) => {
-  const style={paddingTop:'24px'}
+  const style={paddingTop:'15px'}
   return (
     <div>
       <div className="tabline">

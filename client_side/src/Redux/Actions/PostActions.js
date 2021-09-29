@@ -92,6 +92,7 @@ export const EditPost = (EditedPost,page,limit) => async (dispatch) => {
         })
         dispatch(stopLoading())
         dispatch(getPostsAction(page,limit))
+        dispatch(getMyPost())
     }
     catch (err) {
         dispatch(setError(err.response?.data?.errors))

@@ -33,7 +33,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-size: 3em;
   line-height:1.2em;
-  margin-bottom:.5em;
   letter-spacing:0.05em;
   font-weight:normal;
 }
@@ -44,7 +43,7 @@ h2 {
   font-size: 2em;
   line-height:1.4em;
   margin-bottom:1em;
-  color: #226fb8;
+  color: #0d2a95;
 }
 h3 {
   font-size: 1.6em;
@@ -177,15 +176,7 @@ ul, ol {
 li {
   margin-bottom:.5em;
 }
-p, ul, ol, table, iframe, video, img {
-  margin-bottom:1em;
-}
-p img {
-  margin-bottom:0;
-}
-h1 img, h2 img, h3 img {
-  margin-top:1%;
-}
+
 a {
   color: inherit;
   font-weight:inherit;
@@ -910,13 +901,13 @@ ul.menu a {
   border-bottom-width: 4px;
 }
 #navigation .alt a, #main-sticky-menu .alt a {
-  color: #0859ed!important;
+  color: #0d2a95!important;
 }
 #main-menu > li.alt:hover > a, #main-sticky-menu > li.alt:hover > a {
-  color:#226fb8!important;
+  color:#0d2a95!important;
 }
 #main-menu > li.alt:hover > a:after, #main-sticky-menu > li.alt:hover > a:after {
-  border-bottom-color:#226fb8!important;
+  border-bottom-color:#0d2a95!important;
 }
 #main-menu .sub-menu > .current-menu-item > a, #main-sticky-menu .sub-menu > .current-menu-item > a,
 /*#main-menu .sub-menu > .current-page-parent > a, #main-sticky-menu .sub-menu > .current-page-parent > a,
@@ -1661,7 +1652,7 @@ a.upload:hover {
 	left: 0;
 	width: 0;
 	height: 100%;
-	color: #0859ed;
+	color: #0d2a95;
 	overflow: hidden;
 	position: absolute;
 	content: attr(data-text);

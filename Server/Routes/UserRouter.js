@@ -9,6 +9,7 @@ router.post('/register',DataValidationRegister,UserController.registerRecruiter)
 router.post('/login',DataValidationLogin,UserController.loginUser)
 router.get('/getDataUser',TokenVerification,UserController.getDataUser)
 router.put('/editProfile/:id',TokenVerification,UserController.EditProfile)
+router.put('/editImage/:id',TokenVerification,UserController.EditImageProfile)
 
 
 module.exports = router
