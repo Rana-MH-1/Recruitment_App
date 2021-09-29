@@ -96,7 +96,30 @@ export const EditProfile = (EditedProfile) => async (dispatch) => {
     catch (err) {
         dispatch(setError(err.response?.data?.errors))
         dispatch(stopLoading())
+    }
+}  
+
+export const EditProfileImage = (image) => async (dispatch) => {
+    dispatch(clearError())
+    dispatch(startLoading("Editing image data..."))
+    try {
+        console.log(image)
+        setToken()
+        const res = await axios.put(`${prefixe}/api/Users/editImage/${image._id}`,image)
+        dispatch({
+            type: types.UPDATE_PROFILE_IMAGE_USER,
+            payload: res.data
+        })
+        dispatch(stopLoading())
+        dispatch(getDataUSer())
         dispatch(getRecruiterMeetingCount())
         dispatch(getCandidateMeetingCount())
+        dispatch(getMyPostCount())
+        dispatch(getCOUNTApplies())
+        
+    }
+    catch (err) {
+        dispatch(setError(err.response?.data?.errors))
+        dispatch(stopLoading())
     }
 }  

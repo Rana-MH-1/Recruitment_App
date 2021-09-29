@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -8,22 +8,27 @@ import CustomInput from "../Components/Profile/CustomInput/CustomInput";
 import Card from "../Components/Profile/Card/Card";
 import CardIcon from "../Components/Profile/Card/CardIcon";
 import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
+
+import Compressor from "compressorjs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import CardHeader from "../Components/Profile/Card/CardHeader";
 import CardAvatar from "../Components/Profile/Card/CardAvatar";
 import CardBody from "../Components/Profile/Card/CardBody";
 import CardFooter from "../Components/Profile/Card/CardFooter";
-import {useDispatch, useSelector} from 'react-redux'
-import { EditProfile } from "../Redux/Actions/AuthAction";
-import { getMyPostCount } from '../Redux/Actions/PostActions';
-import { getCOUNTApplies } from '../Redux/Actions/ApplyAction';
+import { useDispatch, useSelector } from "react-redux";
+import { EditProfile, EditProfileImage } from "../Redux/Actions/AuthAction";
+import { getMyPostCount } from "../Redux/Actions/PostActions";
+import { getCOUNTApplies } from "../Redux/Actions/ApplyAction";
 
-
-import { Button} from "react-bootstrap";
-import { getCandidateMeetingCount, getRecruiterMeetingCount } from "../Redux/Actions/MeetingAction";
-
-
+import { Button } from "react-bootstrap";
+import {
+  getCandidateMeetingCount,
+  getRecruiterMeetingCount,
+} from "../Redux/Actions/MeetingAction";
 
 const styles = {
   cardCategoryblack: {
@@ -45,61 +50,104 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const User = useSelector(state=> state.Auth.User)
+  const User = useSelector((state) => state.Auth.User);
 
   const [infoCandidate, setInfoCandidate] = useState({
-    _id:User._id,
-    FullName:User.FullName,
-    Email:User.Email,
-    LevelStudy:User.LevelStudy,
-    Specialty:User.Specialty,
+    _id: User._id,
+    FullName: User.FullName,
+    Email: User.Email,
+    LevelStudy: User.LevelStudy,
+    Specialty: User.Specialty,
+  });
 
-})
+  const [infoRecruiter, setInfoRecruiter] = useState({
+    _id: User._id,
+    FullName: User.FullName,
+    Email: User.Email,
+    Profession: User.Profession,
+    SocietyName: User.SocietyName,
+    ActivityField: User.ActivityField,
+    Category: User.Category,
+    taxRegistrationNumber: User.taxRegistrationNumber,
+  });
 
-const [infoRecruiter, setInfoRecruiter] = useState({
-    _id:User._id,
-    FullName:User.FullName,
-    Email:User.Email,
-    Profession:User.Profession,
-    SocietyName:User.SocietyName,
-    ActivityField:User.ActivityField,
-    Category:User.Category,
-    taxRegistrationNumber:User.taxRegistrationNumber
-})
-
-const handleCandidateInfoChange = (e) => {
+  const handleCandidateInfoChange = (e) => {
     setInfoCandidate({ ...infoCandidate, [e.target.name]: e.target.value });
   };
 
   const handleRecruiterInfoChange = (e) => {
     setInfoRecruiter({ ...infoRecruiter, [e.target.name]: e.target.value });
   };
-  
-  const EditingProfile=()=>{
-    User.Role==='Candidate' && dispatch(EditProfile(infoCandidate))
-    User.Role==='Recruiter' && dispatch(EditProfile(infoRecruiter))
-  }
+
+  const EditingProfile = () => {
+    User.Role === "Candidate" && dispatch(EditProfile(infoCandidate));
+    User.Role === "Recruiter" && dispatch(EditProfile(infoRecruiter));
+  };
 
   useEffect(() => {
-    User.Role ==='Candidate' && 
-      dispatch(getCOUNTApplies());
-      dispatch(getRecruiterMeetingCount())
-    ;
-    User.Role ==='Recruiter' && 
-    dispatch(getMyPostCount());
-    dispatch(getCandidateMeetingCount())
-},[User.Role, dispatch])
+    User.Role === "Candidate" && dispatch(getCOUNTApplies());
+    dispatch(getRecruiterMeetingCount());
+    User.Role === "Recruiter" && dispatch(getMyPostCount());
+    dispatch(getCandidateMeetingCount());
+  }, [User.Role, dispatch]);
+
+  const [newimage, setNewimage] = useState({
+    Image: "",
+    Public_id: User.image?.public_id,
+    _id: User._id,
+  });
+  const handleImage = (e) => {
+    if (e.target.files.length) {
+      const myImage = e.target.files[0];
+      new Compressor(myImage, {
+        quality: 0.8,
+        success(result) {
+          const reader = new FileReader();
+          reader.readAsDataURL(result);
+          reader.onloadend = () => {
+            setNewimage({ ...newimage, Image: reader.result });
+          };
+        },
+      });
+    }
+  };
+
+  const EditingImageProfile =()=>{
+    newimage.Image!=='' && 
+    dispatch(EditProfileImage(newimage))
+    toast("Photo has been successfully uploaded")
+  }
 
   return (
-    <div style={{marginLeft:'200px',marginTop:'50px'}}>
+    <div style={{ marginLeft: "200px", marginTop: "50px" }}>
       <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
           <Card>
-            <CardHeader style={{backgroundColor: User.Role==='Recruiter'? '#68bfdb' : '#fbf4e9'}}>
-              <h4 className={classes.cardTitleblack} style={{color: User.Role==='Recruiter'? '#0d2a95' : 'rgba(237,96,52,0.7)'}}>Edit Profile</h4>
-              <p className={classes.cardCategoryblack} style={{color: User.Role==='Recruiter'? 'white' : 'black'}}>Complete your profile</p>
+            <CardHeader
+              style={{
+                backgroundColor:
+                  User.Role === "Recruiter" ? "#68bfdb" : "#fbf4e9",
+              }}
+            >
+              <h4
+                className={classes.cardTitleblack}
+                style={{
+                  color:
+                    User.Role === "Recruiter"
+                      ? "#0d2a95"
+                      : "rgba(237,96,52,0.7)",
+                }}
+              >
+                Edit Profile
+              </h4>
+              <p
+                className={classes.cardCategoryblack}
+                style={{ color: User.Role === "Recruiter" ? "white" : "black" }}
+              >
+                Complete your profile
+              </p>
             </CardHeader>
             <CardBody>
               <GridContainer>
@@ -111,8 +159,12 @@ const handleCandidateInfoChange = (e) => {
                       fullWidth: true,
                     }}
                     defaultValue={User.FullName}
-                    name='FullName'
-                    onChange={User.Role==='Candidate'? handleCandidateInfoChange :handleRecruiterInfoChange }
+                    name="FullName"
+                    onChange={
+                      User.Role === "Candidate"
+                        ? handleCandidateInfoChange
+                        : handleRecruiterInfoChange
+                    }
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={3}>
@@ -124,124 +176,220 @@ const handleCandidateInfoChange = (e) => {
                     }}
                     defaultValue={User.Email}
                     name="Email"
-                    onChange={User.Role==='Candidate'? handleCandidateInfoChange :handleRecruiterInfoChange }
-
+                    onChange={
+                      User.Role === "Candidate"
+                        ? handleCandidateInfoChange
+                        : handleRecruiterInfoChange
+                    }
                   />
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={4}>
-                {User.Role==='Recruiter' && User?.Profession && <CustomInput
-                    labelText="Profession"
-                    id="Profession"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    defaultValue={User.Profession}
-                    name='Profession'
-                    onChange={handleRecruiterInfoChange}
-                  />}
-                
+                  {User.Role === "Recruiter" && User?.Profession && (
+                    <CustomInput
+                      labelText="Profession"
+                      id="Profession"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      defaultValue={User.Profession}
+                      name="Profession"
+                      onChange={handleRecruiterInfoChange}
+                    />
+                  )}
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText={User.Role==='Candidate'? 'LevelStudy' : 'SocietyName'}
-                    id={User.Role==='Candidate'? 'LevelStudy' : 'SocietyName'}
+                    labelText={
+                      User.Role === "Candidate" ? "LevelStudy" : "SocietyName"
+                    }
+                    id={
+                      User.Role === "Candidate" ? "LevelStudy" : "SocietyName"
+                    }
                     formControlProps={{
                       fullWidth: true,
                     }}
-                    defaultValue={User.Role==='Candidate'? User.LevelStudy : User.SocietyName}
-                    name={User.Role==='Candidate'? 'LevelStudy' : 'SocietyName'}
-                    onChange={User.Role==='Candidate'? handleCandidateInfoChange :handleRecruiterInfoChange }
-
+                    defaultValue={
+                      User.Role === "Candidate"
+                        ? User.LevelStudy
+                        : User.SocietyName
+                    }
+                    name={
+                      User.Role === "Candidate" ? "LevelStudy" : "SocietyName"
+                    }
+                    onChange={
+                      User.Role === "Candidate"
+                        ? handleCandidateInfoChange
+                        : handleRecruiterInfoChange
+                    }
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
-                {User.Role==='Recruiter' && User?.ActivityField && <CustomInput
-                    labelText="Activity Field"
-                    id="ActivityField"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    defaultValue={User.ActivityField}
-                    name='ActivityField'
-                    onChange={handleRecruiterInfoChange}
-                  />}
+                  {User.Role === "Recruiter" && User?.ActivityField && (
+                    <CustomInput
+                      labelText="Activity Field"
+                      id="ActivityField"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      defaultValue={User.ActivityField}
+                      name="ActivityField"
+                      onChange={handleRecruiterInfoChange}
+                    />
+                  )}
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
-                    labelText={User.Role==='Candidate'? "Specialty": 'Category'}
-                    id={User.Role==='Candidate'? "Specialty": 'Category'}
+                    labelText={
+                      User.Role === "Candidate" ? "Specialty" : "Category"
+                    }
+                    id={User.Role === "Candidate" ? "Specialty" : "Category"}
                     formControlProps={{
                       fullWidth: true,
                     }}
-                    defaultValue={User.Role==='Candidate'? User.Specialty && User.Specialty : User.Category && User.Category}
-                    name={User.Role==='Candidate'? "Specialty": 'Category'}
-                    onChange={User.Role==='Candidate'? handleCandidateInfoChange :handleRecruiterInfoChange }
+                    defaultValue={
+                      User.Role === "Candidate"
+                        ? User.Specialty && User.Specialty
+                        : User.Category && User.Category
+                    }
+                    name={User.Role === "Candidate" ? "Specialty" : "Category"}
+                    onChange={
+                      User.Role === "Candidate"
+                        ? handleCandidateInfoChange
+                        : handleRecruiterInfoChange
+                    }
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
-                {User.Role==='Recruiter' && User.taxRegistrationNumber && <CustomInput
-                    labelText="tax Registration Number"
-                    id="taxRegistrationNumber"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    defaultValue={User.taxRegistrationNumber}
-                    name='taxRegistrationNumber'
-                    onChange={handleRecruiterInfoChange}
-                  />}
+                  {User.Role === "Recruiter" && User.taxRegistrationNumber && (
+                    <CustomInput
+                      labelText="tax Registration Number"
+                      id="taxRegistrationNumber"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      defaultValue={User.taxRegistrationNumber}
+                      name="taxRegistrationNumber"
+                      onChange={handleRecruiterInfoChange}
+                    />
+                  )}
                 </GridItem>
               </GridContainer>
-              
             </CardBody>
             <CardFooter>
-            <Button onClick={(EditingProfile)} style={{backgroundColor: User.Role==='Recruiter'? '#68bfdb' : '#fbf4e9',borderColor: User.Role==='Recruiter'? '#68bfdb' : '#fbf4e9',color: User.Role ==='Recruiter' ? "white" : 'black',padding:'15px', borderRadius:'10px',marginTop:'15px',marginBottom:'15px'}} variant="primary">
-        Update Profile
-      </Button>
-             
+              <Button
+                onClick={EditingProfile}
+                style={{
+                  backgroundColor:
+                    User.Role === "Recruiter" ? "#68bfdb" : "#fbf4e9",
+                  borderColor:
+                    User.Role === "Recruiter" ? "#68bfdb" : "#fbf4e9",
+                  color: User.Role === "Recruiter" ? "white" : "black",
+                  padding: "15px",
+                  borderRadius: "10px",
+                  marginTop: "15px",
+                  marginBottom: "15px",
+                }}
+                variant="primary"
+              >
+                Update Profile
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card profile>
             <CardAvatar profile>
-              
-                <img src={User.image? User.image?.url : "https://png.pngtree.com/png-clipart/20200701/original/pngtree-black-default-avatar-png-image_5407174.jpg" } alt="..." />
-            
+              <input
+                accept="image/*"
+                id="icon-button-file"
+                onChange={handleImage}
+                type="file"
+                style={{ display: "none" }}
+              />
+              <label htmlFor="icon-button-file">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                >
+                  <img
+                    src={
+                      User.image
+                        ? User.image?.url
+                        : "https://png.pngtree.com/png-clipart/20200701/original/pngtree-black-default-avatar-png-image_5407174.jpg"
+                    }
+                    alt="..."
+                  />
+                </IconButton>
+              </label>
             </CardAvatar>
+            <button
+              onClick={EditingImageProfile}
+              style={{
+                backgroundColor:
+                  User.Role === "Recruiter" ? "#68bfdb" : "#fbf4e9",
+                marginTop: "10px",
+                color: User.Role === "Recruiter" ? "white" : "black",
+              }}
+            >
+              Update Profile image
+            </button>
+            {newimage.Image!=='' && <ToastContainer position="top-center" autoClose={4000} />}
             <CardBody profile>
-              <h6 className={classes.cardCategory}>{User?.Role==='Candidate'? User.Specialty : User.Profession}</h6>
-              <h4 className={classes.cardTitle}>{User.FullName}</h4>
+              <h6 className={classes.cardCategory}>
+                {User?.Role === "Candidate" ? User.Specialty : User.Profession}
+              </h6>
             </CardBody>
           </Card>
 
-          <Card style={{width:'250px',marginLeft:'50px'}}>
+          <Card style={{ width: "250px", marginLeft: "50px" }}>
             <CardHeader stats icon>
-            <CardIcon style={{width:'70px',color: User.Role==='Recruiter'? '#68bfdb' : 'rgba(237,96,52,0.7)'}}>
-                <Icon>{User?.Role ==='Candidate' ? User.CountMyApplies : User.MyPostsCount}</Icon>
+              <CardIcon
+                style={{
+                  width: "70px",
+                  color:
+                    User.Role === "Recruiter"
+                      ? "#68bfdb"
+                      : "rgba(237,96,52,0.7)",
+                }}
+              >
+                <Icon>
+                  {User?.Role === "Candidate"
+                    ? User.CountMyApplies
+                    : User.MyPostsCount}
+                </Icon>
               </CardIcon>
-              <h3 style={{textAlign:'center',paddingTop:'20px'}} >
-                 {User.Role==='Recruiter'? 'posts' : 'applies'}
+              <h3 style={{ textAlign: "center", paddingTop: "20px" }}>
+                {User.Role === "Recruiter" ? "posts" : "applies"}
               </h3>
             </CardHeader>
           </Card>
 
-          <Card style={{width:'250px',marginLeft:'50px'}}>
+          <Card style={{ width: "250px", marginLeft: "50px" }}>
             <CardHeader stats icon>
-            <CardIcon style={{width:'70px',color:User.Role==='Recruiter'? '#0d2a95' :'#ed6034'}}>
-                <Icon>{User?.Role ==='Candidate' ? User.C_Meeting_Count : User.R_Meeting_Count}</Icon>
+              <CardIcon
+                style={{
+                  width: "70px",
+                  color: User.Role === "Recruiter" ? "#0d2a95" : "#ed6034",
+                }}
+              >
+                <Icon>
+                  {User?.Role === "Candidate"
+                    ? User.C_Meeting_Count
+                    : User.R_Meeting_Count}
+                </Icon>
               </CardIcon>
-              <h3 style={{textAlign:'center',paddingTop:'20px'}} >
-                 meetings
+              <h3 style={{ textAlign: "center", paddingTop: "20px" }}>
+                meetings
               </h3>
             </CardHeader>
           </Card>
         </GridItem>
-        
       </GridContainer>
     </div>
   );

@@ -167,4 +167,24 @@ const EditProfile = async(req, res)=>{
     catch{res.status(400).json({ err: err.message })}
 }
 
-module.exports = {registerCandidate,registerRecruiter,loginUser,getDataUser,EditProfile}
+const EditImageProfile = async(req, res)=>{
+    try{
+        const {Image,Public_id }= req.body
+        
+        //delete previous image
+        cloudinary.uploader.destroy(Public_id)
+        //upload image
+        
+        const savedImage = await cloudinary.uploader.upload(Image)
+
+        const image={
+            url:savedImage.url,
+            public_id:Public_id,
+        }
+        
+            const updatedProfileImg = await user.findByIdAndUpdate(req.params.id, {image} ,{new:true})
+        res.json(updatedProfileImg)
+    }
+    catch{res.status(400).json({ err: err.message })}
+}
+module.exports = {registerCandidate,registerRecruiter,loginUser,getDataUser,EditProfile,EditImageProfile}

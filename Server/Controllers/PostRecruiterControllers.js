@@ -46,7 +46,7 @@ const getAllPosts = async(req, res)=>{
 
 const getMyPosts = async(req, res)=>{
     try{
-        const posts = await postRecuiter.find({owner: req.userId})
+        const posts = await postRecuiter.find({owner: req.userId}).populate({path:'owner',select:'-Password'})
         res.json(posts)
     }
     catch{res.status(400).json({ err: err.message })}
@@ -63,7 +63,7 @@ const getMyPostsCount = async(req, res)=>{
 
 const EditPost = async(req, res)=>{
     try{
-        const updatedPost = await postRecuiter.findByIdAndUpdate(req.params.id, req.body)
+        const updatedPost = await postRecuiter.findByIdAndUpdate(req.params.id, req.body,{new:true})
         res.json(updatedPost)
         console.log(updatedPost)
     }

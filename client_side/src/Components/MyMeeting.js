@@ -116,7 +116,7 @@ const MyMeeting = ({ myMeeting }) => {
             <span>min</span>
           </Typography>
           {User.Role === "Recruiter" && (
-            <Typography variant="body2" component="p">
+            <Typography style={{fontSize:'16px'}} variant="body2" component="p">
               Candidate: {myMeeting.Name_Candidat}
             </Typography>
           )}

@@ -2,8 +2,8 @@ import React from 'react'
 import ReceivedApply from './ReceivedApply'
 
 const ReceivedApplyList = ({receivedapplylist}) => {
-    const style={paddingTop:'25px'}
-    const style1={paddingTop:'25px',paddingRight:'40px'}
+    const style1={paddingRight:'40px',paddingTop:'14px'}
+    const style={paddingTop:'14px'}
     
     return (
         <div>

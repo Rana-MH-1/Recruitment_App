@@ -36,8 +36,8 @@ const HomePosts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const Filtering = (postList, search) => {
-    return postList.filter(
+  const Filtering = (MyPosts, search) => {
+    return MyPosts.filter(
       (post) =>
         post.jobTitle
           .toLowerCase()
@@ -89,7 +89,7 @@ const HomePosts = () => {
         <div className="posts">
           {User && postList && (
             <PostList
-              PostList={Filtering(postList, search)}
+              PostList={postList}
               page={page}
               limit={limit}
             />

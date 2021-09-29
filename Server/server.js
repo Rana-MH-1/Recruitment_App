@@ -23,11 +23,11 @@ app.use('/api/cv', require('./Routes/Upload'))
 
 
 //setup for deployment
-// app.use(express.static(path.join(__dirname,'../','client_side','build')))
+app.use(express.static(path.join(__dirname,'../','client_side','build')))
 
-// app.get('*',(req,res)=>{
-//     res.sendFile(path.join(__dirname,'../','client_side','build','index.html'))
-// })
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../','client_side','build','index.html'))
+})
 
 
 

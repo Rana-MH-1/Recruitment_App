@@ -264,7 +264,7 @@ const Home = () => {
               <div className="text">
                 <h5 className="caps">Zug</h5>
                 <p>
-                  JobOnline AG
+                  OnlineJOB AG
                   <br />
                   24 Poststrasse
                   <br />
@@ -473,7 +473,7 @@ const Home = () => {
               id="menu-item-378"
               className="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item menu-item-378"
             >
-              © 2021 jobOnline
+              © 2021 OnlineJOB
             </li>
           </ul>
         </div>
