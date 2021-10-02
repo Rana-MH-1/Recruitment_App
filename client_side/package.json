@@ -47,7 +47,7 @@
     "webpack": "^4.44.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npx node index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
