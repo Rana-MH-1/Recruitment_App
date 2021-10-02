@@ -6,7 +6,6 @@ const path = require('path')
 require('dotenv').config({path:'./config/.env'})
 const mongoose = require('mongoose');
 
-const nodemailer = require('nodemailer');
 
 app.use(express.json({ limit: '50mb' }))
 const PORT = process.env.PORT || 5000;
