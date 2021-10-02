@@ -32,7 +32,7 @@ const MyPosts = () => {
         );
       };
     return (
-        <div>
+        <div style={{backgroundColor: "#efeff4"}}>
             <div class="ui icon input" style={{marginLeft:'650px',marginTop:'20px'}}><input type="text" placeholder="Search..." onChange={(e)=> dispatch(FiltreAction(e.target.value))}/><i aria-hidden="true" class="search icon"></i></div>
 
             {User.Role==='Recruiter' && User && User.MyPosts && <PostList PostList={Filtering(MyPosts, search)} />
