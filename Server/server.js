@@ -35,7 +35,7 @@ app.get('*',(req,res)=>{
 
 
 //connect to the db
-mongoose.connect('process.env.URI', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true,useFindAndModify: false })
+mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true,useFindAndModify: false })
 .then(res=> console.log('Db connected'))
 .catch(err=> console.log(err))
 app.listen(PORT, err=> err? console.log(err) : console.log('server is running on port', PORT))
