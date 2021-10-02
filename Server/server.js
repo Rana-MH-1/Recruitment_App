@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const path = require('path')
 
-require('dotenv').config({path:path.resolve(__dirname, './config/.env')})
+require('dotenv').config({path:'./config/.env'})
 const mongoose = require('mongoose');
 
 const nodemailer = require('nodemailer');
