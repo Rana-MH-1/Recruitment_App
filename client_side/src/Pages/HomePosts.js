@@ -26,7 +26,6 @@ const HomePosts = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.Posts.PostList);
   const User = useSelector((state) => state.Auth.User);
-  const search = useSelector((state) => state.Filtre);
 
   useEffect(() => {
     dispatch(getPostCount());
@@ -35,24 +34,6 @@ const HomePosts = () => {
     dispatch(getMyApplies());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const Filtering = (MyPosts, search) => {
-    return MyPosts.filter(
-      (post) =>
-        post.jobTitle
-          .toLowerCase()
-          .trim()
-          .includes(search.toLowerCase().trim()) ||
-        post.jobDescription
-          .toLowerCase()
-          .trim()
-          .includes(search.toLowerCase().trim()) ||
-        post.Contrat_Type.toLowerCase()
-          .trim()
-          .includes(search.toLowerCase().trim()) ||
-        post.Address.toLowerCase().trim().includes(search.toLowerCase().trim())
-    );
-  };
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
