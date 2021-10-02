@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-require('dotenv').config({path:'./config/.env'})
-const mongoose = require('mongoose');
 const path = require('path')
+
+require('dotenv').config({path:path.resolve(__dirname, './config/.env')})
+const mongoose = require('mongoose');
 
 const nodemailer = require('nodemailer');
 
