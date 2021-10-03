@@ -22,7 +22,7 @@ router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: '
   let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['Motivation_letter'][0].filename
   let recruiterId = JSON.parse(req.body.Recruiter_id);
   let Email = req.body.Recruiter_email;
-  let newFile = new Apply({ cv: path, Motivation_letter: path2 ,owner:req.userId,Post:req.postId,Recruiter_id:recruiterId,Recruiter_email:Email});
+  let newFile = new Apply({ CV: path, Motivation_letter: path2 ,owner:req.userId,Post:req.postId,Recruiter_id:recruiterId,Recruiter_email:Email});
   
   
   
@@ -61,9 +61,10 @@ router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: '
   // });
   /* end od sending mail-------------------------------------------------------------------------------------*/
   
+  console.log(newFile)
+
   newFile.save()
     .then(file => res.status(201).send({file,msg:'You have successfully applied,check your list of applies'}))
-    //console.log(newFile)
     .catch(err => {
       console.error(err.message)
       res.status(500).send("Server error 500")
