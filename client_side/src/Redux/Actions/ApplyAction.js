@@ -13,7 +13,7 @@ export const AddApply=(files)=> async(dispatch)=>{
     dispatch(startLoading("Adding apply..."))
     try{
         setPostID();
-        const {data} = await axios.post(`${prefixe}/api/cv/files`,files)
+        const {data} = await axios.post(`${prefixe}/api/files`,files)
         dispatch({
             type: ApplyTypes.ADD_APPLY_SUCCESS,
             payload: data

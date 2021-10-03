@@ -40,7 +40,7 @@ app.use('/api/Users', require('./Routes/UserRouter'))
 app.use('/api/Apply',require('./Routes/ApplyRouter'))
 app.use('/api/meeting', require('./Routes/MeetingRouter'))
 //upload file 
-app.use('/api/cv', require('./Routes/Upload'))
+app.use('/api/files', require('./Routes/Upload'))
 
 
 //setup for deployment
