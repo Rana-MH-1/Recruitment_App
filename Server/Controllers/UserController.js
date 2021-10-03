@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {validationResult} = require('express-validator')
 require('dotenv').config({path:'./config/.env'})
-const cloudinary = require('../helpers/cloudinary')
+const cloudinary = require('../helpers/Cloudinary')
 
 const registerCandidate = async (req, res) => {
     try{
