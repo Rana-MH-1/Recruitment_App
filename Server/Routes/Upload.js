@@ -18,8 +18,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 //upoad multi files 
 router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: 'cv', maxCount: 1 }, { name: 'Motivation_letter', maxCount: 1 }]), (req, res) => {
-  let path = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['cv'][0].filename
-  let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['Motivation_letter'][0].filename
+  // let path = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['cv'][0].filename
+  // let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['Motivation_letter'][0].filename
+  
+  let path = "https://onlinejob25.herokuapp.com" + "/Uploads/" + req.files['cv'][0].filename
+  let path2 = "https://onlinejob25.herokuapp.com" + "/Uploads/" + req.files['Motivation_letter'][0].filename
+
   let recruiterId = JSON.parse(req.body.Recruiter_id);
   let Email = req.body.Recruiter_email;
   let newFile = new Apply({ CV: path, Motivation_letter: path2 ,owner:req.userId,Post:req.postId,Recruiter_id:recruiterId,Recruiter_email:Email});
