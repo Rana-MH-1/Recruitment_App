@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 //upoad multi files 
-router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: 'cv', maxCount: 1 }, { name: 'Motivation_letter', maxCount: 1 }]), async (req, res,next) => {
+router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: 'cv', maxCount: 1 }, { name: 'Motivation_letter', maxCount: 1 }]), (req, res) => {
    let path = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['cv'][0].filename
    let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['Motivation_letter'][0].filename
 
