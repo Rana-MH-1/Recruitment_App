@@ -42,7 +42,7 @@ const CheckDateDuration = async (req, res, next) => {
         if(meetingowner.length){
            
             const addedDuration15= meetingowner.map(meetingg=> meetingg.Date_Meeting= dayjs(meetingg.Date_Meeting).add(15,'minute').$d.toISOString().substring(0,16))
-            const addedDuration30= meetingowner.map(meetingg=> meetingg.Date_Meeting= dayjs(meetingg.Date_Meeting).add(30,'minute').$d.toISOString().substring(0,16))   
+            const addedDuration30= meetingowner.map(meetingg=> meetingg.Date_Meeting= dayjs(meetingg.Date_Meeting).add(15,'minute').$d.toISOString().substring(0,16))   
             const addedDuration = [...addedDuration15,...addedDuration30] 
         const findMeeting = addedDuration.indexOf(req.body.Date_Meeting.substring(0,16))
         if (findMeeting!==-1)
