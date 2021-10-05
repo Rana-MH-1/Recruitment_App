@@ -5,11 +5,14 @@ const router = express.Router();
 const Apply = require("../Models/ApplySchema")
 const { checkApplyOnce } = require('../Middlewares/CandidatureMiddleware');
 const nodemailer = require('nodemailer');
+const cloudinary = require('../helpers/Cloudinary')
+const path = require('path');
+
 
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './Uploads')
+    cb(null, path.join(__dirname, '../Uploads'))
   },
   filename: function (req, file, cb) {
     cb(null, '-' + Date.now() + '-' + file.originalname)
@@ -18,8 +21,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 //upoad multi files 
 router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: 'cv', maxCount: 1 }, { name: 'Motivation_letter', maxCount: 1 }]), (req, res) => {
-  let path = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['cv'][0].filename
-  let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['Motivation_letter'][0].filename
+  //  let path = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['cv'][0].filename
+  //  let path2 = req.protocol + "://" + req.hostname + ":" + 8080 + "/Uploads/" + req.files['Motivation_letter'][0].filename
+
+   let path = "https://onlinejob25.herokuapp.com"+"/Uploads/" + req.files['cv'][0].filename
+   let path2 = "https://onlinejob25.herokuapp.com" + "/Uploads/" + req.files['Motivation_letter'][0].filename
+
+  // const savedfile1 = await cloudinary.uploader.upload(req.files['cv'][0].path)  
+  // const savedfile2 = await cloudinary.uploader.upload(req.files['Motivation_letter'][0].path)
+  
+
   let recruiterId = JSON.parse(req.body.Recruiter_id);
   let Email = req.body.Recruiter_email;
   let newFile = new Apply({ CV: path, Motivation_letter: path2 ,owner:req.userId,Post:req.postId,Recruiter_id:recruiterId,Recruiter_email:Email});
@@ -44,10 +55,10 @@ router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: '
   //     html:'<b>A candidate has applied for your post attached with documents, check your list of applies</b>',
   //     attachments :[
   //         {filename:'CV',
-  //          path:`${path}`
+  //          path:`${savedfile1.url}`
   //     },
   //         {filename:'Motivation Letter',
-  //          path:`${path2}`
+  //          path:`${savedfile2.url}`
   //   },
   //     ]
   // };
@@ -61,9 +72,10 @@ router.post('/files', TokenVerification,checkApplyOnce, upload.fields([{ name: '
   // });
   /* end od sending mail-------------------------------------------------------------------------------------*/
   
+  console.log(newFile)
+
   newFile.save()
     .then(file => res.status(201).send({file,msg:'You have successfully applied,check your list of applies'}))
-    //console.log(newFile)
     .catch(err => {
       console.error(err.message)
       res.status(500).send("Server error 500")
